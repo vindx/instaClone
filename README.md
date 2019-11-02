@@ -2,7 +2,7 @@ Hey everyone!
 
 This is Clone of Instagram application from Facebook :)
 
-#####THIS IS NOT REAL INSTAGRAM!
+####THIS IS NOT REAL INSTAGRAM!
 
 This application has been created just for practice my React JS skills and for fun!
 
