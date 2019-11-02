@@ -1,13 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styles from './SignUp.module.css';
-
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -36,7 +35,6 @@ const SignUp = () => {
     return (
         <>
             <Container className={styles.mainContainer} component="main" maxWidth="xs">
-
                 <div className={classes.paper}>
                     <Typography component='h1' variant='h1'>
                         <div className={styles.headerText}>InstaClone</div>
@@ -103,13 +101,10 @@ const SignUp = () => {
                 <div style={{margin: 20}}>
                     <Typography align='center'>
                         Have an account?
-                        <Link style={{marginLeft: 5}} href="#" variant='body2'>
-                            Log in
-                        </Link>
+                        <Link to='/login' style={{marginLeft: 5}}>Log in</Link>
                     </Typography>
                 </div>
             </Container>
-
         </>
     )
 };

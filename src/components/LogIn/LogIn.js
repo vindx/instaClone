@@ -1,13 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styles from './LogIn.module.css';
-
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -79,13 +78,10 @@ const LogIn = () => {
                 <div style={{margin: 20}}>
                     <Typography align='center'>
                         Don't have an account?
-                        <Link style={{marginLeft: 5}} href="#" variant='body2'>
-                            Sign up
-                        </Link>
+                        <Link to='/signup' style={{marginLeft: 5}}>Sign up</Link>
                     </Typography>
                 </div>
             </Container>
-
         </>
     )
 };
