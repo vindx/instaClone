@@ -7,6 +7,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styles from './LogIn.module.css';
 import {Link} from "react-router-dom";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import primaryInstaColor from "../PrimaryInstaColor";
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -62,15 +64,17 @@ const LogIn = () => {
                                 />
                             </Grid>
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color='primary'
-                            className={classes.submit}
-                        >
-                            Log In
-                        </Button>
+                        <ThemeProvider theme={primaryInstaColor}>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color='primary'
+                                className={classes.submit}
+                            >
+                                Log In
+                            </Button>
+                        </ThemeProvider>
                     </form>
                 </div>
             </Container>
