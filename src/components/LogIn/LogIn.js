@@ -11,11 +11,6 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import primaryInstaColor from "../PrimaryInstaColor";
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
     paper: {
         marginTop: theme.spacing(3),
         display: 'flex',
@@ -82,7 +77,7 @@ const LogIn = () => {
                 <div style={{margin: 20}}>
                     <Typography align='center'>
                         Don't have an account?
-                        <Link to='/signup' style={{marginLeft: 5}}>Sign up</Link>
+                        <Link to='/signup' style={{marginLeft: 5, color: '#3897f1'}}>Sign up</Link>
                     </Typography>
                 </div>
             </Container>

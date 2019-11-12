@@ -29,10 +29,10 @@ const Header = () => {
                         margin="dense"
                     />
                 </Grid>
-                <Grid item xs={1} className={styles.cursorPointer}>
-                    <i className="material-icons">
+                <Grid item xs={1}>
+                    <span className={`material-icons ${styles.cursorPointer}`}>
                         perm_identity
-                    </i>
+                    </span>
                 </Grid>
             </Grid>
         </Container>

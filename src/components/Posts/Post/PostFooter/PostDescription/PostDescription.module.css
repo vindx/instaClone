@@ -1,0 +1,9 @@
+.postDescription {
+    margin-top: 5px;
+}
+
+.postOwner {
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 5px;
+}

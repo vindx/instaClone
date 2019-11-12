@@ -1,0 +1,5 @@
+.postPhoto img {
+    width: 614px;
+    max-height: 614px;
+    object-fit: cover;
+}

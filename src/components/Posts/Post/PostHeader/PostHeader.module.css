@@ -1,0 +1,31 @@
+.postHeader {
+    width: 582px;
+    height: 27px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #E1E0E0;
+}
+
+.postHeaderAccountLogo {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.postHeaderAccountLogo img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.postHeaderAccountName {
+    width: 550px;
+    margin: 0 0 0 16px;
+}
+
+.postOwner {
+    font-weight: bold;
+    cursor: pointer;
+}
