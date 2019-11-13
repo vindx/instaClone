@@ -60,15 +60,16 @@ const LogIn = () => {
                             </Grid>
                         </Grid>
                         <ThemeProvider theme={primaryInstaColor}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color='primary'
-                                className={classes.submit}
-                            >
-                                Log In
-                            </Button>
+                            <Link to='/posts'>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    color='primary'
+                                    className={classes.submit}
+                                >
+                                    Log In
+                                </Button>
+                            </Link>
                         </ThemeProvider>
                     </form>
                 </div>
@@ -77,7 +78,7 @@ const LogIn = () => {
                 <div style={{margin: 20}}>
                     <Typography align='center'>
                         Don't have an account?
-                        <Link to='/signup' style={{marginLeft: 5, color: '#3897f1'}}>Sign up</Link>
+                        <Link to='/' style={{marginLeft: 5, color: '#3897f1'}}>Sign up</Link>
                     </Typography>
                 </div>
             </Container>

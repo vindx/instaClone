@@ -84,7 +84,6 @@ const SignUp = () => {
                         </Grid>
                         <ThemeProvider theme={primaryInstaColor}>
                             <Button
-                                type="submit"
                                 fullWidth
                                 variant="contained"
                                 color='primary'
