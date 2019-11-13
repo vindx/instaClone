@@ -16,6 +16,7 @@
     position: fixed;
     top: 0;
     background-color: #FFF;
+    z-index: 1;
 }
 
 .textField {
