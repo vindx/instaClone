@@ -1,0 +1,7 @@
+.profilePosts {
+    padding-top: 30px;
+    border-top: 1px solid #dbdbdb;
+    display: flex;
+    flex-wrap: wrap;
+    horiz-align: center;
+}

@@ -1,0 +1,18 @@
+.profilePost {
+    margin-bottom: 18px;
+    margin-left: 9px;
+    margin-right: 9px;
+    overflow: hidden;
+}
+
+.profilePost img {
+    display: block;
+    width: 293px;
+    height: 293px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.profilePost img:hover {
+    transform: scale(0.97);
+}
