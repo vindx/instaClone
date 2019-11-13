@@ -1,0 +1,23 @@
+.button {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    background-color: inherit;
+    border: 1px solid #dbdbdb;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 3px 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+.button:active {
+    opacity: 0.5;
+}
+
+.logOutButtonContainer {
+    margin-top: 30px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: flex-end;
+}
