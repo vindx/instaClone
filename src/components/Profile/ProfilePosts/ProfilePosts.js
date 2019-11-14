@@ -1,14 +1,21 @@
 import React from "react";
-import styles from './ProfilePosts.module.css';
+import PropTypes from 'proptypes';
+
 import ProfilePost from "./ProfilePost/ProfilePost";
+import styles from './ProfilePosts.module.css';
 
 const ProfilePosts = (props) => {
-    let photoUrls = props.photoUrls.slice();
+    const { photoUrls } = props;
+
     return (
         <div className={styles.profilePosts}>
             {photoUrls.map(photoUrl => <ProfilePost photo={photoUrl}/>)}
         </div>
     )
 };
+
+ProfilePosts.propTypes = {
+    photoUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+}
 
 export default ProfilePosts;
