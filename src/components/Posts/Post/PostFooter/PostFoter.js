@@ -4,12 +4,12 @@ import PostActions from "./PostActions/PostActions";
 import PostLikesCounter from "./PostLikesCounter/PostLikesCounter";
 import PostDescription from "./PostDescription/PostDescription";
 
-const PostFooter = () => {
+const PostFooter = (props) => {
     return (
         <div className={styles.postFooter}>
-            <PostActions/>
-            <PostLikesCounter/>
-            <PostDescription/>
+            <PostActions liked={props.liked}/>
+            <PostLikesCounter likesNumber={props.likesNumber}/>
+            <PostDescription userName={props.userName} description={props.description}/>
         </div>
     )
 };

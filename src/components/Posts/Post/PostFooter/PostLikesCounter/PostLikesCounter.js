@@ -1,10 +1,10 @@
 import React from "react";
 import styles from './PostLikesCounter.module.css';
 
-const PostLikesCounter = () => {
+const PostLikesCounter = (props) => {
     return (
         <div>
-            <span className={styles.postLikesCounter}>15</span>
+            <span className={styles.postLikesCounter}>{props.likesNumber}</span>
             likes
         </div>
     )

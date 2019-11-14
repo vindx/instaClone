@@ -1,14 +1,14 @@
 import React from "react";
 import styles from './PostHeader.module.css';
 
-const PostHeader = () => {
+const PostHeader = (props) => {
     return (
         <header className={styles.postHeader}>
             <a className={styles.postHeaderAccountLogo}>
-                <img src='https://sun9-8.userapi.com/c840337/v840337778/54c24/F0FALJRCAaE.jpg'/>
+                <img src={props.profilePhotoUrl}/>
             </a>
             <div className={styles.postHeaderAccountName}>
-                <a className={styles.postOwner}>k_karelin</a>
+                <a className={styles.postOwner}>{props.userName}</a>
             </div>
         </header>
     )

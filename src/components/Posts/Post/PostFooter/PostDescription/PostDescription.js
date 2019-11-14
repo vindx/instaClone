@@ -1,11 +1,11 @@
 import React from "react";
 import styles from './PostDescription.module.css';
 
-const PostDescription = () => {
+const PostDescription = (props) => {
     return (
         <div className={styles.postDescription}>
-            <a className={styles.postOwner}>k_karelin</a>
-            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, aspernatur.</span>
+            <a className={styles.postOwner}>{props.userName}</a>
+            <span>{props.description}</span>
         </div>
     )
 };

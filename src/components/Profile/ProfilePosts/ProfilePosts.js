@@ -2,17 +2,11 @@ import React from "react";
 import styles from './ProfilePosts.module.css';
 import ProfilePost from "./ProfilePost/ProfilePost";
 
-const ProfilePosts = () => {
+const ProfilePosts = (props) => {
+    let photoUrls = props.photoUrls.slice();
     return (
         <div className={styles.profilePosts}>
-            <ProfilePost/>
-            <ProfilePost/>
-            <ProfilePost/>
-            <ProfilePost/>
-            <ProfilePost/>
-            <ProfilePost/>
-            <ProfilePost/>
-            <ProfilePost/>
+            {photoUrls.map(photoUrl => <ProfilePost photo={photoUrl}/>)}
         </div>
     )
 };
