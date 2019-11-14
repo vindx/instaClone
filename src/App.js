@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Posts from "./components/Posts/Posts";
 import Profile from "./components/Profile/Profile";
 import AdminPage from "./components/AdminPage/AdminPage";
+import CreatePost from "./components/CreatePost/CreatePost";
 
 function App() {
     return (
@@ -15,9 +16,11 @@ function App() {
 
                 <Route exact path='/posts' component={Header}/>
                 <Route exact path='/posts' render={() => <Posts/>}/>
+                <Route exact path='/posts' render={() => <CreatePost/>}/>
 
                 <Route exact path='/profile' component={Header}/>
                 <Route exact path='/profile' render={() => <Profile/>}/>
+                <Route exact path='/profile' render={() => <CreatePost/>}/>
 
                 <Route exact path='/' component={SignUp}/>
                 <Route exact path='/login' component={LogIn}/>
