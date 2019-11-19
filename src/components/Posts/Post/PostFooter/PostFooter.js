@@ -1,15 +1,18 @@
 import React from "react";
-import styles from './PostFooter.module.css';
+
 import PostActions from "./PostActions/PostActions";
 import PostLikesCounter from "./PostLikesCounter/PostLikesCounter";
 import PostDescription from "./PostDescription/PostDescription";
+import styles from './PostFooter.module.css';
 
 const PostFooter = (props) => {
+    const {liked, likesNumber, userName, description} = props;
+
     return (
         <div className={styles.postFooter}>
-            <PostActions liked={props.liked}/>
-            <PostLikesCounter likesNumber={props.likesNumber}/>
-            <PostDescription userName={props.userName} description={props.description}/>
+            <PostActions liked={liked}/>
+            <PostLikesCounter likesNumber={likesNumber}/>
+            <PostDescription userName={userName} description={description}/>
         </div>
     )
 };

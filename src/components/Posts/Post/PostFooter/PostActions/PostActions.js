@@ -1,11 +1,14 @@
 import React from "react";
-import styles from './PostActions.module.css';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
+import styles from './PostActions.module.css';
+
 const PostActions = (props) => {
+    const {liked} = props;
+
     return (
         <section className={styles.postActions}>
-            <button className={`${styles.postActionButton} ${props.liked ? styles.postWasLiked : null}`}>
+            <button className={`${styles.postActionButton} ${liked ? styles.postWasLiked : null}`}>
                 <FavoriteBorderOutlinedIcon/>
             </button>
         </section>

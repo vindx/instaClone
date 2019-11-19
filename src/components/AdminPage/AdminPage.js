@@ -17,21 +17,6 @@ const columns = [
     {id: 'removeRequest', label: 'Remove request', align: 'center'},
 ];
 
-const dataBase = [{userName: "sasdqwgg", email: "3tetwe@opwla.csa", fullName: "Acdb OPs", removeRequest: true},
-    {userName: "k_karelin", email: "ksisk@gmail.com", fullName: "Kiryl Karelin", removeRequest: false},
-    {userName: "awswa_sad", email: "sdsdsds@dasdas.caa", fullName: "", removeRequest: false},
-    {userName: "sasdqwgg", email: "3tetwe@opwla.csa", fullName: "Acdb OPs", removeRequest: true},
-    {userName: "k_karelin", email: "ksisk@gmail.com", fullName: "Kiryl Karelin", removeRequest: false},
-    {userName: "awswa_sad", email: "sdsdsds@dasdas.caa", fullName: "", removeRequest: false},
-    {userName: "sasdqwgg", email: "3tetwe@opwla.csa", fullName: "Acdb OPs", removeRequest: true},
-    {userName: "k_karelin", email: "ksisk@gmail.com", fullName: "Kiryl Karelin", removeRequest: false},
-    {userName: "awswa_sad", email: "sdsdsds@dasdas.caa", fullName: "", removeRequest: false},
-    {userName: "sasdqwgg", email: "3tetwe@opwla.csa", fullName: "Acdb OPs", removeRequest: false},
-    {userName: "k_karelin", email: "ksisk@gmail.com", fullName: "Kiryl Karelin", removeRequest: false},
-    {userName: "awswa_sad", email: "sdsdsds@dasdas.caa", fullName: "", removeRequest: false},
-    {userName: "sasdqwgg", email: "3tetwe@opwla.csa", fullName: "Acdb OPs", removeRequest: true},
-];
-
 const useStyles = makeStyles({
     root: {
         width: '80%',
@@ -49,7 +34,8 @@ const useStyles = makeStyles({
     },
 });
 
-const AdminPage = () => {
+const AdminPage = (props) => {
+    const {users: dataBase} = props;
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -84,7 +70,7 @@ const AdminPage = () => {
                         <TableBody>
                             {dataBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                                 return (
-                                    <TableRow tabIndex={-1} key={row.code}>
+                                    <TableRow tabIndex={-1} key={row.userName}>
                                         {columns.map(column => {
                                             const value = row[column.id];
                                             return (

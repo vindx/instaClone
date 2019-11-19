@@ -1,19 +1,22 @@
 import React from "react";
-import styles from './Post.module.css';
+
 import PostHeader from "./PostHeader/PostHeader";
-import PostFooter from "./PostFooter/PostFoter";
+import PostFooter from "./PostFooter/PostFooter";
 import PostPhoto from "./PostPhoto/PostPhoto";
+import styles from './Post.module.css';
 
 const Post = (props) => {
+    const {profilePhotoUrl, userName, photoUrl, liked, likesNumber, postDescription} = props;
+
     return (
         <article className={styles.mainContainer}>
-            <PostHeader profilePhotoUrl={props.profilePhotoUrl}
-                        userName={props.userName}/>
-            <PostPhoto photoUrl={props.photoUrl}/>
-            <PostFooter liked={props.liked}
-                        likesNumber={props.likesNumber}
-                        userName={props.userName}
-                        description={props.postDescription}/>
+            <PostHeader profilePhotoUrl={profilePhotoUrl}
+                        userName={userName}/>
+            <PostPhoto photoUrl={photoUrl}/>
+            <PostFooter liked={liked}
+                        likesNumber={likesNumber}
+                        userName={userName}
+                        description={postDescription}/>
         </article>
     )
 };

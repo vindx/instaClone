@@ -2,9 +2,11 @@ import React from "react";
 import styles from "./PostPhoto.module.css";
 
 const PostPhoto = (props) => {
+    const {photoUrl} = props;
+
     return (
         <div className={styles.postPhoto}>
-            <img src={props.photoUrl}/>
+            <img alt='' src={photoUrl}/>
         </div>
     )
 };

@@ -8,18 +8,25 @@ import Profile from "./components/Profile/Profile";
 import AdminPage from "./components/AdminPage/AdminPage";
 import CreatePost from "./components/CreatePost/CreatePost";
 
-function App() {
+const getUser = (users) => {
+    const [user] = users.filter(user => user.userName === 'powaki');
+    return user
+};
+
+function App(props) {
+    const {state} = props;
+
     return (
         <BrowserRouter>
             <div className="App">
-                <Route exact path='/admin' component={AdminPage}/>
+                <Route exact path='/admin' render={() => <AdminPage users={state.users}/>}/>
 
                 <Route exact path='/posts' component={Header}/>
-                <Route exact path='/posts' render={() => <Posts/>}/>
+                <Route exact path='/posts' render={() => <Posts posts={state.posts}/>}/>
                 <Route exact path='/posts' render={() => <CreatePost/>}/>
 
                 <Route exact path='/profile' component={Header}/>
-                <Route exact path='/profile' render={() => <Profile/>}/>
+                <Route exact path='/profile' render={() => <Profile user={getUser(state.users)}/>}/>
                 <Route exact path='/profile' render={() => <CreatePost/>}/>
 
                 <Route exact path='/' component={SignUp}/>

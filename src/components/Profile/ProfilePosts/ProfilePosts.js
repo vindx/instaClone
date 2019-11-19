@@ -5,17 +5,19 @@ import ProfilePost from "./ProfilePost/ProfilePost";
 import styles from './ProfilePosts.module.css';
 
 const ProfilePosts = (props) => {
-    const { photoUrls } = props;
+    const {posts} = props;
 
     return (
         <div className={styles.profilePosts}>
-            {photoUrls.map(photoUrl => <ProfilePost photo={photoUrl}/>)}
+            {posts.length ?
+                posts.map(({postPhoto}) => <ProfilePost key={Math.random()} photo={postPhoto}/>)
+                : <div>No Posts Yet</div>}
         </div>
     )
 };
 
 ProfilePosts.propTypes = {
-    photoUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-}
+    posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default ProfilePosts;

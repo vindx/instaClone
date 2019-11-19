@@ -5,3 +5,10 @@
     flex-wrap: wrap;
     horiz-align: center;
 }
+
+.profilePosts div {
+    font-size: 28px;
+    font-weight: 300;
+    width: 100%;
+    text-align: center;
+}
