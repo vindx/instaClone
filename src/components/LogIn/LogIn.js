@@ -1,14 +1,15 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import styles from './LogIn.module.css';
-import {Link} from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
+
 import primaryInstaColor from "../PrimaryInstaColor";
+import styles from './LogIn.module.css';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -26,8 +27,42 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const LogIn = () => {
+const LogIn = (props) => {
+    const {existUsers} = props;
     const classes = useStyles();
+
+    let existAccountEmailOrUserName = React.createRef();
+    let existAccountPassword = React.createRef();
+
+    const logIn = () => {
+        const loginData = existAccountEmailOrUserName.current.value;
+        const enteredPassword = existAccountPassword.current.value;
+        if (!loginData && !enteredPassword) {
+            existAccountEmailOrUserName.current.parentElement.classList.add(styles.fillThisField);
+            existAccountPassword.current.parentElement.classList.add(styles.fillThisField);
+        } else if (!loginData) {
+            existAccountEmailOrUserName.current.parentElement.classList.add(styles.fillThisField);
+        } else if (!enteredPassword) {
+            existAccountPassword.current.parentElement.classList.add(styles.fillThisField);
+        } else if (enteredPassword.length < 6) {
+            existAccountPassword.current.parentElement.classList.add(styles.shortPassword);
+        } else {
+            const existAccount = [];
+            existUsers.forEach(user => {
+                if ((loginData === user.email || loginData === user.userName) &&
+                    (enteredPassword === user.password)) {
+                    existAccount.push(user);
+                }
+            });
+            if (existAccount.length) {
+                existAccountEmailOrUserName.current.value = '';
+                existAccountPassword.current.value = '';
+            } else {
+                existAccountEmailOrUserName.current.parentElement.classList.add(styles.wrongData);
+                existAccountPassword.current.parentElement.classList.add(styles.wrongData);
+            }
+        }
+    };
 
     return (
         <>
@@ -41,15 +76,17 @@ const LogIn = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
                                 <TextField
+                                    inputRef={existAccountEmailOrUserName}
                                     variant="outlined"
                                     fullWidth
-                                    id="email"
-                                    label="Email"
-                                    name="email"
+                                    id="loginData"
+                                    label="Email or username"
+                                    name="loginData"
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    inputRef={existAccountPassword}
                                     variant="outlined"
                                     fullWidth
                                     name="password"
@@ -60,16 +97,15 @@ const LogIn = () => {
                             </Grid>
                         </Grid>
                         <ThemeProvider theme={primaryInstaColor}>
-                            <Link to='/posts'>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    color='primary'
-                                    className={classes.submit}
-                                >
-                                    Log In
-                                </Button>
-                            </Link>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color='primary'
+                                className={classes.submit}
+                                onClick={logIn}
+                            >
+                                Log In
+                            </Button>
                         </ThemeProvider>
                     </form>
                 </div>

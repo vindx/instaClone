@@ -13,7 +13,7 @@ const Header = () => {
                 alignItems='center'
             >
                 <Grid item xs={2} className={styles.cursorPointer}>
-                    <Link to='/posts' style={{color: 'black'}}>
+                    <Link to='/posts' style={{color: 'black'}} onClick={window.scrollTo(0, 0)}>
                         <Grid container direction='row' wrap='nowrap' justify='flex-start' alignItems='center'>
                             <img src='https://www.instagram.com/static/images/ico/favicon.svg/fc72dd4bfde8.svg'
                                  style={{minWidth: 25, marginTop: 5}}/>
@@ -33,7 +33,7 @@ const Header = () => {
                     />
                 </Grid>
                 <Grid item xs={1}>
-                    <Link to='/profile' style={{color: 'black'}}>
+                    <Link to='/profile' style={{color: 'black'}} onClick={window.scrollTo(0, 0)}>
                         <span className={`material-icons ${styles.cursorPointer}`}>
                         perm_identity
                         </span>

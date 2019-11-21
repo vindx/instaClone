@@ -23,11 +23,60 @@ const useStyles = makeStyles(theme => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 3),
-    }
+    },
 }));
 
-const SignUp = () => {
+const SignUp = (props) => {
+    const {existUsers, createAccount} = props;
+    const {existEmails, existUserNames} = existUsers;
     const classes = useStyles();
+
+    let newAccountEmail = React.createRef();
+    let newAccountUserName = React.createRef();
+    let newAccountFullName = React.createRef();
+    let newAccountPassword = React.createRef();
+
+    const createNewAccount = () => {
+        const email = newAccountEmail.current.value;
+        const fullName = newAccountFullName.current.value;
+        const userName = newAccountUserName.current.value;
+        const password = newAccountPassword.current.value;
+        if (!email && !userName && !password) {
+            newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
+            newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
+            newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
+        } else if (email && !userName && !password) {
+            newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
+            newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
+        } else if (!email && userName && !password) {
+            newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
+            newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
+        } else if (!email && !userName && password) {
+            newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
+            newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
+        } else if (!email && userName && password) {
+            newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
+        } else if (email && !userName && password) {
+            newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
+        } else if (email && userName && !password) {
+            newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
+        } else if (password.length < 6) {
+            newAccountPassword.current.parentElement.classList.add(styles.wrongPassword);
+        } else if (existEmails.includes(email) && existUserNames.includes(userName)) {
+            newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
+            newAccountUserName.current.parentElement.classList.add(styles.alreadyExist);
+        } else if (existEmails.includes(email)) {
+            newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
+        } else if (existUserNames.includes(userName)) {
+            newAccountUserName.current.parentElement.classList.add(styles.alreadyExist);
+        } else {
+            createAccount({email, fullName, userName, password});
+            newAccountEmail.current.value = '';
+            newAccountFullName.current.value = '';
+            newAccountUserName.current.value = '';
+            newAccountPassword.current.value = '';
+        }
+    };
 
     return (
         <>
@@ -43,6 +92,7 @@ const SignUp = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
                                 <TextField
+                                    inputRef={newAccountEmail}
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -53,6 +103,7 @@ const SignUp = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    inputRef={newAccountFullName}
                                     name="fullName"
                                     variant="outlined"
                                     fullWidth
@@ -62,6 +113,7 @@ const SignUp = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    inputRef={newAccountUserName}
                                     name="userName"
                                     variant="outlined"
                                     fullWidth
@@ -72,6 +124,7 @@ const SignUp = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    inputRef={newAccountPassword}
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -79,6 +132,7 @@ const SignUp = () => {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    placeholder="At least 6 characters"
                                 />
                             </Grid>
                         </Grid>
@@ -88,6 +142,7 @@ const SignUp = () => {
                                 variant="contained"
                                 color='primary'
                                 className={classes.submit}
+                                onClick={createNewAccount}
                             >
                                 Sign Up
                             </Button>

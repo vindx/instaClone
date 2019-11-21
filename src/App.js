@@ -13,8 +13,22 @@ const getUser = (users) => {
     return user
 };
 
+const getUsersEmailAndUserName = (users) => {
+    let existUsers = {
+        existEmails: [],
+        existUserNames: [],
+    };
+
+    users.forEach(({email, userName}) => {
+        existUsers.existEmails.push(email);
+        existUsers.existUserNames.push(userName);
+    });
+
+    return existUsers;
+};
+
 function App(props) {
-    const {state} = props;
+    const {state, createAccount, createNewPost} = props;
 
     return (
         <BrowserRouter>
@@ -23,14 +37,19 @@ function App(props) {
 
                 <Route exact path='/posts' component={Header}/>
                 <Route exact path='/posts' render={() => <Posts posts={state.posts}/>}/>
-                <Route exact path='/posts' render={() => <CreatePost/>}/>
+                <Route exact path='/posts' render={() => <CreatePost createNewPost={createNewPost}/>}/>
 
                 <Route exact path='/profile' component={Header}/>
                 <Route exact path='/profile' render={() => <Profile user={getUser(state.users)}/>}/>
-                <Route exact path='/profile' render={() => <CreatePost/>}/>
+                <Route exact path='/profile' render={() => <CreatePost createNewPost={createNewPost}/>}/>
 
-                <Route exact path='/' component={SignUp}/>
-                <Route exact path='/login' component={LogIn}/>
+                <Route exact path='/'
+                       render={() => <SignUp
+                           existUsers={getUsersEmailAndUserName(state.users)}
+                           createAccount={createAccount}/>}
+                />
+                <Route exact path='/login' render={() => <LogIn existUsers={state.users}/>}
+                />
             </div>
         </BrowserRouter>
     );

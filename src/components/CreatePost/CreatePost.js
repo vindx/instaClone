@@ -4,6 +4,7 @@ import ModalWindow from "./ModalWindow/ModalWindow";
 import styles from './CreatePost.module.css';
 
 const CreatePost = (props) => {
+    const {createNewPost} = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -17,7 +18,7 @@ const CreatePost = (props) => {
     return (
         <>
             <button onClick={openModal} className={styles.button}>+</button>
-            <ModalWindow isOpen={isModalOpen} onClose={closeModal}/>
+            <ModalWindow isOpen={isModalOpen} onClose={closeModal} createNewPost={createNewPost}/>
         </>
     )
 };

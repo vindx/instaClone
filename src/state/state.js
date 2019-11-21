@@ -1,3 +1,5 @@
+import rerenderEntireTree from "../render";
+
 export let state = {
     users: [
         {
@@ -89,3 +91,33 @@ export let state = {
         },
     ],
 };
+
+export const createAccount = ({email, userName, password, fullName = ''}) => {
+    state.users.push({
+        email,
+        userName,
+        fullName,
+        profilePhoto: '',
+        password,
+        removeRequest: false,
+        posts: [],
+    });
+    rerenderEntireTree(state);
+};
+
+export const createNewPost = (({postPhoto = '', description, userName = 'kopola', profilePhoto = '', tags = ''}) => {
+    state.posts.unshift({
+        id: Math.random(),
+        postedDate: Date.now(),
+        postPhoto,
+        description,
+        tags,
+        likes: 0,
+        wasLiked: false,
+        owner: {
+            userName,
+            profilePhoto,
+        }
+    });
+    rerenderEntireTree(state);
+});

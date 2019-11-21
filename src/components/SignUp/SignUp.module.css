@@ -9,3 +9,40 @@
     margin-top: 30px;
     background-color: #FFFFFF;
 }
+
+.fillThisField,
+.wrongPassword,
+.alreadyExist {
+    background-color: rgba(240, 122, 96, 0.5);
+}
+
+.fillThisField:before,
+.wrongPassword:before,
+.alreadyExist:before {
+    font-family: Segoe UI, sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+    display: block;
+    background: rgba(0, 0, 0, .5);
+    color: white;
+    padding: 5px;
+    position: absolute;
+    left: -55%;
+    top: 20%;
+    margin-left: 0;
+    width: 50%;
+    height: 60%;
+    border-radius: 5px;
+}
+
+.fillThisField:before {
+    content: 'Please fill this field';
+}
+
+.wrongPassword:before {
+    content: 'At least 6 characters';
+}
+
+.alreadyExist:before {
+    content: 'User already exist';
+}
