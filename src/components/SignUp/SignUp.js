@@ -9,7 +9,6 @@ import styles from './SignUp.module.css';
 import {Link} from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import primaryInstaColor from "../PrimaryInstaColor";
-import {updateNewUserInfo} from "../../state/state";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -28,8 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUp = (props) => {
-    const {newUser, existUsers, createAccount, updateNewUserInfo} = props;
-    const {existEmails, existUserNames} = existUsers;
+    const {newUser, createAccount, updateNewUserInfo} = props;
     const classes = useStyles();
 
     let newAccountEmail = React.createRef();
@@ -70,17 +68,10 @@ const SignUp = (props) => {
             newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
         } else if (password.length < 6) {
             newAccountPassword.current.parentElement.classList.add(styles.wrongPassword);
-        } else if (existEmails.includes(email) && existUserNames.includes(userName)) {
+        } else if (createAccount()) {
             newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
             newAccountUserName.current.parentElement.classList.add(styles.alreadyExist);
-        } else if (existEmails.includes(email)) {
-            newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
-        } else if (existUserNames.includes(userName)) {
-            newAccountUserName.current.parentElement.classList.add(styles.alreadyExist);
-        } else {
-            createAccount();
-            localStorage.activeUser = JSON.stringify(userName);
-        }
+        } else localStorage.activeUser = JSON.stringify(userName);
     };
 
     return (

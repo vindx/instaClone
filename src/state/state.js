@@ -203,17 +203,24 @@ export const subscribe = (observer) => {
 };
 
 export const createAccount = () => {
-    state.users.push(state.newUser);
-    state.newUser = {
-        email: '',
-        userName: '',
-        fullName: '',
-        profilePhoto: '',
-        password: '',
-        removeRequest: false,
-        posts: [],
+    const filterByMatchingEmailOrUserName = ({email, userName}) => {
+        return (email === state.newUser.email || userName === state.newUser.userName)
     };
-    rerenderEntireTree(state);
+    if (state.users.filter(filterByMatchingEmailOrUserName).length) {
+        return true;
+    } else {
+        state.users.push(state.newUser);
+        state.newUser = {
+            email: '',
+            userName: '',
+            fullName: '',
+            profilePhoto: '',
+            password: '',
+            removeRequest: false,
+            posts: [],
+        };
+        rerenderEntireTree(state);
+    }
 };
 
 export const updateNewUserInfo = ({email, fullName, userName, password}) => {

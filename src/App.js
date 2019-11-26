@@ -13,7 +13,7 @@ const getUser = (users) => {
     return user
 };
 
-const getUsersEmailAndUserName = (users) => {
+/*const getUsersEmailAndUserName = (users) => {
     let existUsers = {
         existEmails: [],
         existUserNames: [],
@@ -25,7 +25,7 @@ const getUsersEmailAndUserName = (users) => {
     });
 
     return existUsers;
-};
+};*/
 
 function App(props) {
     const {state, createAccount, createNewPost, updateNewUserInfo, updateLoginInfo, logInCheck} = props;
@@ -47,14 +47,13 @@ function App(props) {
                        render={() => <SignUp
                            newUser={state.newUser}
                            updateNewUserInfo={updateNewUserInfo}
-                           existUsers={getUsersEmailAndUserName(state.users)}
                            createAccount={createAccount}/>}
                 />
                 <Route exact path='/login'
                        render={() => <LogIn
                            logInCheck={logInCheck}
                            loginUser={state.loginUser}
-                           updateLoginInfo={updateLoginInfo} existUsers={state.users}/>}
+                           updateLoginInfo={updateLoginInfo}/>}
                 />
             </div>
         </BrowserRouter>
