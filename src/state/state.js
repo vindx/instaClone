@@ -223,6 +223,19 @@ export const createAccount = () => {
     }
 };
 
+export const removeRequest = (userN) => {
+    state.users.forEach(user => {
+        if (user.userName === userN) {
+            user.removeRequest = !user.removeRequest;
+        }
+    });
+    rerenderEntireTree(state);
+};
+
+export const logOut = () => {
+    rerenderEntireTree(state);
+};
+
 export const updateNewUserInfo = ({email, fullName, userName, password}) => {
     state.newUser = {
         email,

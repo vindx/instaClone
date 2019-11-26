@@ -3,7 +3,9 @@ import {Container, Grid, TextField} from "@material-ui/core";
 import styles from "./Header.module.css";
 import {Link} from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
+    const {postsUrl} = props;
+
     return (
         <Container className={styles.container} maxWidth='xl'>
             <Grid
@@ -13,7 +15,7 @@ const Header = () => {
                 alignItems='center'
             >
                 <Grid item xs={2} className={styles.cursorPointer}>
-                    <Link to='/posts' style={{color: 'black'}} onClick={window.scrollTo(0, 0)}>
+                    <Link to={postsUrl} style={{color: 'black'}} onClick={window.scrollTo(0, 0)}>
                         <Grid container direction='row' wrap='nowrap' justify='flex-start' alignItems='center'>
                             <img src='https://www.instagram.com/static/images/ico/favicon.svg/fc72dd4bfde8.svg'
                                  style={{minWidth: 25, marginTop: 5}}/>

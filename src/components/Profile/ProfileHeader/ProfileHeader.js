@@ -1,10 +1,19 @@
 import React from "react";
-import {Link} from "react-router-dom";
 
 import styles from './ProfileHeader.module.css';
+import {Link} from "react-router-dom";
 
 const ProfileHeader = (props) => {
-    const {profilePhotoUrl, userName, fullName, removeRequestStatus: removeProfile} = props;
+    const {profilePhotoUrl, userName, fullName, removeRequestStatus: removeProfile, removeRequest, logOut} = props;
+
+    const handleLogOut = () => {
+        localStorage.clear();
+        logOut();
+    };
+
+    const deleteRequest = () => {
+        removeRequest(userName);
+    };
 
     return (
         <header className={styles.container}>
@@ -18,9 +27,10 @@ const ProfileHeader = (props) => {
                     <span>{userName}</span>
                 </div>
                 <section className={styles.buttons}>
-                    <button className={styles.button}>{removeProfile ? 'Undo Delete' : 'Delete Profile'}</button>
+                    <button className={styles.button}
+                            onClick={deleteRequest}>{removeProfile ? 'Undo Delete' : 'Delete Profile'}</button>
                     <Link to='/'>
-                        <button className={styles.button}>Log Out</button>
+                        <button className={styles.button} onClick={handleLogOut}>Log Out</button>
                     </Link>
                 </section>
                 <div className={styles.profileDescription}>

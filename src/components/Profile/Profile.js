@@ -5,11 +5,13 @@ import ProfilePosts from "./ProfilePosts/ProfilePosts";
 import styles from './Profile.module.css';
 
 const Profile = (props) => {
-    const {user} = props;
+    const {user, removeRequest, logOut} = props;
 
     return (
         <div className={styles.profileContainer}>
             <ProfileHeader
+                removeRequest={removeRequest}
+                logOut={logOut}
                 profilePhotoUrl={user.profilePhoto}
                 userName={user.userName}
                 fullName={user.fullName}
