@@ -1,6 +1,19 @@
 import rerenderEntireTree from "../render";
 
 export let state = {
+    newUser: {
+        email: '',
+        userName: '',
+        fullName: '',
+        profilePhoto: '',
+        password: '',
+        removeRequest: false,
+        posts: [],
+    },
+    loginUser: {
+        emailOrUserName: '',
+        password: ''
+    },
     users: [
         {
             email: 'kkdasod@kao.com',
@@ -32,6 +45,98 @@ export let state = {
                         profilePhoto: '', //URL
                     }, //userName
                 },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+                {
+                    id: Math.random(),
+                    postedDate: Date.now(),
+                    postPhoto: 'https://wallbox.ru/wallpapers/main/201137/cherno-belaya-oblaka-more-ba2d425.jpg', //URL, optional
+                    description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+                    tags: '',
+                    likes: 18,
+                    wasLiked: true,
+                    owner: {
+                        userName: 'kopola',
+                        profilePhoto: '', //URL
+                    }, //userName
+                },
+
             ],
         },
         {
@@ -92,16 +197,53 @@ export let state = {
     ],
 };
 
-export const createAccount = ({email, userName, password, fullName = ''}) => {
-    state.users.push({
+export const createAccount = () => {
+    state.users.push(state.newUser);
+    state.newUser = {
+        email: '',
+        userName: '',
+        fullName: '',
+        profilePhoto: '',
+        password: '',
+        removeRequest: false,
+        posts: [],
+    };
+    rerenderEntireTree(state);
+};
+
+export const updateNewUserInfo = ({email, fullName, userName, password}) => {
+    state.newUser = {
         email,
         userName,
         fullName,
-        profilePhoto: '',
         password,
+        profilePhoto: '',
         removeRequest: false,
         posts: [],
-    });
+    };
+    rerenderEntireTree(state);
+};
+
+export const logInCheck = () => {
+    const filterByEmailOrUserNameAndPassword = ({email, userName, password}) => {
+        return (email === state.loginUser.emailOrUserName || userName === state.loginUser.emailOrUserName)
+            && (password === state.loginUser.password);
+    };
+    if (state.users.filter(filterByEmailOrUserNameAndPassword).length) {
+        state.loginUser = {
+            emailOrUserName: '',
+            password: '',
+        };
+        rerenderEntireTree(state);
+        return true;
+    }
+};
+
+export const updateLogInInfo = ({emailOrUserName, password}) => {
+    state.loginUser = {
+        emailOrUserName,
+        password,
+    };
     rerenderEntireTree(state);
 };
 

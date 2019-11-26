@@ -28,11 +28,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogIn = (props) => {
-    const {existUsers} = props;
+    const {loginUser, updateLoginInfo, logInCheck} = props;
     const classes = useStyles();
 
     let existAccountEmailOrUserName = React.createRef();
     let existAccountPassword = React.createRef();
+
+    const onInputChange = () => {
+        let emailOrUserName = existAccountEmailOrUserName.current.value;
+        let password = existAccountPassword.current.value;
+        updateLoginInfo({emailOrUserName, password});
+    };
 
     const logIn = () => {
         const loginData = existAccountEmailOrUserName.current.value;
@@ -44,24 +50,12 @@ const LogIn = (props) => {
             existAccountEmailOrUserName.current.parentElement.classList.add(styles.fillThisField);
         } else if (!enteredPassword) {
             existAccountPassword.current.parentElement.classList.add(styles.fillThisField);
-        } else if (enteredPassword.length < 6) {
+        } else if (enteredPassword.length < 5) {
             existAccountPassword.current.parentElement.classList.add(styles.shortPassword);
-        } else {
-            const existAccount = [];
-            existUsers.forEach(user => {
-                if ((loginData === user.email || loginData === user.userName) &&
-                    (enteredPassword === user.password)) {
-                    existAccount.push(user);
-                }
-            });
-            if (existAccount.length) {
-                existAccountEmailOrUserName.current.value = '';
-                existAccountPassword.current.value = '';
-            } else {
-                existAccountEmailOrUserName.current.parentElement.classList.add(styles.wrongData);
-                existAccountPassword.current.parentElement.classList.add(styles.wrongData);
-            }
-        }
+        } else if (!logInCheck()) {
+            existAccountEmailOrUserName.current.parentElement.classList.add(styles.wrongData);
+            existAccountPassword.current.parentElement.classList.add(styles.wrongData);
+        } else localStorage.activeUser = JSON.stringify(loginData);
     };
 
     return (
@@ -82,6 +76,8 @@ const LogIn = (props) => {
                                     id="loginData"
                                     label="Email or username"
                                     name="loginData"
+                                    value={loginUser.emailOrUserName}
+                                    onChange={onInputChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -93,6 +89,8 @@ const LogIn = (props) => {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    value={loginUser.password}
+                                    onChange={onInputChange}
                                 />
                             </Grid>
                         </Grid>

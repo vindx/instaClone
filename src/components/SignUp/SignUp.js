@@ -9,6 +9,7 @@ import styles from './SignUp.module.css';
 import {Link} from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import primaryInstaColor from "../PrimaryInstaColor";
+import {updateNewUserInfo} from "../../state/state";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUp = (props) => {
-    const {existUsers, createAccount} = props;
+    const {newUser, existUsers, createAccount, updateNewUserInfo} = props;
     const {existEmails, existUserNames} = existUsers;
     const classes = useStyles();
 
@@ -36,9 +37,16 @@ const SignUp = (props) => {
     let newAccountFullName = React.createRef();
     let newAccountPassword = React.createRef();
 
+    const onInputChange = () => {
+        let email = newAccountEmail.current.value;
+        let fullName = newAccountFullName.current.value;
+        let userName = newAccountUserName.current.value;
+        let password = newAccountPassword.current.value;
+        updateNewUserInfo({email, fullName, userName, password});
+    };
+
     const createNewAccount = () => {
         const email = newAccountEmail.current.value;
-        const fullName = newAccountFullName.current.value;
         const userName = newAccountUserName.current.value;
         const password = newAccountPassword.current.value;
         if (!email && !userName && !password) {
@@ -70,11 +78,8 @@ const SignUp = (props) => {
         } else if (existUserNames.includes(userName)) {
             newAccountUserName.current.parentElement.classList.add(styles.alreadyExist);
         } else {
-            createAccount({email, fullName, userName, password});
-            newAccountEmail.current.value = '';
-            newAccountFullName.current.value = '';
-            newAccountUserName.current.value = '';
-            newAccountPassword.current.value = '';
+            createAccount();
+            localStorage.activeUser = JSON.stringify(userName);
         }
     };
 
@@ -99,6 +104,8 @@ const SignUp = (props) => {
                                     id="email"
                                     label="Email"
                                     name="email"
+                                    value={newUser.email}
+                                    onChange={onInputChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -109,6 +116,8 @@ const SignUp = (props) => {
                                     fullWidth
                                     id="fullName"
                                     label="Full name"
+                                    value={newUser.fullName}
+                                    onChange={onInputChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -120,6 +129,8 @@ const SignUp = (props) => {
                                     required
                                     id="userName"
                                     label="Username"
+                                    value={newUser.userName}
+                                    onChange={onInputChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -133,6 +144,8 @@ const SignUp = (props) => {
                                     type="password"
                                     id="password"
                                     placeholder="At least 6 characters"
+                                    value={newUser.password}
+                                    onChange={onInputChange}
                                 />
                             </Grid>
                         </Grid>

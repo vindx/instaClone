@@ -9,7 +9,7 @@ import AdminPage from "./components/AdminPage/AdminPage";
 import CreatePost from "./components/CreatePost/CreatePost";
 
 const getUser = (users) => {
-    const [user] = users.filter(user => user.userName === 'powaki');
+    const [user] = users.filter(user => user.userName === 'kopola');
     return user
 };
 
@@ -28,7 +28,7 @@ const getUsersEmailAndUserName = (users) => {
 };
 
 function App(props) {
-    const {state, createAccount, createNewPost} = props;
+    const {state, createAccount, createNewPost, updateNewUserInfo, updateLoginInfo, logInCheck} = props;
 
     return (
         <BrowserRouter>
@@ -45,10 +45,16 @@ function App(props) {
 
                 <Route exact path='/'
                        render={() => <SignUp
+                           newUser={state.newUser}
+                           updateNewUserInfo={updateNewUserInfo}
                            existUsers={getUsersEmailAndUserName(state.users)}
                            createAccount={createAccount}/>}
                 />
-                <Route exact path='/login' render={() => <LogIn existUsers={state.users}/>}
+                <Route exact path='/login'
+                       render={() => <LogIn
+                           logInCheck={logInCheck}
+                           loginUser={state.loginUser}
+                           updateLoginInfo={updateLoginInfo} existUsers={state.users}/>}
                 />
             </div>
         </BrowserRouter>
