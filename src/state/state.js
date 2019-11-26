@@ -1,4 +1,5 @@
-import rerenderEntireTree from "../render";
+let rerenderEntireTree = () => {
+};
 
 export let state = {
     newUser: {
@@ -195,6 +196,10 @@ export let state = {
             }, //userName
         },
     ],
+};
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer;
 };
 
 export const createAccount = () => {
