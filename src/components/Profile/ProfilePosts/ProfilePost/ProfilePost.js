@@ -8,6 +8,7 @@ const ProfilePost = (props) => {
     return (
         <div className={styles.profilePost}>
             <img alt='' src={photo}/>
+            <button className={styles.deletePhoto}>&#128465;</button>
         </div>
     )
 };

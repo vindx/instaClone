@@ -11,7 +11,7 @@ const ProfilePosts = (props) => {
         <div className={styles.profilePosts}>
             {posts.length ?
                 posts.map(({postPhoto}) => <ProfilePost key={Math.random()} photo={postPhoto}/>)
-                : <div>No Posts Yet</div>}
+                : <div className={styles.zeroPosts}>No Posts Yet</div>}
         </div>
     )
 };
