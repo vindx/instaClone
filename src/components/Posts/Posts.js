@@ -8,17 +8,7 @@ const Posts = (props) => {
 
     return (
         <div className={styles.mainContainer}>
-            {posts.map(({id, owner, likes, wasLiked, postPhoto, description}) =>
-                <Post
-                    key={id}
-                    profilePhotoUrl={owner.profilePhoto}
-                    userName={owner.userName}
-                    photoUrl={postPhoto}
-                    liked={wasLiked}
-                    likesNumber={likes}
-                    postDescription={description}
-                />
-            )}
+            {posts.map(post => <Post key={post.id} postInfo={post}/>)}
         </div>
     )
 };

@@ -6,17 +6,17 @@ import PostPhoto from "./PostPhoto/PostPhoto";
 import styles from './Post.module.css';
 
 const Post = (props) => {
-    const {profilePhotoUrl, userName, photoUrl, liked, likesNumber, postDescription} = props;
+    const {postInfo} = props;
 
     return (
         <article className={styles.mainContainer}>
-            <PostHeader profilePhotoUrl={profilePhotoUrl}
-                        userName={userName}/>
-            <PostPhoto photoUrl={photoUrl}/>
-            <PostFooter liked={liked}
-                        likesNumber={likesNumber}
-                        userName={userName}
-                        description={postDescription}/>
+            <PostHeader profilePhotoUrl={postInfo.owner.profilePhoto}
+                        userName={postInfo.owner.userName}/>
+            <PostPhoto photoUrl={postInfo.postPhoto}/>
+            <PostFooter liked={postInfo.wasLiked}
+                        likesNumber={postInfo.likes}
+                        userName={postInfo.userName}
+                        description={postInfo.description}/>
         </article>
     )
 };
