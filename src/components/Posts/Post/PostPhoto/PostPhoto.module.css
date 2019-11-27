@@ -1,6 +1,6 @@
 .postPhoto img {
-    display: block;
-    width: 614px;
-    max-height: 614px;
-    object-fit: cover;
+  display: block;
+  width: 614px;
+  max-height: 614px;
+  object-fit: cover;
 }

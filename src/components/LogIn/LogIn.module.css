@@ -1,44 +1,48 @@
 @import "../../fonts/Billabong/style.css";
 
 .headerText {
-    font-family: Billabong, sans-serif;
+  font-family: Billabong, sans-serif;
 }
 
 .mainContainer {
-    border: 1px solid #E1E0E0;
-    margin-top: 30px;
-    background-color: #FFFFFF;
+  border: 1px solid #e1e0e0;
+  margin-top: 30px;
+  background-color: #ffffff;
 }
 
-.fillThisField, .wrongData, .shortPassword {
-    background-color: rgba(240, 122, 96, 0.5);
+.fillThisField,
+.wrongData,
+.shortPassword {
+  background-color: rgba(240, 122, 96, 0.5);
 }
 
-.fillThisField:before, .shortPassword:before, .wrongData:before {
-    font-family: Segoe UI, sans-serif;
-    text-align: center;
-    box-sizing: border-box;
-    display: block;
-    background: rgba(0, 0, 0, .5);
-    color: white;
-    padding: 5px;
-    position: absolute;
-    left: -55%;
-    top: 20%;
-    margin-left: 0;
-    width: 50%;
-    height: 60%;
-    border-radius: 5px;
+.fillThisField:before,
+.shortPassword:before,
+.wrongData:before {
+  font-family: Segoe UI, sans-serif;
+  text-align: center;
+  box-sizing: border-box;
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px;
+  position: absolute;
+  left: -55%;
+  top: 20%;
+  margin-left: 0;
+  width: 50%;
+  height: 60%;
+  border-radius: 5px;
 }
 
 .fillThisField:before {
-    content: 'Please fill this field';
+  content: "Please fill this field";
 }
 
 .shortPassword:before {
-    content: 'At least 6 charactres';
+  content: "At least 6 charactres";
 }
 
 .wrongData:before {
-    content: 'Incorrect data';
+  content: "Incorrect data";
 }

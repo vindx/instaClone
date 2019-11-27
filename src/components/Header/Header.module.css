@@ -1,24 +1,24 @@
 @import "../../fonts/Billabong/style.css";
 
 .headerText {
-    font-family: Billabong, sans-serif;
-    font-size: 35px;
-    padding-top: 10px;
+  font-family: Billabong, sans-serif;
+  font-size: 35px;
+  padding-top: 10px;
 }
 
 .cursorPointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .container {
-    height: 61px;
-    border-bottom: 1px solid #E1E0E0;
-    position: fixed;
-    top: 0;
-    background-color: #FFF;
-    z-index: 1;
+  height: 61px;
+  border-bottom: 1px solid #e1e0e0;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
 }
 
 .textField {
-    background-color: #FAFAFA;
+  background-color: #fafafa;
 }

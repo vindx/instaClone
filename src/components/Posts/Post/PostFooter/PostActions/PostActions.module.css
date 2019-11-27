@@ -1,19 +1,19 @@
 .postActions {
-    margin-left: -8px;
-    display: inline-block;
+  margin-left: -8px;
+  display: inline-block;
 }
 
 .postActionButton {
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border: none;
-    padding: 0;
-    outline: none;
-    background-color: inherit;
-    color: #262626;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  outline: none;
+  background-color: inherit;
+  color: #262626;
 }
 
 .postWasLiked {
-    color: #ed4956;
+  color: #ed4956;
 }
