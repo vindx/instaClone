@@ -8,8 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
-import primaryInstaColor from "../PrimaryInstaColor";
-import styles from "./LogIn.module.css";
+import primaryInstaColor from "../../components/PrimaryInstaColor";
+import styles from "./LogInPage.module.css";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LogIn = props => {
+const LogInPage = props => {
   const { loginUser, updateLoginInfo, logInCheck } = props;
   const classes = useStyles();
 
@@ -143,4 +143,4 @@ const LogIn = props => {
   );
 };
 
-export default LogIn;
+export default LogInPage;

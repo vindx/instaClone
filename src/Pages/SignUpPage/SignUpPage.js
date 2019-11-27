@@ -5,10 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import styles from "./SignUp.module.css";
+import styles from "./SignUpPage.module.css";
 import { Link } from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
-import primaryInstaColor from "../PrimaryInstaColor";
+import primaryInstaColor from "../../components/PrimaryInstaColor";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignUp = props => {
+const SignUpPage = props => {
   const { newUser, createAccount, updateNewUserInfo } = props;
   const classes = useStyles();
 
@@ -196,4 +196,4 @@ const SignUp = props => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

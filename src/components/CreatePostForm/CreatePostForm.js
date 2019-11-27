@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import ModalWindow from "./ModalWindow/ModalWindow";
-import styles from "./CreatePost.module.css";
+import styles from "./CreatePostForm.module.css";
 
-const CreatePost = props => {
+const CreatePostForm = props => {
   const { createNewPost } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,4 +29,4 @@ const CreatePost = props => {
   );
 };
 
-export default CreatePost;
+export default CreatePostForm;

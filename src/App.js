@@ -1,12 +1,11 @@
 import React from "react";
-import SignUp from "./components/SignUp/SignUp";
-import LogIn from "./components/LogIn/LogIn";
 import { BrowserRouter, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import Posts from "./components/Posts/Posts";
-import Profile from "./components/Profile/Profile";
-import AdminPage from "./components/AdminPage/AdminPage";
-import CreatePost from "./components/CreatePost/CreatePost";
+
+import SignUpPage from "./Pages/SignUpPage/SignUpPage";
+import LogInPage from "./Pages/LogInPage/LogInPage";
+import AdminPage from "./Pages/AdminPage/AdminPage";
+import PostsPage from "./Pages/PostsPage/PostsPage";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 function App(props) {
   const {
@@ -61,57 +60,46 @@ function App(props) {
         <Route
           exact
           path={postsUrl}
-          render={() => <Header postsUrl={postsUrl} />}
-        />
-        <Route
-          exact
-          path={postsUrl}
-          render={() => <Posts posts={state.posts} />}
-        />
-        <Route
-          exact
-          path={postsUrl}
-          render={() => <CreatePost createNewPost={createNewPost} />}
+          render={() => (
+            <PostsPage
+              postsUrl={postsUrl}
+              posts={state.posts}
+              createNewPost={createNewPost}
+            />
+          )}
         />
 
         <Route
           exact
           path={profileUrl}
-          render={() => <Header postsUrl={postsUrl} />}
-        />
-        <Route
-          exact
-          path={profileUrl}
           render={() => (
-            <Profile
+            <ProfilePage
+              postsUrl={postsUrl}
               user={getUser(state.users)}
               removeRequest={removeRequest}
               logOut={logOut}
+              createNewPost={createNewPost}
             />
           )}
-        />
-        <Route
-          exact
-          path={profileUrl}
-          render={() => <CreatePost createNewPost={createNewPost} />}
         />
 
         <Route
           exact
           path={signUpUrl}
           render={() => (
-            <SignUp
+            <SignUpPage
               newUser={state.newUser}
               updateNewUserInfo={updateNewUserInfo}
               createAccount={createAccount}
             />
           )}
         />
+
         <Route
           exact
           path={logInUrl}
           render={() => (
-            <LogIn
+            <LogInPage
               logInCheck={logInCheck}
               loginUser={state.loginUser}
               updateLoginInfo={updateLoginInfo}
