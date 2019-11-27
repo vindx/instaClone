@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUpPage = props => {
-  const { newUser, createAccount, updateNewUserInfo } = props;
+  const { newUser, createAccount, updateNewUserInfo, logInUrl } = props;
   const classes = useStyles();
 
   let newAccountEmail = React.createRef();
@@ -186,7 +186,7 @@ const SignUpPage = props => {
         <div style={{ margin: 20 }}>
           <Typography align="center">
             Have an account?
-            <Link to="/login" style={{ marginLeft: 5, color: "#3897f1" }}>
+            <Link to={logInUrl} style={{ marginLeft: 5, color: "#3897f1" }}>
               Log in
             </Link>
           </Typography>

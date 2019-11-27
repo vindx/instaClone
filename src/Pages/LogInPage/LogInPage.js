@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogInPage = props => {
-  const { loginUser, updateLoginInfo, logInCheck } = props;
+  const { loginUser, updateLoginInfo, logInCheck, signUpUrl } = props;
   const classes = useStyles();
 
   let existAccountEmailOrUserName = React.createRef();
@@ -40,7 +40,7 @@ const LogInPage = props => {
     updateLoginInfo({ emailOrUserName, password });
   };
 
-  const logIn = () => {
+  const handleLogIn = () => {
     const loginData = existAccountEmailOrUserName.current.value;
     const enteredPassword = existAccountPassword.current.value;
     if (!loginData && !enteredPassword) {
@@ -62,14 +62,16 @@ const LogInPage = props => {
       existAccountPassword.current.parentElement.classList.add(
         styles.shortPassword
       );
-    } else if (!logInCheck()) {
+    } else if (logInCheck()) {
+      localStorage.activeUser = JSON.stringify(loginData);
+    } else {
       existAccountEmailOrUserName.current.parentElement.classList.add(
         styles.wrongData
       );
       existAccountPassword.current.parentElement.classList.add(
         styles.wrongData
       );
-    } else localStorage.activeUser = JSON.stringify(loginData);
+    }
   };
 
   return (
@@ -112,15 +114,17 @@ const LogInPage = props => {
               </Grid>
             </Grid>
             <ThemeProvider theme={primaryInstaColor}>
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={logIn}
-              >
-                Log In
-              </Button>
+              <Link to="/">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={handleLogIn}
+                >
+                  Log In
+                </Button>
+              </Link>
             </ThemeProvider>
           </form>
         </div>
@@ -133,7 +137,7 @@ const LogInPage = props => {
         <div style={{ margin: 20 }}>
           <Typography align="center">
             Don't have an account?
-            <Link to="/" style={{ marginLeft: 5, color: "#3897f1" }}>
+            <Link to={signUpUrl} style={{ marginLeft: 5, color: "#3897f1" }}>
               Sign up
             </Link>
           </Typography>

@@ -7,6 +7,7 @@ const generateID = () =>
 
 export let state = {
   newUser: {
+    activeNow: false,
     email: "",
     userName: "",
     fullName: "",
@@ -21,23 +22,35 @@ export let state = {
   },
   users: [
     {
+      activeNow: false,
+      email: "admin@admin",
+      userName: "admin",
+      fullName: "ADMINISTRATOR",
+      profilePhoto: "",
+      password: "admin",
+      removeRequest: false,
+      posts: []
+    },
+    {
+      activeNow: false,
       email: "kkdasod@kao.com",
       userName: "loqasy",
       fullName: "", //optional
       profilePhoto:
         "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL
       password: "12345",
-      removeRequest: false, //default value - FALSE
+      removeRequest: true, //default value - FALSE
       posts: []
     },
     {
+      activeNow: false,
       email: "kaolwq@kao.com",
       userName: "kopola",
       fullName: "Alice Lokino", //optional
       profilePhoto:
         "https://images.pexels.com/photos/3194582/pexels-photo-3194582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL
       password: "12345",
-      removeRequest: false, //default value - FALSE
+      removeRequest: true, //default value - FALSE
       posts: [
         {
           id: generateID(),
@@ -154,6 +167,7 @@ export let state = {
       ]
     },
     {
+      activeNow: false,
       email: "kaolwq@kao.com",
       userName: "powaki",
       fullName: "", //optional
@@ -200,6 +214,48 @@ export let state = {
       id: generateID(),
       postedDate: Date.now(),
       postPhoto:
+        "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
+      description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+      tags: "",
+      likes: 18,
+      wasLiked: true,
+      owner: {
+        userName: "kopola",
+        profilePhoto: "" //URL
+      } //userName
+    },
+    {
+      id: generateID(),
+      postedDate: Date.now(),
+      postPhoto:
+        "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
+      description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+      tags: "",
+      likes: 18,
+      wasLiked: true,
+      owner: {
+        userName: "kopola",
+        profilePhoto: "" //URL
+      } //userName
+    },
+    {
+      id: generateID(),
+      postedDate: Date.now(),
+      postPhoto:
+        "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
+      description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
+      tags: "",
+      likes: 18,
+      wasLiked: true,
+      owner: {
+        userName: "kopola",
+        profilePhoto: "" //URL
+      } //userName
+    },
+    {
+      id: generateID(),
+      postedDate: Date.now(),
+      postPhoto:
         "https://images.pexels.com/photos/532168/pexels-photo-532168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
       description: `WOW! \u{1F63B} just look at these flowers \u{1F33C} `,
       tags: "",
@@ -219,14 +275,21 @@ export const subscribe = observer => {
 };
 
 export const createAccount = () => {
-  const filterByMatchingEmailOrUserName = ({ email, userName }) => {
-    return email === state.newUser.email || userName === state.newUser.userName;
+  const findByMatchingEmailOrUserName = ({ email, userName }) => {
+    return (
+      email === state.newUser.email ||
+      userName === state.newUser.userName ||
+      userName === state.newUser.email ||
+      email === state.newUser.userName
+    );
   };
-  if (state.users.filter(filterByMatchingEmailOrUserName).length) {
+  if (state.users.find(findByMatchingEmailOrUserName)) {
     return true;
   } else {
+    state.newUser.activeNow = true;
     state.users.push(state.newUser);
     state.newUser = {
+      activeNow: false,
       email: "",
       userName: "",
       fullName: "",
@@ -239,21 +302,21 @@ export const createAccount = () => {
   }
 };
 
-export const removeRequest = userN => {
-  state.users.forEach(user => {
-    if (user.userName === userN) {
-      user.removeRequest = !user.removeRequest;
-    }
-  });
+export const removeRequest = () => {
+  let activeUser = state.users.find(user => user.activeNow);
+  activeUser.removeRequest = !activeUser.removeRequest;
   rerenderEntireTree(state);
 };
 
 export const logOut = () => {
+  let activeUser = state.users.find(user => user.activeNow);
+  activeUser.activeNow = false;
   rerenderEntireTree(state);
 };
 
 export const updateNewUserInfo = ({ email, fullName, userName, password }) => {
   state.newUser = {
+    activeNow: false,
     email,
     userName,
     fullName,
@@ -266,18 +329,16 @@ export const updateNewUserInfo = ({ email, fullName, userName, password }) => {
 };
 
 export const logInCheck = () => {
-  const filterByEmailOrUserNameAndPassword = ({
-    email,
-    userName,
-    password
-  }) => {
+  const findByEmailOrUserNameAndPassword = ({ email, userName, password }) => {
     return (
       (email === state.loginUser.emailOrUserName ||
         userName === state.loginUser.emailOrUserName) &&
       password === state.loginUser.password
     );
   };
-  if (state.users.filter(filterByEmailOrUserNameAndPassword).length) {
+  let foundedUser = state.users.find(findByEmailOrUserNameAndPassword);
+  if (foundedUser) {
+    foundedUser.activeNow = true;
     state.loginUser = {
       emailOrUserName: "",
       password: ""
@@ -295,15 +356,10 @@ export const updateLogInInfo = ({ emailOrUserName, password }) => {
   rerenderEntireTree(state);
 };
 
-export const createNewPost = ({
-  postPhoto = "",
-  description,
-  userName = "kopola",
-  profilePhoto = "",
-  tags = ""
-}) => {
+export const createNewPost = ({ postPhoto = "", description, tags = "" }) => {
+  let activeUser = state.users.find(user => user.activeNow);
   state.posts.unshift({
-    id: Math.random(),
+    id: generateID(),
     postedDate: Date.now(),
     postPhoto,
     description,
@@ -311,9 +367,22 @@ export const createNewPost = ({
     likes: 0,
     wasLiked: false,
     owner: {
-      userName,
-      profilePhoto
+      userName: activeUser.userName,
+      profilePhoto: activeUser.profilePhoto
     }
   });
+  rerenderEntireTree(state);
+};
+
+export const deleteUser = userName => {
+  const index = state.users.findIndex(user => user.userName === userName);
+  if (index > -1) {
+    state.users.splice(index, 1);
+    for (let i = state.posts.length - 1; i >= 0; i--) {
+      if (state.posts[i].owner.userName === userName) {
+        state.posts.splice(i, 1);
+      }
+    }
+  }
   rerenderEntireTree(state);
 };

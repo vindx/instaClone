@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 });
 
 const AdminPage = props => {
-  const { users: dataBase } = props;
+  const { users: dataBase, logOut, deleteUser } = props;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -47,6 +47,15 @@ const AdminPage = props => {
   const handleChangeRowsPerPage = event => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    logOut();
+  };
+
+  const handleDeleteAccount = userName => {
+    deleteUser(userName);
   };
 
   return (
@@ -82,7 +91,12 @@ const AdminPage = props => {
                             style={{ height: 25 }}
                           >
                             {typeof value === "boolean" && value ? (
-                              <button className={styles.button}>
+                              <button
+                                className={styles.button}
+                                onClick={() =>
+                                  handleDeleteAccount(row.userName)
+                                }
+                              >
                                 Delete profile
                               </button>
                             ) : (
@@ -115,7 +129,9 @@ const AdminPage = props => {
       </Paper>
       <div className={styles.logOutButtonContainer}>
         <Link to="/">
-          <button className={styles.button}>Log Out</button>
+          <button className={styles.button} onClick={handleLogOut}>
+            Log Out
+          </button>
         </Link>
       </div>
     </>

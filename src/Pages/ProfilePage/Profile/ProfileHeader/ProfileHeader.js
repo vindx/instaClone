@@ -19,7 +19,7 @@ const ProfileHeader = props => {
   };
 
   const deleteRequest = () => {
-    removeRequest(userName);
+    removeRequest();
   };
 
   return (

@@ -16,7 +16,8 @@ function App(props) {
     updateLoginInfo,
     logInCheck,
     removeRequest,
-    logOut
+    logOut,
+    deleteUser
   } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
     "/posts",
@@ -26,27 +27,35 @@ function App(props) {
     "/login"
   ];
 
-  const getUser = users => {
+  const getActiveUser = users => {
     if (localStorage.length) {
-      postsUrl = "/";
-      const [user] = users.filter(
+      const user = users.find(
         user => user.userName === JSON.parse(localStorage.activeUser)
       );
-      return user;
-    } else {
-      signUpUrl = "/";
-      return {
-        email: "",
-        userName: "",
-        fullName: "",
-        profilePhoto: "",
-        password: "",
-        removeRequest: false,
-        posts: []
-      };
+      if (user) {
+        user.activeNow = true;
+        return user;
+      }
     }
   };
-  getUser(state.users);
+
+  const activeUser = getActiveUser(state.users);
+
+  (activeUser => {
+    if (activeUser) {
+      if (activeUser.userName === "admin") {
+        adminUrl = "/";
+      } else {
+        postsUrl = "/";
+      }
+    } else {
+      signUpUrl = "/";
+      logInUrl = "/login";
+      postsUrl += "/hidden";
+      profileUrl += "/hidden";
+      adminUrl += "/hidden";
+    }
+  })(activeUser);
 
   return (
     <BrowserRouter>
@@ -54,7 +63,13 @@ function App(props) {
         <Route
           exact
           path={adminUrl}
-          render={() => <AdminPage users={state.users} />}
+          render={() => (
+            <AdminPage
+              users={state.users}
+              logOut={logOut}
+              deleteUser={deleteUser}
+            />
+          )}
         />
 
         <Route
@@ -75,7 +90,7 @@ function App(props) {
           render={() => (
             <ProfilePage
               postsUrl={postsUrl}
-              user={getUser(state.users)}
+              user={activeUser}
               removeRequest={removeRequest}
               logOut={logOut}
               createNewPost={createNewPost}
@@ -88,6 +103,7 @@ function App(props) {
           path={signUpUrl}
           render={() => (
             <SignUpPage
+              logInUrl={logInUrl}
               newUser={state.newUser}
               updateNewUserInfo={updateNewUserInfo}
               createAccount={createAccount}
@@ -100,6 +116,7 @@ function App(props) {
           path={logInUrl}
           render={() => (
             <LogInPage
+              signUpUrl={signUpUrl}
               logInCheck={logInCheck}
               loginUser={state.loginUser}
               updateLoginInfo={updateLoginInfo}

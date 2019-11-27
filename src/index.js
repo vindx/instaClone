@@ -9,7 +9,8 @@ import {
   createNewPost,
   logInCheck,
   updateLogInInfo,
-  updateNewUserInfo
+  updateNewUserInfo,
+  deleteUser
 } from "./state/state";
 import "./index.css";
 
@@ -17,6 +18,7 @@ const rerenderEntireTree = state => {
   ReactDOM.render(
     <App
       state={state}
+      deleteUser={deleteUser}
       createAccount={createAccount}
       removeRequest={removeRequest}
       logOut={logOut}
