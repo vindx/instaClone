@@ -1,6 +1,8 @@
 let rerenderEntireTree = () => {
 };
 
+const generateID = () => Math.random().toString(36).substr(2, 10);
+
 export let state = {
     newUser: {
         email: '',
@@ -34,7 +36,7 @@ export let state = {
             removeRequest: false, //default value - FALSE
             posts: [
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -47,7 +49,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -60,7 +62,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -73,7 +75,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -86,7 +88,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -99,7 +101,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -112,7 +114,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -125,7 +127,7 @@ export let state = {
                     }, //userName
                 },
                 {
-                    id: Math.random(),
+                    id: generateID(),
                     postedDate: Date.now(),
                     postPhoto: 'https://wallbox.ru/wallpapers/main/201137/cherno-belaya-oblaka-more-ba2d425.jpg', //URL, optional
                     description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -152,7 +154,7 @@ export let state = {
     ],
     posts: [
         {
-            id: Math.random(),
+            id: generateID(),
             postedDate: Date.now(),
             postPhoto: '', //URL, optional
             description: `I'm gonna tell you a story today,which was I was dreaming before.
@@ -168,7 +170,7 @@ export let state = {
             }, //userName
         },
         {
-            id: Math.random(),
+            id: generateID(),
             postedDate: Date.now(),
             postPhoto: 'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
@@ -182,7 +184,7 @@ export let state = {
             }, //userName
         },
         {
-            id: Math.random(),
+            id: generateID(),
             postedDate: Date.now(),
             postPhoto: 'https://images.pexels.com/photos/532168/pexels-photo-532168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', //URL, optional
             description: `WOW! \u{1F63B} just look at these flowers \u{1F33C} `,
