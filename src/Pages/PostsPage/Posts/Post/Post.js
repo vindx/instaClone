@@ -18,7 +18,7 @@ const Post = props => {
       <PostFooter
         liked={postInfo.wasLiked}
         likesNumber={postInfo.likes}
-        userName={postInfo.userName}
+        userName={postInfo.owner.userName}
         description={postInfo.description}
       />
     </article>
