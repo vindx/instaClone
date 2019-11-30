@@ -18,7 +18,8 @@ function App(props) {
     removeRequest,
     logOut,
     deleteUser,
-    updateNewPost
+    updateNewPost,
+    deletePost
   } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
     "/posts",
@@ -99,6 +100,7 @@ function App(props) {
               newPost={state.newPost}
               updateNewPost={updateNewPost}
               createNewPost={createNewPost}
+              deletePost={deletePost}
             />
           )}
         />

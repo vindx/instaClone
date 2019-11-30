@@ -5,7 +5,7 @@ import ProfilePosts from "./ProfilePosts/ProfilePosts";
 import styles from "./Profile.module.css";
 
 const Profile = props => {
-  const { user, removeRequest, logOut } = props;
+  const { user, removeRequest, logOut, deletePost } = props;
 
   return (
     <div className={styles.profileContainer}>
@@ -17,7 +17,7 @@ const Profile = props => {
         fullName={user.fullName}
         removeRequestStatus={user.removeRequest}
       />
-      <ProfilePosts posts={user.posts} />
+      <ProfilePosts posts={user.posts} deletePost={deletePost} />
     </div>
   );
 };

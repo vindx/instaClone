@@ -14,6 +14,7 @@ const rerenderEntireTree = state => {
       logOut={store.logOut.bind(store)}
       logInCheck={store.logInCheck.bind(store)}
       createNewPost={store.createNewPost.bind(store)}
+      deletePost={store.deletePost.bind(store)}
       updateNewUserInfo={store.updateNewUserInfo.bind(store)}
       updateLoginInfo={store.updateLogInInfo.bind(store)}
       updateNewPost={store.updateNewPost.bind(store)}

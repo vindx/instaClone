@@ -398,6 +398,20 @@ let store = {
 
     this._callSubscriber(this._state);
   },
+  deletePost(id) {
+    let activeUser = this._state.users.find(user => user.activeNow);
+    for (let i = 0; i < this._state.posts.length; i++) {
+      if (this._state.posts[i].id === id) {
+        this._state.posts.splice(i, 1);
+      }
+    }
+    for (let i = 0; i < activeUser.posts.length; i++) {
+      if (activeUser.posts[i].id === id) {
+        activeUser.posts.splice(i, 1);
+      }
+    }
+    this._callSubscriber(this._state);
+  },
 
   removeRequest() {
     let activeUser = this._state.users.find(user => user.activeNow);

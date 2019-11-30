@@ -11,13 +11,19 @@ const ProfilePage = props => {
     logOut,
     createNewPost,
     newPost,
-    updateNewPost
+    updateNewPost,
+    deletePost
   } = props;
 
   return (
     <>
       <Header postsUrl={postsUrl} />
-      <Profile user={user} removeRequest={removeRequest} logOut={logOut} />
+      <Profile
+        user={user}
+        deletePost={deletePost}
+        removeRequest={removeRequest}
+        logOut={logOut}
+      />
       <CreatePostForm
         newPost={newPost}
         updateNewPost={updateNewPost}

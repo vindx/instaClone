@@ -5,13 +5,19 @@ import ProfilePost from "./ProfilePost/ProfilePost";
 import styles from "./ProfilePosts.module.css";
 
 const ProfilePosts = props => {
-  const { posts } = props;
+  const { posts, deletePost } = props;
 
   return (
     <div className={styles.profilePosts}>
       {posts.length ? (
-        posts.map(({ postPhoto, description }) => (
-          <ProfilePost key={Math.random()} photo={postPhoto} description={description}/>
+        posts.map(({ id, postPhoto, description }) => (
+          <ProfilePost
+            key={id}
+            id={id}
+            photo={postPhoto}
+            description={description}
+            deletePost={deletePost}
+          />
         ))
       ) : (
         <div className={styles.zeroPosts}>No Posts Yet</div>
