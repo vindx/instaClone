@@ -373,8 +373,9 @@ let store = {
   },
   createNewPost() {
     let activeUser = this._state.users.find(user => user.activeNow);
+    const { userName, profilePhoto } = activeUser;
     const { postPhoto, description, tags } = this._state.newPost;
-    this._state.posts.unshift({
+    const newPost = {
       id: generateID(),
       postedDate: Date.now(),
       postPhoto,
@@ -383,10 +384,18 @@ let store = {
       likes: 0,
       wasLiked: false,
       owner: {
-        userName: activeUser.userName,
-        profilePhoto: activeUser.profilePhoto
+        userName: userName,
+        profilePhoto: profilePhoto
       }
-    });
+    };
+    this._state.posts.unshift(newPost);
+    activeUser.posts.unshift(newPost);
+    this._state.newPost = {
+      postPhoto: "",
+      description: "",
+      tags: ""
+    };
+
     this._callSubscriber(this._state);
   },
 

@@ -14,6 +14,12 @@
   transition: 0.3s;
 }
 
+.profilePost img[alt] {
+  background: url("https://letabouret.ru/local/templates/letabouret/images/no-photo.png")
+    center;
+  background-size: cover;
+}
+
 .profilePost:hover img {
   transform: scale(0.97);
 }

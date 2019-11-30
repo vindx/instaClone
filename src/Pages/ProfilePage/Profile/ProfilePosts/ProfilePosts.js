@@ -10,8 +10,8 @@ const ProfilePosts = props => {
   return (
     <div className={styles.profilePosts}>
       {posts.length ? (
-        posts.map(({ postPhoto }) => (
-          <ProfilePost key={Math.random()} photo={postPhoto} />
+        posts.map(({ postPhoto, description }) => (
+          <ProfilePost key={Math.random()} photo={postPhoto} description={description}/>
         ))
       ) : (
         <div className={styles.zeroPosts}>No Posts Yet</div>
