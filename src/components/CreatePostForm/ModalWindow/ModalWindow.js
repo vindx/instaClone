@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./ModalWindow.module.css";
 
 const ModalWindow = props => {
-  const { onClose, isOpen, createNewPost } = props;
+  const { onClose, isOpen, newPost, updateNewPost, createNewPost } = props;
 
   let postPhotoUrl = React.createRef();
   let postDescription = React.createRef();
@@ -21,17 +21,22 @@ const ModalWindow = props => {
   }
 
   const addPost = () => {
-    const postPhoto = postPhotoUrl.current.value;
     const description = postDescription.current.value;
     if (!description) {
       postDescription.current.placeholder = "Please fill this field";
       postDescription.current.style.borderColor = "red";
       postDescription.current.style.outline = "none";
     } else {
-      createNewPost({ postPhoto, description });
+      createNewPost();
       onClose();
       window.scrollTo(0, 0);
     }
+  };
+
+  const newPostOnChange = () => {
+    const postPhoto = postPhotoUrl.current.value;
+    const description = postDescription.current.value;
+    updateNewPost({ postPhoto, description });
   };
 
   return (
@@ -41,10 +46,21 @@ const ModalWindow = props => {
         <form className={styles.form}>
           <label>
             Photo (optionally){" "}
-            <input type="text" placeholder="Enter URL" ref={postPhotoUrl} />
+            <input
+              type="text"
+              placeholder="Enter URL"
+              value={newPost.postPhoto}
+              onChange={newPostOnChange}
+              ref={postPhotoUrl}
+            />
           </label>
           <label>
-            Description <textarea ref={postDescription} />
+            Description{" "}
+            <textarea
+              value={newPost.description}
+              onChange={newPostOnChange}
+              ref={postDescription}
+            />
           </label>
         </form>
         <div>

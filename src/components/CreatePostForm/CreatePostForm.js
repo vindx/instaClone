@@ -4,7 +4,7 @@ import ModalWindow from "./ModalWindow/ModalWindow";
 import styles from "./CreatePostForm.module.css";
 
 const CreatePostForm = props => {
-  const { createNewPost } = props;
+  const { newPost, updateNewPost, createNewPost } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -23,6 +23,8 @@ const CreatePostForm = props => {
       <ModalWindow
         isOpen={isModalOpen}
         onClose={closeModal}
+        newPost={newPost}
+        updateNewPost={updateNewPost}
         createNewPost={createNewPost}
       />
     </>

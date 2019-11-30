@@ -1,5 +1,3 @@
-let rerenderEntireTree = () => {};
-
 const generateID = () =>
   Math.random()
     .toString(36)
@@ -179,6 +177,11 @@ let store = {
         posts: []
       }
     ],
+    newPost: {
+      postPhoto: "",
+      description: "",
+      tags: ""
+    },
     posts: [
       {
         id: generateID(),
@@ -208,7 +211,8 @@ let store = {
         wasLiked: true,
         owner: {
           userName: "kopola",
-          profilePhoto: "" //URL
+          profilePhoto:
+            "https://images.pexels.com/photos/3194582/pexels-photo-3194582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" //URL
         } //userName
       },
       {
@@ -222,7 +226,8 @@ let store = {
         wasLiked: true,
         owner: {
           userName: "kopola",
-          profilePhoto: "" //URL
+          profilePhoto:
+            "https://images.pexels.com/photos/3194582/pexels-photo-3194582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" //URL
         } //userName
       },
       {
@@ -236,7 +241,8 @@ let store = {
         wasLiked: true,
         owner: {
           userName: "kopola",
-          profilePhoto: "" //URL
+          profilePhoto:
+            "https://images.pexels.com/photos/3194582/pexels-photo-3194582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" //URL
         } //userName
       },
       {
@@ -250,7 +256,8 @@ let store = {
         wasLiked: true,
         owner: {
           userName: "kopola",
-          profilePhoto: "" //URL
+          profilePhoto:
+            "https://images.pexels.com/photos/3194582/pexels-photo-3194582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" //URL
         } //userName
       },
       {
@@ -270,8 +277,63 @@ let store = {
       }
     ]
   },
+  _callSubscriber() {},
+
   getState() {
     return this._state;
+  },
+  subscribe(observer) {
+    this._callSubscriber = observer;
+  },
+
+  updateLogInInfo({ emailOrUserName, password }) {
+    this._state.loginUser = {
+      emailOrUserName,
+      password
+    };
+    this._callSubscriber(this._state);
+  },
+  logInCheck() {
+    const findByEmailOrUserNameAndPassword = ({
+      email,
+      userName,
+      password
+    }) => {
+      return (
+        (email === this._state.loginUser.emailOrUserName ||
+          userName === this._state.loginUser.emailOrUserName) &&
+        password === this._state.loginUser.password
+      );
+    };
+    let foundedUser = this._state.users.find(findByEmailOrUserNameAndPassword);
+    if (foundedUser) {
+      foundedUser.activeNow = true;
+      this._state.loginUser = {
+        emailOrUserName: "",
+        password: ""
+      };
+      this._callSubscriber(this._state);
+      return true;
+    }
+  },
+  logOut() {
+    let activeUser = this._state.users.find(user => user.activeNow);
+    activeUser.activeNow = false;
+    this._callSubscriber(this._state);
+  },
+
+  updateNewUserInfo({ email, fullName, userName, password }) {
+    this._state.newUser = {
+      activeNow: false,
+      email,
+      userName,
+      fullName,
+      password,
+      profilePhoto: "",
+      removeRequest: false,
+      posts: []
+    };
+    this._callSubscriber(this._state);
   },
   createAccount() {
     const findByMatchingEmailOrUserName = ({ email, userName }) => {
@@ -297,64 +359,21 @@ let store = {
         removeRequest: false,
         posts: []
       };
-      rerenderEntireTree(this._state);
+      this._callSubscriber(this._state);
     }
   },
-  removeRequest() {
-    let activeUser = this._state.users.find(user => user.activeNow);
-    activeUser.removeRequest = !activeUser.removeRequest;
-    rerenderEntireTree(this._state);
-  },
-  logOut() {
-    let activeUser = this._state.users.find(user => user.activeNow);
-    activeUser.activeNow = false;
-    rerenderEntireTree(this._state);
-  },
-  updateNewUserInfo({ email, fullName, userName, password }) {
-    this._state.newUser = {
-      activeNow: false,
-      email,
-      userName,
-      fullName,
-      password,
-      profilePhoto: "",
-      removeRequest: false,
-      posts: []
+
+  updateNewPost({ postPhoto = "", description, tags = "" }) {
+    this._state.newPost = {
+      postPhoto,
+      description,
+      tags
     };
-    rerenderEntireTree(this._state);
+    this._callSubscriber(this._state);
   },
-  logInCheck() {
-    const findByEmailOrUserNameAndPassword = ({
-      email,
-      userName,
-      password
-    }) => {
-      return (
-        (email === this._state.loginUser.emailOrUserName ||
-          userName === this._state.loginUser.emailOrUserName) &&
-        password === this._state.loginUser.password
-      );
-    };
-    let foundedUser = this._state.users.find(findByEmailOrUserNameAndPassword);
-    if (foundedUser) {
-      foundedUser.activeNow = true;
-      this._state.loginUser = {
-        emailOrUserName: "",
-        password: ""
-      };
-      rerenderEntireTree(this._state);
-      return true;
-    }
-  },
-  updateLogInInfo({ emailOrUserName, password }) {
-    this._state.loginUser = {
-      emailOrUserName,
-      password
-    };
-    rerenderEntireTree(this._state);
-  },
-  createNewPost({ postPhoto = "", description, tags = "" }) {
+  createNewPost() {
     let activeUser = this._state.users.find(user => user.activeNow);
+    const { postPhoto, description, tags } = this._state.newPost;
     this._state.posts.unshift({
       id: generateID(),
       postedDate: Date.now(),
@@ -368,7 +387,13 @@ let store = {
         profilePhoto: activeUser.profilePhoto
       }
     });
-    rerenderEntireTree(this._state);
+    this._callSubscriber(this._state);
+  },
+
+  removeRequest() {
+    let activeUser = this._state.users.find(user => user.activeNow);
+    activeUser.removeRequest = !activeUser.removeRequest;
+    this._callSubscriber(this._state);
   },
   deleteUser(userName) {
     const index = this._state.users.findIndex(
@@ -382,10 +407,7 @@ let store = {
         }
       }
     }
-    rerenderEntireTree(this._state);
-  },
-  subscribe(observer) {
-    rerenderEntireTree = observer;
+    this._callSubscriber(this._state);
   }
 };
 

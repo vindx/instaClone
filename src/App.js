@@ -17,7 +17,8 @@ function App(props) {
     logInCheck,
     removeRequest,
     logOut,
-    deleteUser
+    deleteUser,
+    updateNewPost
   } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
     "/posts",
@@ -79,6 +80,8 @@ function App(props) {
             <PostsPage
               postsUrl={postsUrl}
               posts={state.posts}
+              newPost={state.newPost}
+              updateNewPost={updateNewPost}
               createNewPost={createNewPost}
             />
           )}
@@ -93,6 +96,8 @@ function App(props) {
               user={activeUser}
               removeRequest={removeRequest}
               logOut={logOut}
+              newPost={state.newPost}
+              updateNewPost={updateNewPost}
               createNewPost={createNewPost}
             />
           )}

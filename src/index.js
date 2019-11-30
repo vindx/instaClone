@@ -16,6 +16,7 @@ const rerenderEntireTree = state => {
       createNewPost={store.createNewPost.bind(store)}
       updateNewUserInfo={store.updateNewUserInfo.bind(store)}
       updateLoginInfo={store.updateLogInInfo.bind(store)}
+      updateNewPost={store.updateNewPost.bind(store)}
     />,
     document.getElementById("root")
   );

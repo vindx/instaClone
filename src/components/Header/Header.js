@@ -18,7 +18,7 @@ const Header = props => {
           <Link
             to={postsUrl}
             style={{ color: "black" }}
-            onClick={window.scrollTo(0, 0)}
+            onClick={() => window.scrollTo(0, 0)}
           >
             <Grid
               container
@@ -59,7 +59,7 @@ const Header = props => {
           <Link
             to="/profile"
             style={{ color: "black" }}
-            onClick={window.scrollTo(0, 0)}
+            onClick={() => window.scrollTo(0, 0)}
           >
             <span className={`material-icons ${styles.cursorPointer}`}>
               perm_identity

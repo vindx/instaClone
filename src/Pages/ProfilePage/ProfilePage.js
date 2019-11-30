@@ -4,13 +4,25 @@ import Profile from "./Profile/Profile";
 import CreatePostForm from "../../components/CreatePostForm/CreatePostForm";
 
 const ProfilePage = props => {
-  const { postsUrl, user, removeRequest, logOut, createNewPost } = props;
+  const {
+    postsUrl,
+    user,
+    removeRequest,
+    logOut,
+    createNewPost,
+    newPost,
+    updateNewPost
+  } = props;
 
   return (
     <>
       <Header postsUrl={postsUrl} />
       <Profile user={user} removeRequest={removeRequest} logOut={logOut} />
-      <CreatePostForm createNewPost={createNewPost} />
+      <CreatePostForm
+        newPost={newPost}
+        updateNewPost={updateNewPost}
+        createNewPost={createNewPost}
+      />
     </>
   );
 };
