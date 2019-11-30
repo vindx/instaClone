@@ -1,35 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { state, subscribe } from "./state/state";
-import {
-  createAccount,
-  removeRequest,
-  logOut,
-  createNewPost,
-  logInCheck,
-  updateLogInInfo,
-  updateNewUserInfo,
-  deleteUser
-} from "./state/state";
+import store from "./redux/store";
 import "./index.css";
 
 const rerenderEntireTree = state => {
   ReactDOM.render(
     <App
       state={state}
-      deleteUser={deleteUser}
-      createAccount={createAccount}
-      removeRequest={removeRequest}
-      logOut={logOut}
-      logInCheck={logInCheck}
-      createNewPost={createNewPost}
-      updateNewUserInfo={updateNewUserInfo}
-      updateLoginInfo={updateLogInInfo}
+      deleteUser={store.deleteUser.bind(store)}
+      createAccount={store.createAccount.bind(store)}
+      removeRequest={store.removeRequest.bind(store)}
+      logOut={store.logOut.bind(store)}
+      logInCheck={store.logInCheck.bind(store)}
+      createNewPost={store.createNewPost.bind(store)}
+      updateNewUserInfo={store.updateNewUserInfo.bind(store)}
+      updateLoginInfo={store.updateLogInInfo.bind(store)}
     />,
     document.getElementById("root")
   );
 };
 
-rerenderEntireTree(state);
-subscribe(rerenderEntireTree);
+rerenderEntireTree(store.getState());
+store.subscribe(rerenderEntireTree);
