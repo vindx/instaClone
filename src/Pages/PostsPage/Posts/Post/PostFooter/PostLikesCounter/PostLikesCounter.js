@@ -5,10 +5,16 @@ const PostLikesCounter = props => {
   const { likesNumber } = props;
 
   return (
-    <div>
-      <span className={styles.postLikesCounter}>{likesNumber}</span>
-      likes
-    </div>
+    <>
+      {likesNumber.length > 0 ? (
+        <div className={styles.likesContainer}>
+          <span className={styles.postLikesCounter}>{likesNumber.length}</span>
+          {likesNumber.length === 1 ? "like" : "likes"}
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

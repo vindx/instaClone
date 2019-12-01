@@ -4,12 +4,12 @@ import Posts from "./Posts/Posts";
 import CreatePostForm from "../../components/CreatePostForm/CreatePostForm";
 
 const PostsPage = props => {
-  const { postsUrl, posts, createNewPost, newPost, updateNewPost } = props;
+  const { postsUrl, posts, createNewPost, newPost, updateNewPost, putLikeOnPost } = props;
 
   return (
     <>
       <Header postsUrl={postsUrl} />
-      <Posts posts={posts} />
+      <Posts posts={posts} putLikeOnPost={putLikeOnPost} />
       <CreatePostForm
         newPost={newPost}
         updateNewPost={updateNewPost}

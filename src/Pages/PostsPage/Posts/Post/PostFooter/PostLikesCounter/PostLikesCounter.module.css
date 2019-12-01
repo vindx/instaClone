@@ -2,3 +2,12 @@
   font-weight: bold;
   margin-right: 5px;
 }
+
+.likesContainer {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.likesContainer:active {
+  opacity: 0.5;
+}

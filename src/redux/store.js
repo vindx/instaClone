@@ -58,7 +58,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -72,7 +72,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -86,7 +86,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -100,7 +100,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -114,7 +114,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -128,7 +128,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -142,7 +142,7 @@ let store = {
               "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -156,7 +156,7 @@ let store = {
               "https://wallbox.ru/wallpapers/main/201137/cherno-belaya-oblaka-more-ba2d425.jpg", //URL, optional
             description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
             tags: "",
-            likes: 18,
+            likes: [],
             wasLiked: true,
             owner: {
               userName: "kopola",
@@ -192,7 +192,7 @@ let store = {
                 I was getting so sad, I talked to them, of course nobody replied me.Even though I found my family and friends and talked to them, they ignored me.I was so sad and felt lonely.
                 Suddenly I saw my body was clear a bit,and finally found out I've already dead.After realising that,I began to cry a lot.”Then I woke up and I was really crying reality.`,
         tags: "",
-        likes: 6,
+        likes: ["1232"],
         wasLiked: true,
         owner: {
           userName: "loqasy",
@@ -207,7 +207,7 @@ let store = {
           "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
         description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
         tags: "",
-        likes: 18,
+        likes: [],
         wasLiked: true,
         owner: {
           userName: "kopola",
@@ -222,7 +222,7 @@ let store = {
           "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
         description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
         tags: "",
-        likes: 18,
+        likes: [],
         wasLiked: true,
         owner: {
           userName: "kopola",
@@ -237,7 +237,7 @@ let store = {
           "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
         description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
         tags: "",
-        likes: 18,
+        likes: [],
         wasLiked: true,
         owner: {
           userName: "kopola",
@@ -252,7 +252,7 @@ let store = {
           "https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
         description: `this is my first time to archery. i'm not a good archer at all \u{1F606}`,
         tags: "",
-        likes: 18,
+        likes: [],
         wasLiked: true,
         owner: {
           userName: "kopola",
@@ -267,7 +267,7 @@ let store = {
           "https://images.pexels.com/photos/532168/pexels-photo-532168.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", //URL, optional
         description: `WOW! \u{1F63B} just look at these flowers \u{1F33C} `,
         tags: "",
-        likes: 8,
+        likes: [],
         wasLiked: false,
         owner: {
           userName: "powaki",
@@ -280,6 +280,13 @@ let store = {
   _callSubscriber() {},
 
   getState() {
+    return this._state;
+    },
+  getLikeStatus() {
+    const { userName } = this._state.users.find(user => user.activeNow);
+    this._state.posts.forEach(post => {
+      post.wasLiked = post.likes.includes(userName);
+    });
     return this._state;
   },
   subscribe(observer) {
@@ -381,7 +388,7 @@ let store = {
       postPhoto,
       description,
       tags,
-      likes: 0,
+      likes: [],
       wasLiked: false,
       owner: {
         userName: userName,
@@ -409,6 +416,18 @@ let store = {
       if (activeUser.posts[i].id === id) {
         activeUser.posts.splice(i, 1);
       }
+    }
+    this._callSubscriber(this._state);
+  },
+
+  putLikeOnPost(postId) {
+    const { userName } = this._state.users.find(user => user.activeNow);
+    let post = this._state.posts.find(post => post.id === postId);
+    if (post.likes.includes(userName)) {
+      const index = post.likes.findIndex(user => user === userName);
+      post.likes.splice(index, 1);
+    } else {
+      post.likes.push(userName);
     }
     this._callSubscriber(this._state);
   },

@@ -9,7 +9,6 @@ import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 function App(props) {
   const {
-    state,
     createAccount,
     createNewPost,
     updateNewUserInfo,
@@ -19,8 +18,11 @@ function App(props) {
     logOut,
     deleteUser,
     updateNewPost,
-    deletePost
+    deletePost,
+    getLikeStatus,
+    putLikeOnPost
   } = props;
+  let { state } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
     "/posts",
     "/profile",
@@ -36,6 +38,7 @@ function App(props) {
       );
       if (user) {
         user.activeNow = true;
+        state = getLikeStatus();
         return user;
       }
     }
@@ -84,6 +87,7 @@ function App(props) {
               newPost={state.newPost}
               updateNewPost={updateNewPost}
               createNewPost={createNewPost}
+              putLikeOnPost={putLikeOnPost}
             />
           )}
         />

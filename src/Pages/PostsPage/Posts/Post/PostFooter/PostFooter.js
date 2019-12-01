@@ -6,11 +6,11 @@ import PostDescription from "./PostDescription/PostDescription";
 import styles from "./PostFooter.module.css";
 
 const PostFooter = props => {
-  const { liked, likesNumber, userName, description } = props;
+  const { id, liked, likesNumber, userName, description, putLikeOnPost } = props;
 
   return (
     <div className={styles.postFooter}>
-      <PostActions liked={liked} />
+      <PostActions id={id} liked={liked} putLikeOnPost={putLikeOnPost} />
       <PostLikesCounter likesNumber={likesNumber} />
       <PostDescription userName={userName} description={description} />
     </div>

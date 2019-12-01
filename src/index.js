@@ -18,6 +18,8 @@ const rerenderEntireTree = state => {
       updateNewUserInfo={store.updateNewUserInfo.bind(store)}
       updateLoginInfo={store.updateLogInInfo.bind(store)}
       updateNewPost={store.updateNewPost.bind(store)}
+      getLikeStatus={store.getLikeStatus.bind(store)}
+      putLikeOnPost={store.putLikeOnPost.bind(store)}
     />,
     document.getElementById("root")
   );
