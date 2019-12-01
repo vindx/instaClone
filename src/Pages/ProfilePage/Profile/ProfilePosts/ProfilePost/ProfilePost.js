@@ -1,13 +1,13 @@
 import React from "react";
 
+import { deletePostActionCreator } from "../../../../../redux/store";
 import styles from "./ProfilePost.module.css";
 
 const ProfilePost = props => {
   const { id, photo, description, /*deletePost*/ dispatch } = props;
 
   const handleDeletePost = () => {
-    const action = { type: "DELETE_POST", id };
-    dispatch(action);
+    dispatch(deletePostActionCreator(id));
   };
 
   return (

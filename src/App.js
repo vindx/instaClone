@@ -6,6 +6,7 @@ import LogInPage from "./Pages/LogInPage/LogInPage";
 import AdminPage from "./Pages/AdminPage/AdminPage";
 import PostsPage from "./Pages/PostsPage/PostsPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+import { getLikesStatusActionCreator } from "./redux/store";
 
 function App(props) {
   const {
@@ -39,7 +40,7 @@ function App(props) {
       );
       if (user) {
         user.activeNow = true;
-        state = dispatch({ type: "GET_LIKES_STATUS" });
+        state = dispatch(getLikesStatusActionCreator());
         return user;
       }
     }

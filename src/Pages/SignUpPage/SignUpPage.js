@@ -1,14 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import styles from "./SignUpPage.module.css";
-import { Link } from "react-router-dom";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
+
+import {
+  createAccountActionCreator,
+  updateNewUserInfoActionCreator
+} from "../../redux/store";
 import primaryInstaColor from "../../components/PrimaryInstaColor";
+import styles from "./SignUpPage.module.css";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,14 +49,14 @@ const SignUpPage = props => {
     let fullName = newAccountFullName.current.value;
     let userName = newAccountUserName.current.value;
     let password = newAccountPassword.current.value;
-    const action = {
-      type: "UPDATE_NEW_USER_INFO",
-      email,
-      fullName,
-      userName,
-      password
-    };
-    dispatch(action);
+    dispatch(
+      updateNewUserInfoActionCreator({
+        email,
+        fullName,
+        userName,
+        password
+      })
+    );
   };
 
   const createNewAccount = () => {
@@ -97,7 +102,7 @@ const SignUpPage = props => {
       newAccountPassword.current.parentElement.classList.add(
         styles.wrongPassword
       );
-    } else if (dispatch({ type: "CREATE_ACCOUNT" })) {
+    } else if (dispatch(createAccountActionCreator())) {
       newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
       newAccountUserName.current.parentElement.classList.add(
         styles.alreadyExist

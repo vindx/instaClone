@@ -1,5 +1,9 @@
 import React from "react";
 
+import {
+  createNewPostActionCreator,
+  updateNewPostInfoActionCreator
+} from "../../../redux/store";
 import styles from "./ModalWindow.module.css";
 
 const ModalWindow = props => {
@@ -32,8 +36,7 @@ const ModalWindow = props => {
       postDescription.current.style.borderColor = "red";
       postDescription.current.style.outline = "none";
     } else {
-      const action = { type: "CREATE_NEW_POST" };
-      dispatch(action);
+      dispatch(createNewPostActionCreator());
       onClose();
       window.scrollTo(0, 0);
     }
@@ -42,8 +45,7 @@ const ModalWindow = props => {
   const newPostOnChange = () => {
     const postPhoto = postPhotoUrl.current.value;
     const description = postDescription.current.value;
-    const action = { type: "UPDATE_NEW_POST_INFO", postPhoto, description };
-    dispatch(action);
+    dispatch(updateNewPostInfoActionCreator({ postPhoto, description }));
   };
 
   return (

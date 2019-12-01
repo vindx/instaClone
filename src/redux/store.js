@@ -1,3 +1,20 @@
+// all constants about ACCOUNT
+const UPDATE_NEW_USER_INFO = "UPDATE_NEW_USER_INFO";
+const CREATE_ACCOUNT = "CREATE_ACCOUNT";
+const REMOVE_REQUEST = "REMOVE_REQUEST";
+const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+// all constants about POST
+const UPDATE_NEW_POST_INFO = "UPDATE_NEW_POST_INFO";
+const CREATE_NEW_POST = "CREATE_NEW_POST";
+const DELETE_POST = "DELETE_POST";
+// all constants about LIKES
+const GET_LIKES_STATUS = "GET_LIKES_STATUS";
+const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
+// all constants about LOG(IN/OUT)
+const UPDATE_LOGIN_INFO = "UPDATE_LOGIN_INFO";
+const LOGIN_CHECK = "LOGIN_CHECK";
+const LOGOUT = "LOGOUT";
+
 const generateID = () =>
   Math.random()
     .toString(36)
@@ -453,7 +470,7 @@ let store = {
   },*/
 
   dispatch(action) {
-    if (action.type === "CREATE_NEW_POST") {
+    if (action.type === CREATE_NEW_POST) {
       let activeUser = this._state.users.find(user => user.activeNow);
       const { userName, profilePhoto } = activeUser;
       const { postPhoto, description, tags } = this._state.newPost;
@@ -479,7 +496,7 @@ let store = {
       };
 
       this._callSubscriber(this._state);
-    } else if (action.type === "UPDATE_NEW_POST_INFO") {
+    } else if (action.type === UPDATE_NEW_POST_INFO) {
       const { postPhoto = "", description, tags = "" } = action;
       this._state.newPost = {
         postPhoto,
@@ -487,7 +504,7 @@ let store = {
         tags
       };
       this._callSubscriber(this._state);
-    } else if (action.type === "DELETE_POST") {
+    } else if (action.type === DELETE_POST) {
       const { id } = action;
       let activeUser = this._state.users.find(user => user.activeNow);
       for (let i = 0; i < this._state.posts.length; i++) {
@@ -501,20 +518,20 @@ let store = {
         }
       }
       this._callSubscriber(this._state);
-    } else if (action.type === "GET_LIKES_STATUS") {
+    } else if (action.type === GET_LIKES_STATUS) {
       const { userName } = this._state.users.find(user => user.activeNow);
       this._state.posts.forEach(post => {
         post.wasLiked = post.likes.includes(userName);
       });
       return this._state;
-    } else if (action.type === "UPDATE_LOGIN_INFO") {
+    } else if (action.type === UPDATE_LOGIN_INFO) {
       const { emailOrUserName, password } = action;
       this._state.loginUser = {
         emailOrUserName,
         password
       };
       this._callSubscriber(this._state);
-    } else if (action.type === "LOGIN_CHECK") {
+    } else if (action.type === LOGIN_CHECK) {
       const findByEmailOrUserNameAndPassword = ({
         email,
         userName,
@@ -538,11 +555,11 @@ let store = {
         this._callSubscriber(this._state);
         return true;
       }
-    } else if (action.type === "LOGOUT") {
+    } else if (action.type === LOGOUT) {
       let activeUser = this._state.users.find(user => user.activeNow);
       activeUser.activeNow = false;
       this._callSubscriber(this._state);
-    } else if (action.type === "UPDATE_NEW_USER_INFO") {
+    } else if (action.type === UPDATE_NEW_USER_INFO) {
       const { email, fullName, userName, password } = action;
       this._state.newUser = {
         activeNow: false,
@@ -555,7 +572,7 @@ let store = {
         posts: []
       };
       this._callSubscriber(this._state);
-    } else if (action.type === "CREATE_ACCOUNT") {
+    } else if (action.type === CREATE_ACCOUNT) {
       const findByMatchingEmailOrUserName = ({ email, userName }) => {
         return (
           email === this._state.newUser.email ||
@@ -581,7 +598,7 @@ let store = {
         };
         this._callSubscriber(this._state);
       }
-    } else if (action.type === "PUT_LIKE_ON_POST") {
+    } else if (action.type === PUT_LIKE_ON_POST) {
       const { id: postId } = action;
       const { userName } = this._state.users.find(user => user.activeNow);
       let post = this._state.posts.find(post => post.id === postId);
@@ -592,11 +609,11 @@ let store = {
         post.likes.push(userName);
       }
       this._callSubscriber(this._state);
-    } else if (action.type === "REMOVE_REQUEST") {
+    } else if (action.type === REMOVE_REQUEST) {
       let activeUser = this._state.users.find(user => user.activeNow);
       activeUser.removeRequest = !activeUser.removeRequest;
       this._callSubscriber(this._state);
-    } else if (action.type === "DELETE_USER") {
+    } else if (action.type === DELETE_ACCOUNT) {
       const { userName } = action;
       const index = this._state.users.findIndex(
         user => user.userName === userName
@@ -613,5 +630,50 @@ let store = {
     }
   }
 };
+
+// all action creators about ACCOUNT
+export const updateNewUserInfoActionCreator = ({
+  email,
+  fullName,
+  userName,
+  password
+}) => ({
+  type: UPDATE_NEW_USER_INFO,
+  email,
+  fullName,
+  userName,
+  password
+});
+export const createAccountActionCreator = () => ({ type: CREATE_ACCOUNT });
+export const removeRequestActionCreator = () => ({ type: REMOVE_REQUEST });
+export const deleteAccountActionCreator = userName => ({
+  type: DELETE_ACCOUNT,
+  userName
+});
+// all action creators about POST
+export const updateNewPostInfoActionCreator = ({ postPhoto, description }) => ({
+  type: UPDATE_NEW_POST_INFO,
+  postPhoto,
+  description
+});
+export const createNewPostActionCreator = () => ({ type: CREATE_NEW_POST });
+export const deletePostActionCreator = id => ({ type: DELETE_POST, id });
+// all action creators about LIKES
+export const getLikesStatusActionCreator = () => ({ type: GET_LIKES_STATUS });
+export const putLikeOnPostActionCreator = id => ({
+  type: PUT_LIKE_ON_POST,
+  id
+});
+// all action creators about LOG(IN/OUT)
+export const updateLoginInfoActionCreator = ({
+  emailOrUserName,
+  password
+}) => ({
+  type: UPDATE_LOGIN_INFO,
+  emailOrUserName,
+  password
+});
+export const loginCheckActionCreator = () => ({ type: LOGIN_CHECK });
+export const logOutActionCreator = () => ({ type: LOGOUT });
 
 export default store;

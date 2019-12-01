@@ -1,7 +1,11 @@
 import React from "react";
-
-import styles from "./ProfileHeader.module.css";
 import { Link } from "react-router-dom";
+
+import {
+  logOutActionCreator,
+  removeRequestActionCreator
+} from "../../../../redux/store";
+import styles from "./ProfileHeader.module.css";
 
 const ProfileHeader = props => {
   const {
@@ -16,13 +20,11 @@ const ProfileHeader = props => {
 
   const handleLogOut = () => {
     localStorage.clear();
-    const action = { type: "LOGOUT" };
-    dispatch(action);
+    dispatch(logOutActionCreator());
   };
 
   const deleteRequest = () => {
-    const action = { type: "REMOVE_REQUEST" };
-    dispatch(action);
+    dispatch(removeRequestActionCreator());
   };
 
   return (

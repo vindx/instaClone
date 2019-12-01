@@ -8,6 +8,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
+import {
+  loginCheckActionCreator,
+  updateLoginInfoActionCreator
+} from "../../redux/store";
 import primaryInstaColor from "../../components/PrimaryInstaColor";
 import styles from "./LogInPage.module.css";
 
@@ -41,8 +45,7 @@ const LogInPage = props => {
   const onInputChange = () => {
     let emailOrUserName = existAccountEmailOrUserName.current.value;
     let password = existAccountPassword.current.value;
-    const action = { type: "UPDATE_LOGIN_INFO", emailOrUserName, password };
-    dispatch(action);
+    dispatch(updateLoginInfoActionCreator({ emailOrUserName, password }));
   };
 
   const handleLogIn = () => {
@@ -67,7 +70,7 @@ const LogInPage = props => {
       existAccountPassword.current.parentElement.classList.add(
         styles.shortPassword
       );
-    } else if (dispatch({ type: "LOGIN_CHECK" })) {
+    } else if (dispatch(loginCheckActionCreator())) {
       localStorage.activeUser = JSON.stringify(loginData);
     } else {
       existAccountEmailOrUserName.current.parentElement.classList.add(

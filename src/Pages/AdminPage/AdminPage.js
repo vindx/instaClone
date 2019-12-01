@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -7,8 +8,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+
+import {
+  deleteAccountActionCreator,
+  logOutActionCreator
+} from "../../redux/store";
 import styles from "./AdminPage.module.css";
-import { Link } from "react-router-dom";
 
 const columns = [
   { id: "userName", label: "Username" },
@@ -51,13 +56,11 @@ const AdminPage = props => {
 
   const handleLogOut = () => {
     localStorage.clear();
-    const action = { type: "LOGOUT" };
-    dispatch(action);
+    dispatch(logOutActionCreator());
   };
 
   const handleDeleteAccount = userName => {
-    const action = { type: "DELETE_USER", userName };
-    dispatch(action);
+    dispatch(deleteAccountActionCreator(userName));
   };
 
   return (
