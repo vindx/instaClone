@@ -5,7 +5,7 @@ import ProfilePost from "./ProfilePost/ProfilePost";
 import styles from "./ProfilePosts.module.css";
 
 const ProfilePosts = props => {
-  const { posts, deletePost } = props;
+  const { posts, /*deletePost*/ dispatch } = props;
 
   return (
     <div className={styles.profilePosts}>
@@ -16,7 +16,8 @@ const ProfilePosts = props => {
             id={id}
             photo={postPhoto}
             description={description}
-            deletePost={deletePost}
+            // deletePost={deletePost}
+            dispatch={dispatch}
           />
         ))
       ) : (

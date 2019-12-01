@@ -4,10 +4,11 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import styles from "./PostActions.module.css";
 
 const PostActions = props => {
-  const { id, liked, putLikeOnPost } = props;
+  const { id, liked, /*putLikeOnPost*/ dispatch } = props;
 
   const handleLikePost = () => {
-    putLikeOnPost(id);
+    const action = { type: "PUT_LIKE_ON_POST", id };
+    dispatch(action);
   };
 
   return (

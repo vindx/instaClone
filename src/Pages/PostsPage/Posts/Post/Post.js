@@ -6,7 +6,7 @@ import PostPhoto from "./PostPhoto/PostPhoto";
 import styles from "./Post.module.css";
 
 const Post = props => {
-  const { postInfo, putLikeOnPost } = props;
+  const { postInfo, /*putLikeOnPost*/ dispatch } = props;
   const { owner, postPhoto, id, wasLiked, likes, description } = postInfo;
 
   return (
@@ -22,7 +22,8 @@ const Post = props => {
         likesNumber={likes}
         userName={owner.userName}
         description={description}
-        putLikeOnPost={putLikeOnPost}
+        // putLikeOnPost={putLikeOnPost}
+        dispatch={dispatch}
       />
     </article>
   );

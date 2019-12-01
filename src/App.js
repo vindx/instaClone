@@ -9,18 +9,19 @@ import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 function App(props) {
   const {
-    createAccount,
-    createNewPost,
-    updateNewUserInfo,
-    updateLoginInfo,
-    logInCheck,
-    removeRequest,
-    logOut,
-    deleteUser,
-    updateNewPost,
-    deletePost,
-    getLikeStatus,
-    putLikeOnPost
+    // createAccount,
+    // createNewPost,
+    // updateNewUserInfo,
+    // updateLoginInfo,
+    // logInCheck,
+    // removeRequest,
+    // logOut,
+    // deleteUser,
+    // updateNewPost,
+    // deletePost,
+    // getLikeStatus,
+    // putLikeOnPost,
+    dispatch
   } = props;
   let { state } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
@@ -38,7 +39,7 @@ function App(props) {
       );
       if (user) {
         user.activeNow = true;
-        state = getLikeStatus();
+        state = dispatch({ type: "GET_LIKES_STATUS" });
         return user;
       }
     }
@@ -71,8 +72,9 @@ function App(props) {
           render={() => (
             <AdminPage
               users={state.users}
-              logOut={logOut}
-              deleteUser={deleteUser}
+              // logOut={logOut}
+              // deleteUser={deleteUser}
+              dispatch={dispatch}
             />
           )}
         />
@@ -85,9 +87,10 @@ function App(props) {
               postsUrl={postsUrl}
               posts={state.posts}
               newPost={state.newPost}
-              updateNewPost={updateNewPost}
-              createNewPost={createNewPost}
-              putLikeOnPost={putLikeOnPost}
+              // updateNewPost={updateNewPost}
+              // createNewPost={createNewPost}
+              // putLikeOnPost={putLikeOnPost}
+              dispatch={dispatch}
             />
           )}
         />
@@ -99,12 +102,13 @@ function App(props) {
             <ProfilePage
               postsUrl={postsUrl}
               user={activeUser}
-              removeRequest={removeRequest}
-              logOut={logOut}
               newPost={state.newPost}
-              updateNewPost={updateNewPost}
-              createNewPost={createNewPost}
-              deletePost={deletePost}
+              // removeRequest={removeRequest}
+              // logOut={logOut}
+              // updateNewPost={updateNewPost}
+              // createNewPost={createNewPost}
+              // deletePost={deletePost}
+              dispatch={dispatch}
             />
           )}
         />
@@ -116,8 +120,9 @@ function App(props) {
             <SignUpPage
               logInUrl={logInUrl}
               newUser={state.newUser}
-              updateNewUserInfo={updateNewUserInfo}
-              createAccount={createAccount}
+              // updateNewUserInfo={updateNewUserInfo}
+              // createAccount={createAccount}
+              dispatch={dispatch}
             />
           )}
         />
@@ -128,9 +133,10 @@ function App(props) {
           render={() => (
             <LogInPage
               signUpUrl={signUpUrl}
-              logInCheck={logInCheck}
               loginUser={state.loginUser}
-              updateLoginInfo={updateLoginInfo}
+              // logInCheck={logInCheck}
+              // updateLoginInfo={updateLoginInfo}
+              dispatch={dispatch}
             />
           )}
         />

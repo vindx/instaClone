@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 });
 
 const AdminPage = props => {
-  const { users: dataBase, logOut, deleteUser } = props;
+  const { users: dataBase, /*logOut,*/ /* deleteUser,*/ dispatch } = props;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -51,11 +51,13 @@ const AdminPage = props => {
 
   const handleLogOut = () => {
     localStorage.clear();
-    logOut();
+    const action = { type: "LOGOUT" };
+    dispatch(action);
   };
 
   const handleDeleteAccount = userName => {
-    deleteUser(userName);
+    const action = { type: "DELETE_USER", userName };
+    dispatch(action);
   };
 
   return (

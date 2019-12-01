@@ -7,12 +7,13 @@ const ProfilePage = props => {
   const {
     postsUrl,
     user,
-    removeRequest,
-    logOut,
-    createNewPost,
     newPost,
-    updateNewPost,
-    deletePost
+    // removeRequest,
+    // logOut,
+    // createNewPost,
+    // updateNewPost,
+    // deletePost
+    dispatch
   } = props;
 
   return (
@@ -20,14 +21,16 @@ const ProfilePage = props => {
       <Header postsUrl={postsUrl} />
       <Profile
         user={user}
-        deletePost={deletePost}
-        removeRequest={removeRequest}
-        logOut={logOut}
+        // deletePost={deletePost}
+        // removeRequest={removeRequest}
+        // logOut={logOut}
+        dispatch={dispatch}
       />
       <CreatePostForm
         newPost={newPost}
-        updateNewPost={updateNewPost}
-        createNewPost={createNewPost}
+        // updateNewPost={updateNewPost}
+        // createNewPost={createNewPost}
+        dispatch={dispatch}
       />
     </>
   );

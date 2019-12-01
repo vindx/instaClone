@@ -3,10 +3,11 @@ import React from "react";
 import styles from "./ProfilePost.module.css";
 
 const ProfilePost = props => {
-  const { id, photo, description, deletePost } = props;
+  const { id, photo, description, /*deletePost*/ dispatch } = props;
 
-    const handleDeletePost = () => {
-    deletePost(id);
+  const handleDeletePost = () => {
+    const action = { type: "DELETE_POST", id };
+    dispatch(action);
   };
 
   return (

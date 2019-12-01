@@ -281,26 +281,26 @@ let store = {
 
   getState() {
     return this._state;
-    },
-  getLikeStatus() {
+  },
+  subscribe(observer) {
+    this._callSubscriber = observer;
+  },
+  /*getLikeStatus() {
     const { userName } = this._state.users.find(user => user.activeNow);
     this._state.posts.forEach(post => {
       post.wasLiked = post.likes.includes(userName);
     });
     return this._state;
-  },
-  subscribe(observer) {
-    this._callSubscriber = observer;
-  },
+  },*/
 
-  updateLogInInfo({ emailOrUserName, password }) {
+  /*  updateLogInInfo({ emailOrUserName, password }) {
     this._state.loginUser = {
       emailOrUserName,
       password
     };
     this._callSubscriber(this._state);
-  },
-  logInCheck() {
+  },*/
+  /* logInCheck() {
     const findByEmailOrUserNameAndPassword = ({
       email,
       userName,
@@ -322,14 +322,14 @@ let store = {
       this._callSubscriber(this._state);
       return true;
     }
-  },
-  logOut() {
+  },*/
+  /*logOut() {
     let activeUser = this._state.users.find(user => user.activeNow);
     activeUser.activeNow = false;
     this._callSubscriber(this._state);
-  },
+  },*/
 
-  updateNewUserInfo({ email, fullName, userName, password }) {
+  /*  updateNewUserInfo({ email, fullName, userName, password }) {
     this._state.newUser = {
       activeNow: false,
       email,
@@ -341,8 +341,8 @@ let store = {
       posts: []
     };
     this._callSubscriber(this._state);
-  },
-  createAccount() {
+  },*/
+  /*createAccount() {
     const findByMatchingEmailOrUserName = ({ email, userName }) => {
       return (
         email === this._state.newUser.email ||
@@ -368,17 +368,17 @@ let store = {
       };
       this._callSubscriber(this._state);
     }
-  },
+  },*/
 
-  updateNewPost({ postPhoto = "", description, tags = "" }) {
+  /*  updateNewPost({ postPhoto = "", description, tags = "" }) {
     this._state.newPost = {
       postPhoto,
       description,
       tags
     };
     this._callSubscriber(this._state);
-  },
-  createNewPost() {
+  },*/
+  /*  createNewPost() {
     let activeUser = this._state.users.find(user => user.activeNow);
     const { userName, profilePhoto } = activeUser;
     const { postPhoto, description, tags } = this._state.newPost;
@@ -404,8 +404,8 @@ let store = {
     };
 
     this._callSubscriber(this._state);
-  },
-  deletePost(id) {
+  },*/
+  /*deletePost(id) {
     let activeUser = this._state.users.find(user => user.activeNow);
     for (let i = 0; i < this._state.posts.length; i++) {
       if (this._state.posts[i].id === id) {
@@ -418,9 +418,9 @@ let store = {
       }
     }
     this._callSubscriber(this._state);
-  },
+  },*/
 
-  putLikeOnPost(postId) {
+  /*  putLikeOnPost(postId) {
     const { userName } = this._state.users.find(user => user.activeNow);
     let post = this._state.posts.find(post => post.id === postId);
     if (post.likes.includes(userName)) {
@@ -430,14 +430,14 @@ let store = {
       post.likes.push(userName);
     }
     this._callSubscriber(this._state);
-  },
+  },*/
 
-  removeRequest() {
+  /* removeRequest() {
     let activeUser = this._state.users.find(user => user.activeNow);
     activeUser.removeRequest = !activeUser.removeRequest;
     this._callSubscriber(this._state);
-  },
-  deleteUser(userName) {
+  },*/
+  /* deleteUser(userName) {
     const index = this._state.users.findIndex(
       user => user.userName === userName
     );
@@ -450,6 +450,167 @@ let store = {
       }
     }
     this._callSubscriber(this._state);
+  },*/
+
+  dispatch(action) {
+    if (action.type === "CREATE_NEW_POST") {
+      let activeUser = this._state.users.find(user => user.activeNow);
+      const { userName, profilePhoto } = activeUser;
+      const { postPhoto, description, tags } = this._state.newPost;
+      const newPost = {
+        id: generateID(),
+        postedDate: Date.now(),
+        postPhoto,
+        description,
+        tags,
+        likes: [],
+        wasLiked: false,
+        owner: {
+          userName: userName,
+          profilePhoto: profilePhoto
+        }
+      };
+      this._state.posts.unshift(newPost);
+      activeUser.posts.unshift(newPost);
+      this._state.newPost = {
+        postPhoto: "",
+        description: "",
+        tags: ""
+      };
+
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE_NEW_POST_INFO") {
+      const { postPhoto = "", description, tags = "" } = action;
+      this._state.newPost = {
+        postPhoto,
+        description,
+        tags
+      };
+      this._callSubscriber(this._state);
+    } else if (action.type === "DELETE_POST") {
+      const { id } = action;
+      let activeUser = this._state.users.find(user => user.activeNow);
+      for (let i = 0; i < this._state.posts.length; i++) {
+        if (this._state.posts[i].id === id) {
+          this._state.posts.splice(i, 1);
+        }
+      }
+      for (let i = 0; i < activeUser.posts.length; i++) {
+        if (activeUser.posts[i].id === id) {
+          activeUser.posts.splice(i, 1);
+        }
+      }
+      this._callSubscriber(this._state);
+    } else if (action.type === "GET_LIKES_STATUS") {
+      const { userName } = this._state.users.find(user => user.activeNow);
+      this._state.posts.forEach(post => {
+        post.wasLiked = post.likes.includes(userName);
+      });
+      return this._state;
+    } else if (action.type === "UPDATE_LOGIN_INFO") {
+      const { emailOrUserName, password } = action;
+      this._state.loginUser = {
+        emailOrUserName,
+        password
+      };
+      this._callSubscriber(this._state);
+    } else if (action.type === "LOGIN_CHECK") {
+      const findByEmailOrUserNameAndPassword = ({
+        email,
+        userName,
+        password
+      }) => {
+        return (
+          (email === this._state.loginUser.emailOrUserName ||
+            userName === this._state.loginUser.emailOrUserName) &&
+          password === this._state.loginUser.password
+        );
+      };
+      let foundedUser = this._state.users.find(
+        findByEmailOrUserNameAndPassword
+      );
+      if (foundedUser) {
+        foundedUser.activeNow = true;
+        this._state.loginUser = {
+          emailOrUserName: "",
+          password: ""
+        };
+        this._callSubscriber(this._state);
+        return true;
+      }
+    } else if (action.type === "LOGOUT") {
+      let activeUser = this._state.users.find(user => user.activeNow);
+      activeUser.activeNow = false;
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE_NEW_USER_INFO") {
+      const { email, fullName, userName, password } = action;
+      this._state.newUser = {
+        activeNow: false,
+        email,
+        userName,
+        fullName,
+        password,
+        profilePhoto: "",
+        removeRequest: false,
+        posts: []
+      };
+      this._callSubscriber(this._state);
+    } else if (action.type === "CREATE_ACCOUNT") {
+      const findByMatchingEmailOrUserName = ({ email, userName }) => {
+        return (
+          email === this._state.newUser.email ||
+          userName === this._state.newUser.userName ||
+          userName === this._state.newUser.email ||
+          email === this._state.newUser.userName
+        );
+      };
+      if (this._state.users.find(findByMatchingEmailOrUserName)) {
+        return true;
+      } else {
+        this._state.newUser.activeNow = true;
+        this._state.users.push(this._state.newUser);
+        this._state.newUser = {
+          activeNow: false,
+          email: "",
+          userName: "",
+          fullName: "",
+          profilePhoto: "",
+          password: "",
+          removeRequest: false,
+          posts: []
+        };
+        this._callSubscriber(this._state);
+      }
+    } else if (action.type === "PUT_LIKE_ON_POST") {
+      const { id: postId } = action;
+      const { userName } = this._state.users.find(user => user.activeNow);
+      let post = this._state.posts.find(post => post.id === postId);
+      if (post.likes.includes(userName)) {
+        const index = post.likes.findIndex(user => user === userName);
+        post.likes.splice(index, 1);
+      } else {
+        post.likes.push(userName);
+      }
+      this._callSubscriber(this._state);
+    } else if (action.type === "REMOVE_REQUEST") {
+      let activeUser = this._state.users.find(user => user.activeNow);
+      activeUser.removeRequest = !activeUser.removeRequest;
+      this._callSubscriber(this._state);
+    } else if (action.type === "DELETE_USER") {
+      const { userName } = action;
+      const index = this._state.users.findIndex(
+        user => user.userName === userName
+      );
+      if (index > -1) {
+        this._state.users.splice(index, 1);
+        for (let i = this._state.posts.length - 1; i >= 0; i--) {
+          if (this._state.posts[i].owner.userName === userName) {
+            this._state.posts.splice(i, 1);
+          }
+        }
+      }
+      this._callSubscriber(this._state);
+    }
   }
 };
 

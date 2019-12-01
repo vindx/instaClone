@@ -9,17 +9,20 @@ const ProfileHeader = props => {
     userName,
     fullName,
     removeRequestStatus: removeProfile,
-    removeRequest,
-    logOut
+    // removeRequest,
+    dispatch
+    // logOut
   } = props;
 
   const handleLogOut = () => {
     localStorage.clear();
-    logOut();
+    const action = { type: "LOGOUT" };
+    dispatch(action);
   };
 
   const deleteRequest = () => {
-    removeRequest();
+    const action = { type: "REMOVE_REQUEST" };
+    dispatch(action);
   };
 
   return (

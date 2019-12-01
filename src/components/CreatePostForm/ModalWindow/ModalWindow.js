@@ -3,7 +3,12 @@ import React from "react";
 import styles from "./ModalWindow.module.css";
 
 const ModalWindow = props => {
-  const { onClose, isOpen, newPost, updateNewPost, createNewPost } = props;
+  const {
+    onClose,
+    isOpen,
+    newPost,
+    /*updateNewPost, createNewPost*/ dispatch
+  } = props;
 
   let postPhotoUrl = React.createRef();
   let postDescription = React.createRef();
@@ -27,7 +32,8 @@ const ModalWindow = props => {
       postDescription.current.style.borderColor = "red";
       postDescription.current.style.outline = "none";
     } else {
-      createNewPost();
+      const action = { type: "CREATE_NEW_POST" };
+      dispatch(action);
       onClose();
       window.scrollTo(0, 0);
     }
@@ -36,7 +42,8 @@ const ModalWindow = props => {
   const newPostOnChange = () => {
     const postPhoto = postPhotoUrl.current.value;
     const description = postDescription.current.value;
-    updateNewPost({ postPhoto, description });
+    const action = { type: "UPDATE_NEW_POST_INFO", postPhoto, description };
+    dispatch(action);
   };
 
   return (

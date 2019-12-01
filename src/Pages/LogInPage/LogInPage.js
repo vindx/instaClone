@@ -28,7 +28,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogInPage = props => {
-  const { loginUser, updateLoginInfo, logInCheck, signUpUrl } = props;
+  const {
+    loginUser,
+    /*updateLoginInfo, logInCheck,*/ signUpUrl,
+    dispatch
+  } = props;
   const classes = useStyles();
 
   let existAccountEmailOrUserName = React.createRef();
@@ -37,7 +41,8 @@ const LogInPage = props => {
   const onInputChange = () => {
     let emailOrUserName = existAccountEmailOrUserName.current.value;
     let password = existAccountPassword.current.value;
-    updateLoginInfo({ emailOrUserName, password });
+    const action = { type: "UPDATE_LOGIN_INFO", emailOrUserName, password };
+    dispatch(action);
   };
 
   const handleLogIn = () => {
@@ -62,7 +67,7 @@ const LogInPage = props => {
       existAccountPassword.current.parentElement.classList.add(
         styles.shortPassword
       );
-    } else if (logInCheck()) {
+    } else if (dispatch({ type: "LOGIN_CHECK" })) {
       localStorage.activeUser = JSON.stringify(loginData);
     } else {
       existAccountEmailOrUserName.current.parentElement.classList.add(

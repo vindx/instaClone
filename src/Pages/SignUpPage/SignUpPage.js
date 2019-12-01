@@ -27,7 +27,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUpPage = props => {
-  const { newUser, createAccount, updateNewUserInfo, logInUrl } = props;
+  const {
+    newUser,
+    /*createAccount, updateNewUserInfo,*/ logInUrl,
+    dispatch
+  } = props;
   const classes = useStyles();
 
   let newAccountEmail = React.createRef();
@@ -40,7 +44,14 @@ const SignUpPage = props => {
     let fullName = newAccountFullName.current.value;
     let userName = newAccountUserName.current.value;
     let password = newAccountPassword.current.value;
-    updateNewUserInfo({ email, fullName, userName, password });
+    const action = {
+      type: "UPDATE_NEW_USER_INFO",
+      email,
+      fullName,
+      userName,
+      password
+    };
+    dispatch(action);
   };
 
   const createNewAccount = () => {
@@ -86,7 +97,7 @@ const SignUpPage = props => {
       newAccountPassword.current.parentElement.classList.add(
         styles.wrongPassword
       );
-    } else if (createAccount()) {
+    } else if (dispatch({ type: "CREATE_ACCOUNT" })) {
       newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
       newAccountUserName.current.parentElement.classList.add(
         styles.alreadyExist
