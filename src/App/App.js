@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import SignUpPage from "./Pages/SignUpPage/SignUpPage";
-import LogInPage from "./Pages/LogInPage/LogInPage";
-import AdminPage from "./Pages/AdminPage/AdminPage";
-import PostsPage from "./Pages/PostsPage/PostsPage";
-import ProfilePage from "./Pages/ProfilePage/ProfilePage";
-import { getLikesStatusActionCreator } from "./redux/actions";
+import SignUpPage from "../Pages/SignUpPage/SignUpPage";
+import LogInPage from "../Pages/LogInPage/LogInPage";
+import AdminPage from "../Pages/AdminPage/AdminPage";
+import PostsPage from "../Pages/PostsPage/PostsPage";
+import ProfilePage from "../Pages/ProfilePage/ProfilePage";
+import { getLikesStatusActionCreator } from "../redux/actions";
 
 function App(props) {
   const {
