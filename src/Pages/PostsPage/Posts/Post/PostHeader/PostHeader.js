@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./PostHeader.module.css";
+import styles from './PostHeader.module.css';
 
 const PostHeader = props => {
   const { userName, profilePhotoUrl } = props;

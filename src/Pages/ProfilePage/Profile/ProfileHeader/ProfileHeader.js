@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   logOutActionCreator,
-  removeRequestActionCreator
-} from "../../../../redux/actions";
-import styles from "./ProfileHeader.module.css";
+  removeRequestActionCreator,
+} from '../../../../redux/actions';
+import styles from './ProfileHeader.module.css';
 
 const ProfileHeader = props => {
   const {
@@ -14,7 +14,7 @@ const ProfileHeader = props => {
     fullName,
     removeRequestStatus: removeProfile,
     // removeRequest,
-    dispatch
+    dispatch,
     // logOut
   } = props;
 
@@ -40,7 +40,7 @@ const ProfileHeader = props => {
         </div>
         <section className={styles.buttons}>
           <button className={styles.button} onClick={deleteRequest}>
-            {removeProfile ? "Undo Delete" : "Delete Profile"}
+            {removeProfile ? 'Undo Delete' : 'Delete Profile'}
           </button>
           <Link to="/">
             <button className={styles.button} onClick={handleLogOut}>

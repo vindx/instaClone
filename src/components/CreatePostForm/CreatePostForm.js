@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import ModalWindow from "./ModalWindow/ModalWindow";
-import styles from "./CreatePostForm.module.css";
+import ModalWindow from './ModalWindow/ModalWindow';
+import styles from './CreatePostForm.module.css';
 
 const CreatePostForm = props => {
   const { newPost, /*updateNewPost, createNewPost */ dispatch } = props;

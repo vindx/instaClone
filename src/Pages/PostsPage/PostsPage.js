@@ -1,7 +1,7 @@
-import React from "react";
-import Header from "../../components/Header/Header";
-import Posts from "./Posts/Posts";
-import CreatePostForm from "../../components/CreatePostForm/CreatePostForm";
+import React from 'react';
+import Header from '../../components/Header/Header';
+import Posts from './Posts/Posts';
+import CreatePostForm from '../../components/CreatePostForm/CreatePostForm';
 
 const PostsPage = props => {
   const {
@@ -11,7 +11,7 @@ const PostsPage = props => {
     //createNewPost,
     //updateNewPost,
     // putLikeOnPost,
-    dispatch
+    dispatch,
   } = props;
 
   return (

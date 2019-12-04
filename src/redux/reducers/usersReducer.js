@@ -1,9 +1,9 @@
-const UPDATE_NEW_USER_INFO = "UPDATE_NEW_USER_INFO";
-const CREATE_ACCOUNT = "CREATE_ACCOUNT";
-const UPDATE_LOGIN_INFO = "UPDATE_LOGIN_INFO";
-const LOGIN_CHECK = "LOGIN_CHECK";
-const LOGOUT = "LOGOUT";
-const REMOVE_REQUEST = "REMOVE_REQUEST";
+const UPDATE_NEW_USER_INFO = 'UPDATE_NEW_USER_INFO';
+const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
+const UPDATE_LOGIN_INFO = 'UPDATE_LOGIN_INFO';
+const LOGIN_CHECK = 'LOGIN_CHECK';
+const LOGOUT = 'LOGOUT';
+const REMOVE_REQUEST = 'REMOVE_REQUEST';
 
 const usersReducer = (state, action) => {
   const { emailOrUserName, email, fullName, userName, password } = action;
@@ -12,17 +12,17 @@ const usersReducer = (state, action) => {
     case UPDATE_NEW_USER_INFO:
       state.newUser = {
         activeNow: false,
-        email: email.replace(/\s/g, ""),
-        userName: userName.replace(/\s/g, ""),
+        email: email.replace(/\s/g, ''),
+        userName: userName.replace(/\s/g, ''),
         fullName,
-        password: password.replace(/\s/g, ""),
-        profilePhoto: "",
+        password: password.replace(/\s/g, ''),
+        profilePhoto: '',
         removeRequest: false,
-        posts: []
+        posts: [],
       };
-      state.newUserCheck.emailIsNull = state.newUser.email === "";
-      state.newUserCheck.userNameIsNull = state.newUser.userName === "";
-      state.newUserCheck.passwordIsNull = state.newUser.password === "";
+      state.newUserCheck.emailIsNull = state.newUser.email === '';
+      state.newUserCheck.userNameIsNull = state.newUser.userName === '';
+      state.newUserCheck.passwordIsNull = state.newUser.password === '';
       state.newUserCheck.shortPassword = state.newUser.password.length < 6;
 
       state.newUserCheck.emailOrUserNameAlreadyExist = !!state.existedUsers.find(
@@ -38,23 +38,23 @@ const usersReducer = (state, action) => {
       state.existedUsers.push(state.newUser);
       state.newUser = {
         activeNow: false,
-        email: "",
-        userName: "",
-        fullName: "",
-        profilePhoto: "",
-        password: "",
+        email: '',
+        userName: '',
+        fullName: '',
+        profilePhoto: '',
+        password: '',
         removeRequest: false,
-        posts: []
+        posts: [],
       };
       return state;
     case UPDATE_LOGIN_INFO:
       state.loginUser = {
-        emailOrUserName: emailOrUserName.replace(/\s/g, ""),
-        password: password.replace(/\s/g, "")
+        emailOrUserName: emailOrUserName.replace(/\s/g, ''),
+        password: password.replace(/\s/g, ''),
       };
       state.loginCheck.emailOrUserNameIsNull =
-        state.loginUser.emailOrUserName === "";
-      state.loginCheck.passwordIsNull = state.loginUser.password === "";
+        state.loginUser.emailOrUserName === '';
+      state.loginCheck.passwordIsNull = state.loginUser.password === '';
       state.loginCheck.shortPassword = state.loginUser.password.length < 5;
       state.loginCheck.successLogin = !!state.existedUsers.find(
         ({ email, userName, password }) =>
@@ -72,8 +72,8 @@ const usersReducer = (state, action) => {
       );
       foundedUser.activeNow = true;
       state.loginUser = {
-        emailOrUserName: "",
-        password: ""
+        emailOrUserName: '',
+        password: '',
       };
       return state;
     case LOGOUT:

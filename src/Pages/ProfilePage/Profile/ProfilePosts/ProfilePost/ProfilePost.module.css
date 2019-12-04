@@ -15,7 +15,7 @@
 }
 
 .profilePost img[alt] {
-  background: url("https://letabouret.ru/local/templates/letabouret/images/no-photo.png")
+  background: url('https://letabouret.ru/local/templates/letabouret/images/no-photo.png')
     center;
   background-size: cover;
 }

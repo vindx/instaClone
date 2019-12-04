@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import { deletePostActionCreator } from "../../../../../redux/actions";
-import styles from "./ProfilePost.module.css";
+import { deletePostActionCreator } from '../../../../../redux/actions';
+import styles from './ProfilePost.module.css';
 
 const ProfilePost = props => {
   const { id, photo, description, /*deletePost*/ dispatch } = props;

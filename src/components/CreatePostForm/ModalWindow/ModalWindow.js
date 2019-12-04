@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
 import {
   createNewPostActionCreator,
-  updateNewPostInfoActionCreator
-} from "../../../redux/actions";
-import styles from "./ModalWindow.module.css";
+  updateNewPostInfoActionCreator,
+} from '../../../redux/actions';
+import styles from './ModalWindow.module.css';
 
 const ModalWindow = props => {
   const {
     onClose,
     isOpen,
     newPost,
-    /*updateNewPost, createNewPost*/ dispatch
+    /*updateNewPost, createNewPost*/ dispatch,
   } = props;
 
   let postPhotoUrl = React.createRef();
@@ -32,9 +32,9 @@ const ModalWindow = props => {
   const addPost = () => {
     const description = postDescription.current.value;
     if (!description) {
-      postDescription.current.placeholder = "Please fill this field";
-      postDescription.current.style.borderColor = "red";
-      postDescription.current.style.outline = "none";
+      postDescription.current.placeholder = 'Please fill this field';
+      postDescription.current.style.borderColor = 'red';
+      postDescription.current.style.outline = 'none';
     } else {
       dispatch(createNewPostActionCreator());
       onClose();
@@ -54,7 +54,7 @@ const ModalWindow = props => {
         <div>Create a post</div>
         <form className={styles.form}>
           <label>
-            Photo (optionally){" "}
+            Photo (optionally){' '}
             <input
               type="text"
               placeholder="Enter URL"
@@ -64,7 +64,7 @@ const ModalWindow = props => {
             />
           </label>
           <label>
-            Description{" "}
+            Description{' '}
             <textarea
               value={newPost.description}
               onChange={newPostOnChange}

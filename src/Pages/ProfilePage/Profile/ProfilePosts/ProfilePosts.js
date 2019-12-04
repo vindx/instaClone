@@ -1,11 +1,11 @@
-import React from "react";
-import PropTypes from "proptypes";
+import React from 'react';
+import PropTypes from 'proptypes';
 
-import ProfilePost from "./ProfilePost/ProfilePost";
-import styles from "./ProfilePosts.module.css";
+import ProfilePost from './ProfilePost/ProfilePost';
+import styles from './ProfilePosts.module.css';
 
 const ProfilePosts = props => {
-  const { posts, /*deletePost*/ dispatch } = props;
+  const { posts, /* deletePost */ dispatch } = props;
 
   return (
     <div className={styles.profilePosts}>
@@ -28,7 +28,8 @@ const ProfilePosts = props => {
 };
 
 ProfilePosts.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default ProfilePosts;

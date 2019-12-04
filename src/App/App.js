@@ -1,12 +1,12 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import SignUpPage from "../Pages/SignUpPage/SignUpPage";
-import LogInPage from "../Pages/LogInPage/LogInPage";
-import AdminPage from "../Pages/AdminPage/AdminPage";
-import PostsPage from "../Pages/PostsPage/PostsPage";
-import ProfilePage from "../Pages/ProfilePage/ProfilePage";
-import { getLikesStatusActionCreator } from "../redux/actions";
+import SignUpPage from '../Pages/SignUpPage/SignUpPage';
+import LogInPage from '../Pages/LogInPage/LogInPage';
+import AdminPage from '../Pages/AdminPage/AdminPage';
+import PostsPage from '../Pages/PostsPage/PostsPage';
+import ProfilePage from '../Pages/ProfilePage/ProfilePage';
+import { getLikesStatusActionCreator } from '../redux/actions';
 
 function App(props) {
   const {
@@ -22,22 +22,22 @@ function App(props) {
     // deletePost,
     // getLikeStatus,
     // putLikeOnPost,
-    dispatch
+    dispatch,
   } = props;
   let { state } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
-    "/posts",
-    "/profile",
-    "/admin",
-    "/signup",
-    "/login"
+    '/posts',
+    '/profile',
+    '/admin',
+    '/signup',
+    '/login',
   ];
 
   const getActiveUser = users => {
     if (localStorage.length) {
-      const user = users.find(
-        user => user.userName === JSON.parse(localStorage.activeUser)
-      );
+      const user = users.find(user => {
+        return user.userName === JSON.parse(localStorage.activeUser);
+      });
       if (user) {
         user.activeNow = true;
         if (state.firstLog) {
@@ -53,17 +53,17 @@ function App(props) {
 
   (activeUser => {
     if (activeUser) {
-      if (activeUser.userName === "admin") {
-        adminUrl = "/";
+      if (activeUser.userName === 'admin') {
+        adminUrl = '/';
       } else {
-        postsUrl = "/";
+        postsUrl = '/';
       }
     } else {
-      signUpUrl = "/";
-      logInUrl = "/login";
-      postsUrl += "/hidden";
-      profileUrl += "/hidden";
-      adminUrl += "/hidden";
+      signUpUrl = '/';
+      logInUrl = '/login';
+      postsUrl += '/hidden';
+      profileUrl += '/hidden';
+      adminUrl += '/hidden';
     }
   })(activeUser);
 

@@ -1,8 +1,8 @@
-import React from "react";
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import React from 'react';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
-import { putLikeOnPostActionCreator } from "../../../../../../redux/actions";
-import styles from "./PostActions.module.css";
+import { putLikeOnPostActionCreator } from '../../../../../../redux/actions';
+import styles from './PostActions.module.css';
 
 const PostActions = props => {
   const { id, liked, /*putLikeOnPost*/ dispatch } = props;

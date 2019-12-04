@@ -1,46 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
 
 import {
   deleteAccountActionCreator,
-  logOutActionCreator
-} from "../../redux/actions";
-import styles from "./AdminPage.module.css";
+  logOutActionCreator,
+} from '../../redux/actions';
+import styles from './AdminPage.module.css';
 
 const columns = [
-  { id: "userName", label: "Username" },
-  { id: "email", label: "Email" },
-  { id: "fullName", label: "Full name", align: "center" },
-  { id: "removeRequest", label: "Remove request", align: "center" }
+  { id: 'userName', label: 'Username' },
+  { id: 'email', label: 'Email' },
+  { id: 'fullName', label: 'Full name', align: 'center' },
+  { id: 'removeRequest', label: 'Remove request', align: 'center' },
 ];
 
 const useStyles = makeStyles({
   root: {
-    width: "80%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 50
+    width: '80%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 50,
   },
   tableWrapper: {
     height: 595,
-    overflow: "auto"
+    overflow: 'auto',
   },
   tableHead: {
     fontWeight: 600,
-    color: "rgba(0, 0, 0, 1)"
-  }
+    color: 'rgba(0, 0, 0, 1)',
+  },
 });
 
 const AdminPage = props => {
-  const { users: dataBase, /*logOut,*/ /* deleteUser,*/ dispatch } = props;
+  const { users: dataBase, /* logOut, */ /* deleteUser, */ dispatch } = props;
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -84,35 +84,31 @@ const AdminPage = props => {
             <TableBody>
               {dataBase
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(row => {
-                  return (
-                    <TableRow tabIndex={-1} key={row.userName}>
-                      {columns.map(column => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell
-                            key={column.id}
-                            align={column.align}
-                            style={{ height: 25 }}
-                          >
-                            {typeof value === "boolean" && value ? (
-                              <button
-                                className={styles.button}
-                                onClick={() =>
-                                  handleDeleteAccount(row.userName)
-                                }
-                              >
-                                Delete profile
-                              </button>
-                            ) : (
-                              value
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+                .map(row => (
+                  <TableRow tabIndex={-1} key={row.userName}>
+                    {columns.map(column => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{ height: 25 }}
+                        >
+                          {typeof value === 'boolean' && value ? (
+                            <button
+                              className={styles.button}
+                              onClick={() => handleDeleteAccount(row.userName)}
+                            >
+                              Delete profile
+                            </button>
+                          ) : (
+                            value
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </div>
@@ -123,10 +119,10 @@ const AdminPage = props => {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "previous page"
+            'aria-label': 'previous page',
           }}
           nextIconButtonProps={{
-            "aria-label": "next page"
+            'aria-label': 'next page',
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}

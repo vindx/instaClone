@@ -1,7 +1,7 @@
-import React from "react";
-import Header from "../../components/Header/Header";
-import Profile from "./Profile/Profile";
-import CreatePostForm from "../../components/CreatePostForm/CreatePostForm";
+import React from 'react';
+import Header from '../../components/Header/Header';
+import Profile from './Profile/Profile';
+import CreatePostForm from '../../components/CreatePostForm/CreatePostForm';
 
 const ProfilePage = props => {
   const {
@@ -13,7 +13,7 @@ const ProfilePage = props => {
     // createNewPost,
     // updateNewPost,
     // deletePost
-    dispatch
+    dispatch,
   } = props;
 
   return (

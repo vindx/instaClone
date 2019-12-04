@@ -1,4 +1,4 @@
-@import "../../fonts/Billabong/style.css";
+@import '../../fonts/Billabong/style.css';
 
 .headerText {
   font-family: Billabong, sans-serif;
@@ -36,13 +36,13 @@
 }
 
 .fillThisField:before {
-  content: "Please fill this field";
+  content: 'Please fill this field';
 }
 
 .shortPassword:before {
-  content: "At least 6 charactres";
+  content: 'At least 6 charactres';
 }
 
 .wrongData:before {
-  content: "Incorrect data";
+  content: 'Incorrect data';
 }

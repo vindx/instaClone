@@ -1,35 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import ThemeProvider from '@material-ui/styles/ThemeProvider';
 
 import {
   createAccountActionCreator,
   getLikesStatusActionCreator,
-  updateNewUserInfoActionCreator
-} from "../../redux/actions";
-import primaryInstaColor from "../../components/PrimaryInstaColor";
-import styles from "./SignUpPage.module.css";
+  updateNewUserInfoActionCreator,
+} from '../../redux/actions';
+import primaryInstaColor from '../../components/PrimaryInstaColor';
+import styles from './SignUpPage.module.css';
 
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3)
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 3)
-  }
+    margin: theme.spacing(3, 0, 3),
+  },
 }));
 
 const SignUpPage = props => {
@@ -37,7 +37,7 @@ const SignUpPage = props => {
     newUser,
     newUserCheck,
     /*createAccount, updateNewUserInfo,*/ logInUrl,
-    dispatch
+    dispatch,
   } = props;
   const classes = useStyles();
 
@@ -56,7 +56,7 @@ const SignUpPage = props => {
         email,
         fullName,
         userName,
-        password
+        password,
       })
     );
   };
@@ -67,7 +67,7 @@ const SignUpPage = props => {
       userNameIsNull,
       passwordIsNull,
       shortPassword,
-      emailOrUserNameAlreadyExist
+      emailOrUserNameAlreadyExist,
     } = newUserCheck;
     if (emailIsNull && userNameIsNull && passwordIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
@@ -212,7 +212,7 @@ const SignUpPage = props => {
         <div style={{ margin: 20 }}>
           <Typography align="center">
             Have an account?
-            <Link to={logInUrl} style={{ marginLeft: 5, color: "#3897f1" }}>
+            <Link to={logInUrl} style={{ marginLeft: 5, color: '#3897f1' }}>
               Log in
             </Link>
           </Typography>

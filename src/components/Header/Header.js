@@ -1,7 +1,7 @@
-import React from "react";
-import { Container, Grid, TextField } from "@material-ui/core";
-import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Container, Grid, TextField } from '@material-ui/core';
+import styles from './Header.module.css';
+import { Link } from 'react-router-dom';
 
 const Header = props => {
   const { postsUrl } = props;
@@ -17,7 +17,7 @@ const Header = props => {
         <Grid item xs={2} className={styles.cursorPointer}>
           <Link
             to={postsUrl}
-            style={{ color: "black" }}
+            style={{ color: 'black' }}
             onClick={() => window.scrollTo(0, 0)}
           >
             <Grid
@@ -36,7 +36,7 @@ const Header = props => {
                   fontSize: 30,
                   marginLeft: 15,
                   marginRight: 15,
-                  fontFamily: "none"
+                  fontFamily: 'none',
                 }}
               >
                 |
@@ -58,7 +58,7 @@ const Header = props => {
         <Grid item xs={1}>
           <Link
             to="/profile"
-            style={{ color: "black" }}
+            style={{ color: 'black' }}
             onClick={() => window.scrollTo(0, 0)}
           >
             <span className={`material-icons ${styles.cursorPointer}`}>

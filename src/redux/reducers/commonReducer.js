@@ -1,8 +1,8 @@
-const CREATE_NEW_POST = "CREATE_NEW_POST";
-const DELETE_POST = "DELETE_POST";
-const GET_LIKES_STATUS = "GET_LIKES_STATUS";
-const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
-const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+const CREATE_NEW_POST = 'CREATE_NEW_POST';
+const DELETE_POST = 'DELETE_POST';
+const GET_LIKES_STATUS = 'GET_LIKES_STATUS';
+const PUT_LIKE_ON_POST = 'PUT_LIKE_ON_POST';
+const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 
 const generateID = () =>
   Math.random()
@@ -24,15 +24,15 @@ const commonReducer = (state, action) => {
         wasLiked: false,
         owner: {
           userName: activeUser.userName,
-          profilePhoto: activeUser.profilePhoto
-        }
+          profilePhoto: activeUser.profilePhoto,
+        },
       };
       state.posts.existedPosts.unshift(newPost);
       activeUser.posts.unshift(newPost);
       state.posts.newPost = {
-        postPhoto: "",
-        description: "",
-        tags: ""
+        postPhoto: '',
+        description: '',
+        tags: '',
       };
       return state;
     case DELETE_POST:

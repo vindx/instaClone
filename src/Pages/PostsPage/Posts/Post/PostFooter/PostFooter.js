@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import PostActions from "./PostActions/PostActions";
-import PostLikesCounter from "./PostLikesCounter/PostLikesCounter";
-import PostDescription from "./PostDescription/PostDescription";
-import styles from "./PostFooter.module.css";
+import PostActions from './PostActions/PostActions';
+import PostLikesCounter from './PostLikesCounter/PostLikesCounter';
+import PostDescription from './PostDescription/PostDescription';
+import styles from './PostFooter.module.css';
 
 const PostFooter = props => {
   const {
@@ -13,7 +13,7 @@ const PostFooter = props => {
     userName,
     description,
     // putLikeOnPost
-    dispatch
+    dispatch,
   } = props;
 
   return (
