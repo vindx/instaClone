@@ -6,7 +6,7 @@ import LogInPage from "./Pages/LogInPage/LogInPage";
 import AdminPage from "./Pages/AdminPage/AdminPage";
 import PostsPage from "./Pages/PostsPage/PostsPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
-import { getLikesStatusActionCreator } from "./redux/store";
+import { getLikesStatusActionCreator } from "./redux/actions";
 
 function App(props) {
   const {
@@ -40,13 +40,16 @@ function App(props) {
       );
       if (user) {
         user.activeNow = true;
-        state = dispatch(getLikesStatusActionCreator());
+        if (state.firstLog) {
+          state.firstLog = !state.firstLog;
+          dispatch(getLikesStatusActionCreator());
+        }
         return user;
       }
     }
   };
 
-  const activeUser = getActiveUser(state.users);
+  const activeUser = getActiveUser(state.users.existedUsers);
 
   (activeUser => {
     if (activeUser) {
@@ -72,7 +75,7 @@ function App(props) {
           path={adminUrl}
           render={() => (
             <AdminPage
-              users={state.users}
+              users={state.users.existedUsers}
               // logOut={logOut}
               // deleteUser={deleteUser}
               dispatch={dispatch}
@@ -86,8 +89,8 @@ function App(props) {
           render={() => (
             <PostsPage
               postsUrl={postsUrl}
-              posts={state.posts}
-              newPost={state.newPost}
+              posts={state.posts.existedPosts}
+              newPost={state.posts.newPost}
               // updateNewPost={updateNewPost}
               // createNewPost={createNewPost}
               // putLikeOnPost={putLikeOnPost}
@@ -103,7 +106,7 @@ function App(props) {
             <ProfilePage
               postsUrl={postsUrl}
               user={activeUser}
-              newPost={state.newPost}
+              newPost={state.posts.newPost}
               // removeRequest={removeRequest}
               // logOut={logOut}
               // updateNewPost={updateNewPost}
@@ -120,7 +123,8 @@ function App(props) {
           render={() => (
             <SignUpPage
               logInUrl={logInUrl}
-              newUser={state.newUser}
+              newUserCheck={state.users.newUserCheck}
+              newUser={state.users.newUser}
               // updateNewUserInfo={updateNewUserInfo}
               // createAccount={createAccount}
               dispatch={dispatch}
@@ -134,7 +138,8 @@ function App(props) {
           render={() => (
             <LogInPage
               signUpUrl={signUpUrl}
-              loginUser={state.loginUser}
+              loginCheck={state.users.loginCheck}
+              loginUser={state.users.loginUser}
               // logInCheck={logInCheck}
               // updateLoginInfo={updateLoginInfo}
               dispatch={dispatch}

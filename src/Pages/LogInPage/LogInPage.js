@@ -9,9 +9,10 @@ import Container from "@material-ui/core/Container";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 import {
+  getLikesStatusActionCreator,
   loginCheckActionCreator,
   updateLoginInfoActionCreator
-} from "../../redux/store";
+} from "../../redux/actions";
 import primaryInstaColor from "../../components/PrimaryInstaColor";
 import styles from "./LogInPage.module.css";
 
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 const LogInPage = props => {
   const {
     loginUser,
+    loginCheck,
     /*updateLoginInfo, logInCheck,*/ signUpUrl,
     dispatch
   } = props;
@@ -49,36 +51,42 @@ const LogInPage = props => {
   };
 
   const handleLogIn = () => {
-    const loginData = existAccountEmailOrUserName.current.value;
-    const enteredPassword = existAccountPassword.current.value;
-    if (!loginData && !enteredPassword) {
+    const {
+      successLogin,
+      emailOrUserNameIsNull,
+      passwordIsNull,
+      shortPassword
+    } = loginCheck;
+    if (emailOrUserNameIsNull && passwordIsNull) {
       existAccountEmailOrUserName.current.parentElement.classList.add(
         styles.fillThisField
       );
       existAccountPassword.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (!loginData) {
+    } else if (emailOrUserNameIsNull) {
       existAccountEmailOrUserName.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (!enteredPassword) {
+    } else if (passwordIsNull) {
       existAccountPassword.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (enteredPassword.length < 5) {
+    } else if (shortPassword) {
       existAccountPassword.current.parentElement.classList.add(
         styles.shortPassword
       );
-    } else if (dispatch(loginCheckActionCreator())) {
-      localStorage.activeUser = JSON.stringify(loginData);
-    } else {
+    } else if (!successLogin) {
       existAccountEmailOrUserName.current.parentElement.classList.add(
         styles.wrongData
       );
       existAccountPassword.current.parentElement.classList.add(
         styles.wrongData
       );
+    } else {
+      dispatch(loginCheckActionCreator());
+      localStorage.activeUser = JSON.stringify(loginUser.emailOrUserName);
+      dispatch(getLikesStatusActionCreator());
     }
   };
 
@@ -122,7 +130,19 @@ const LogInPage = props => {
               </Grid>
             </Grid>
             <ThemeProvider theme={primaryInstaColor}>
-              <Link to="/">
+              {loginCheck.successLogin ? (
+                <Link to="/">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleLogIn}
+                  >
+                    Log In
+                  </Button>
+                </Link>
+              ) : (
                 <Button
                   fullWidth
                   variant="contained"
@@ -132,7 +152,7 @@ const LogInPage = props => {
                 >
                   Log In
                 </Button>
-              </Link>
+              )}
             </ThemeProvider>
           </form>
         </div>

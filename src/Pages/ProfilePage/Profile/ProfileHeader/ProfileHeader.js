@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {
   logOutActionCreator,
   removeRequestActionCreator
-} from "../../../../redux/store";
+} from "../../../../redux/actions";
 import styles from "./ProfileHeader.module.css";
 
 const ProfileHeader = props => {

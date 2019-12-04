@@ -1,6 +1,6 @@
 import React from "react";
 
-import { deletePostActionCreator } from "../../../../../redux/store";
+import { deletePostActionCreator } from "../../../../../redux/actions";
 import styles from "./ProfilePost.module.css";
 
 const ProfilePost = props => {

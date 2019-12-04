@@ -12,7 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import {
   deleteAccountActionCreator,
   logOutActionCreator
-} from "../../redux/store";
+} from "../../redux/actions";
 import styles from "./AdminPage.module.css";
 
 const columns = [

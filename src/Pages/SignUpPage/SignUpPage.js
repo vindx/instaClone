@@ -10,8 +10,9 @@ import ThemeProvider from "@material-ui/styles/ThemeProvider";
 
 import {
   createAccountActionCreator,
+  getLikesStatusActionCreator,
   updateNewUserInfoActionCreator
-} from "../../redux/store";
+} from "../../redux/actions";
 import primaryInstaColor from "../../components/PrimaryInstaColor";
 import styles from "./SignUpPage.module.css";
 
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 const SignUpPage = props => {
   const {
     newUser,
+    newUserCheck,
     /*createAccount, updateNewUserInfo,*/ logInUrl,
     dispatch
   } = props;
@@ -60,10 +62,14 @@ const SignUpPage = props => {
   };
 
   const createNewAccount = () => {
-    const email = newAccountEmail.current.value;
-    const userName = newAccountUserName.current.value;
-    const password = newAccountPassword.current.value;
-    if (!email && !userName && !password) {
+    const {
+      emailIsNull,
+      userNameIsNull,
+      passwordIsNull,
+      shortPassword,
+      emailOrUserNameAlreadyExist
+    } = newUserCheck;
+    if (emailIsNull && userNameIsNull && passwordIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
       newAccountUserName.current.parentElement.classList.add(
         styles.fillThisField
@@ -71,43 +77,47 @@ const SignUpPage = props => {
       newAccountPassword.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (email && !userName && !password) {
+    } else if (userNameIsNull && passwordIsNull) {
       newAccountUserName.current.parentElement.classList.add(
         styles.fillThisField
       );
       newAccountPassword.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (!email && userName && !password) {
+    } else if (emailIsNull && passwordIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
       newAccountPassword.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (!email && !userName && password) {
+    } else if (emailIsNull && userNameIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
       newAccountUserName.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (!email && userName && password) {
+    } else if (emailIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
-    } else if (email && !userName && password) {
+    } else if (userNameIsNull) {
       newAccountUserName.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (email && userName && !password) {
+    } else if (passwordIsNull) {
       newAccountPassword.current.parentElement.classList.add(
         styles.fillThisField
       );
-    } else if (password.length < 6) {
+    } else if (shortPassword) {
       newAccountPassword.current.parentElement.classList.add(
         styles.wrongPassword
       );
-    } else if (dispatch(createAccountActionCreator())) {
+    } else if (emailOrUserNameAlreadyExist) {
       newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
       newAccountUserName.current.parentElement.classList.add(
         styles.alreadyExist
       );
-    } else localStorage.activeUser = JSON.stringify(userName);
+    } else {
+      dispatch(createAccountActionCreator());
+      localStorage.activeUser = JSON.stringify(newUser.userName);
+      dispatch(getLikesStatusActionCreator());
+    }
   };
 
   return (
