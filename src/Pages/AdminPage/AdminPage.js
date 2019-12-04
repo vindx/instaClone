@@ -13,7 +13,7 @@ import {
   deleteAccountActionCreator,
   logOutActionCreator,
 } from '../../redux/actions';
-import styles from './AdminPage.module.css';
+import styles from './AdminPage.module.scss';
 
 const columns = [
   { id: 'userName', label: 'Username' },

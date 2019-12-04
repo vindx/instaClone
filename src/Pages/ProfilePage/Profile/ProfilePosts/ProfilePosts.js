@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'proptypes';
 
 import ProfilePost from './ProfilePost/ProfilePost';
-import styles from './ProfilePosts.module.css';
+import styles from './ProfilePosts.module.scss';
 
 const ProfilePosts = props => {
   const { posts, /* deletePost */ dispatch } = props;

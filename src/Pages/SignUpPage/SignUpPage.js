@@ -14,7 +14,7 @@ import {
   updateNewUserInfoActionCreator,
 } from '../../redux/actions';
 import primaryInstaColor from '../../components/PrimaryInstaColor';
-import styles from './SignUpPage.module.css';
+import styles from './SignUpPage.module.scss';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -163,6 +163,7 @@ const SignUpPage = props => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  autoComplete="username"
                   inputRef={newAccountUserName}
                   name="userName"
                   variant="outlined"
@@ -176,6 +177,7 @@ const SignUpPage = props => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  autoComplete="current-password"
                   inputRef={newAccountPassword}
                   variant="outlined"
                   required

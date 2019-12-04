@@ -1,0 +1,61 @@
+.container {
+  margin-bottom: 44px;
+  display: flex;
+  flex-direction: row;
+
+  .photoContainer {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    margin-right: 75px;
+    margin-left: 75px;
+    background: url('https://instagram.famm2-2.fna.fbcdn.net/vp/7c1a6d964df9ae98fb7557ef97fd37ee/5E695BF1/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.famm2-2.fna.fbcdn.net');
+    background-size: cover;
+    border-radius: 50%;
+    .photo {
+      border: none;
+      background-color: inherit;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .userName {
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 32px;
+  }
+
+  .buttons {
+    margin-bottom: 20px;
+    .button {
+      background-color: inherit;
+      border: 1px solid #dbdbdb;
+      font-size: 14px;
+      border-radius: 4px;
+      padding: 5px 9px;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      margin-right: 5px;
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .profileDescription {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

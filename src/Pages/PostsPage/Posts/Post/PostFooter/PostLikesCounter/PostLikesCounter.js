@@ -1,21 +1,27 @@
 import React from 'react';
-import styles from './PostLikesCounter.module.css';
+import PropTypes from 'proptypes';
+
+import styles from './PostLikesCounter.module.scss';
 
 const PostLikesCounter = props => {
-  const { likesNumber } = props;
+  const { likesArray } = props;
 
   return (
     <>
-      {likesNumber.length > 0 ? (
+      {likesArray.length > 0 ? (
         <div className={styles.likesContainer}>
-          <span className={styles.postLikesCounter}>{likesNumber.length}</span>
-          {likesNumber.length === 1 ? 'like' : 'likes'}
+          <span className={styles.postLikesCounter}>{likesArray.length}</span>
+          {likesArray.length === 1 ? 'like' : 'likes'}
         </div>
       ) : (
         <></>
       )}
     </>
   );
+};
+
+PostLikesCounter.propTypes = {
+  likesArray: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default PostLikesCounter;

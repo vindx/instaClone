@@ -1,3 +1,12 @@
+.logOutButtonContainer {
+  margin-top: 30px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .button {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   background-color: inherit;
@@ -7,17 +16,7 @@
   padding: 3px 5px;
   outline: none;
   cursor: pointer;
-}
-
-.button:active {
-  opacity: 0.5;
-}
-
-.logOutButtonContainer {
-  margin-top: 30px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: flex-end;
+  &:active {
+    opacity: 0.5;
+  }
 }

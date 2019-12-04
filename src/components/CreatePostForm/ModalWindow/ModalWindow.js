@@ -4,18 +4,18 @@ import {
   createNewPostActionCreator,
   updateNewPostInfoActionCreator,
 } from '../../../redux/actions';
-import styles from './ModalWindow.module.css';
+import styles from './ModalWindow.module.scss';
 
 const ModalWindow = props => {
   const {
     onClose,
     isOpen,
     newPost,
-    /*updateNewPost, createNewPost*/ dispatch,
+    /* updateNewPost, createNewPost */ dispatch,
   } = props;
 
-  let postPhotoUrl = React.createRef();
-  let postDescription = React.createRef();
+  const postPhotoUrl = React.createRef();
+  const postDescription = React.createRef();
 
   const close = e => {
     e.preventDefault();

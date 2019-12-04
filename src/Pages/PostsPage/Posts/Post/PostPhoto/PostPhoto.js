@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './PostPhoto.module.css';
+import styles from './PostPhoto.module.scss';
 
 const PostPhoto = props => {
   const { photoUrl } = props;

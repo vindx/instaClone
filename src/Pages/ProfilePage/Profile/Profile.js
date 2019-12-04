@@ -2,10 +2,10 @@ import React from 'react';
 
 import ProfileHeader from './ProfileHeader/ProfileHeader';
 import ProfilePosts from './ProfilePosts/ProfilePosts';
-import styles from './Profile.module.css';
+import styles from './Profile.module.scss';
 
 const Profile = props => {
-  const { user, /* removeRequest, logOut, deletePost*/ dispatch } = props;
+  const { user, /* removeRequest, logOut, deletePost */ dispatch } = props;
 
   return (
     <div className={styles.profileContainer}>

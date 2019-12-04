@@ -4,11 +4,11 @@
   display: flex;
   flex-wrap: wrap;
   horiz-align: center;
-}
 
-.zeroPosts {
-  font-size: 28px;
-  font-weight: 300;
-  width: 100%;
-  text-align: center;
+  .zeroPosts {
+    font-size: 28px;
+    font-weight: 300;
+    width: 100%;
+    text-align: center;
+  }
 }

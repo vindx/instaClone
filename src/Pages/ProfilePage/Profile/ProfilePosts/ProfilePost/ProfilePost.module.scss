@@ -1,0 +1,45 @@
+.profilePost {
+  margin-bottom: 18px;
+  margin-left: 9px;
+  margin-right: 9px;
+  overflow: hidden;
+  position: relative;
+  img {
+    display: block;
+    width: 293px;
+    height: 293px;
+    object-fit: cover;
+    transition: 0.3s;
+  }
+  img[alt] {
+    background: url('https://letabouret.ru/local/templates/letabouret/images/no-photo.png')
+      center;
+    background-size: cover;
+  }
+
+  .deletePhoto {
+    background: rgba(213, 219, 218, 0.7);
+    cursor: pointer;
+    position: absolute;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    bottom: -20%;
+    right: 5%;
+    opacity: 0;
+    transition: 0.8s;
+  }
+
+  &:hover {
+    img {
+      transform: scale(0.97);
+    }
+    .deletePhoto {
+      opacity: 0.8;
+      bottom: 5%;
+    }
+  }
+}

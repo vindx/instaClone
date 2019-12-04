@@ -5,7 +5,7 @@ import {
   logOutActionCreator,
   removeRequestActionCreator,
 } from '../../../../redux/actions';
-import styles from './ProfileHeader.module.css';
+import styles from './ProfileHeader.module.scss';
 
 const ProfileHeader = props => {
   const {

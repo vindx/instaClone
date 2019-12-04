@@ -14,7 +14,7 @@ import {
   updateLoginInfoActionCreator,
 } from '../../redux/actions';
 import primaryInstaColor from '../../components/PrimaryInstaColor';
-import styles from './LogInPage.module.css';
+import styles from './LogInPage.module.scss';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -36,17 +36,17 @@ const LogInPage = props => {
   const {
     loginUser,
     loginCheck,
-    /*updateLoginInfo, logInCheck,*/ signUpUrl,
+    /* updateLoginInfo, logInCheck, */ signUpUrl,
     dispatch,
   } = props;
   const classes = useStyles();
 
-  let existAccountEmailOrUserName = React.createRef();
-  let existAccountPassword = React.createRef();
+  const existAccountEmailOrUserName = React.createRef();
+  const existAccountPassword = React.createRef();
 
   const onInputChange = () => {
-    let emailOrUserName = existAccountEmailOrUserName.current.value;
-    let password = existAccountPassword.current.value;
+    const emailOrUserName = existAccountEmailOrUserName.current.value;
+    const password = existAccountPassword.current.value;
     dispatch(updateLoginInfoActionCreator({ emailOrUserName, password }));
   };
 
@@ -105,6 +105,7 @@ const LogInPage = props => {
             <Grid container spacing={1}>
               <Grid item xs={12}>
                 <TextField
+                  autoComplete="username"
                   inputRef={existAccountEmailOrUserName}
                   variant="outlined"
                   fullWidth
@@ -117,6 +118,7 @@ const LogInPage = props => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  autoComplete="current-password"
                   inputRef={existAccountPassword}
                   variant="outlined"
                   fullWidth

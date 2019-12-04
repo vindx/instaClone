@@ -3,7 +3,7 @@ import React from 'react';
 import PostHeader from './PostHeader/PostHeader';
 import PostFooter from './PostFooter/PostFooter';
 import PostPhoto from './PostPhoto/PostPhoto';
-import styles from './Post.module.css';
+import styles from './Post.module.scss';
 
 const Post = props => {
   const { postInfo, /* putLikeOnPost */ dispatch } = props;

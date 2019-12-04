@@ -3,7 +3,7 @@ import React from 'react';
 import PostActions from './PostActions/PostActions';
 import PostLikesCounter from './PostLikesCounter/PostLikesCounter';
 import PostDescription from './PostDescription/PostDescription';
-import styles from './PostFooter.module.css';
+import styles from './PostFooter.module.scss';
 
 const PostFooter = props => {
   const {
@@ -24,7 +24,7 @@ const PostFooter = props => {
         // putLikeOnPost={putLikeOnPost}
         dispatch={dispatch}
       />
-      <PostLikesCounter likesNumber={likesNumber} />
+      <PostLikesCounter likesArray={likesNumber} />
       <PostDescription userName={userName} description={description} />
     </div>
   );

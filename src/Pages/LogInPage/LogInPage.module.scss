@@ -1,0 +1,52 @@
+@import '../../fonts/Billabong/style.scss';
+
+.mainContainer {
+  border: 1px solid #e1e0e0;
+  margin-top: 30px;
+  background-color: #ffffff;
+
+  .headerText {
+    font-family: Billabong, sans-serif;
+  }
+
+  .messageBase {
+    background-color: rgba(240, 122, 96, 0.5);
+    &:before {
+      font-family: Segoe UI, sans-serif;
+      text-align: center;
+      box-sizing: border-box;
+      display: block;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 5px;
+      position: absolute;
+      left: -55%;
+      top: 20%;
+      margin-left: 0;
+      width: 50%;
+      height: 60%;
+      border-radius: 5px;
+    }
+  }
+
+  .fillThisField {
+    @extend .messageBase;
+    &:before {
+      content: 'Please fill this field';
+    }
+  }
+
+  .shortPassword {
+    @extend .messageBase;
+    &:before {
+      content: 'At least 6 charactres';
+    }
+  }
+
+  .wrongData {
+    @extend .messageBase;
+    &:before {
+      content: 'Incorrect data';
+    }
+  }
+}
