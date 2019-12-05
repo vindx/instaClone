@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import PropTypes from 'proptypes';
 
 import {
   getLikesStatusActionCreator,
@@ -166,7 +167,7 @@ const LogInPage = props => {
       >
         <div style={{ margin: 20 }}>
           <Typography align="center">
-            Don't have an account?
+            Don&#39;t have an account?
             <Link to={signUpUrl} style={{ marginLeft: 5, color: '#3897f1' }}>
               Sign up
             </Link>
@@ -175,6 +176,21 @@ const LogInPage = props => {
       </Container>
     </>
   );
+};
+
+LogInPage.propTypes = {
+  loginUser: PropTypes.shape({
+    emailOrUserName: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
+  loginCheck: PropTypes.shape({
+    emailOrUserNameIsNull: PropTypes.boolean,
+    passwordIsNull: PropTypes.boolean,
+    shortPassword: PropTypes.boolean,
+    successLogin: PropTypes.boolean,
+  }).isRequired,
+  signUpUrl: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default LogInPage;

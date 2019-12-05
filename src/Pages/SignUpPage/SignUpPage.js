@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import PropTypes from 'proptypes';
 
 import {
   createAccountActionCreator,
@@ -36,21 +37,22 @@ const SignUpPage = props => {
   const {
     newUser,
     newUserCheck,
-    /*createAccount, updateNewUserInfo,*/ logInUrl,
+    /* createAccount, updateNewUserInfo, */
+    logInUrl,
     dispatch,
   } = props;
   const classes = useStyles();
 
-  let newAccountEmail = React.createRef();
-  let newAccountUserName = React.createRef();
-  let newAccountFullName = React.createRef();
-  let newAccountPassword = React.createRef();
+  const newAccountEmail = React.createRef();
+  const newAccountUserName = React.createRef();
+  const newAccountFullName = React.createRef();
+  const newAccountPassword = React.createRef();
 
   const onInputChange = () => {
-    let email = newAccountEmail.current.value;
-    let fullName = newAccountFullName.current.value;
-    let userName = newAccountUserName.current.value;
-    let password = newAccountPassword.current.value;
+    const email = newAccountEmail.current.value;
+    const fullName = newAccountFullName.current.value;
+    const userName = newAccountUserName.current.value;
+    const password = newAccountPassword.current.value;
     dispatch(
       updateNewUserInfoActionCreator({
         email,
@@ -222,6 +224,18 @@ const SignUpPage = props => {
       </Container>
     </>
   );
+};
+
+SignUpPage.propTypes = {
+  newUser: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    fullName: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+  }).isRequired,
+  newUserCheck: PropTypes.shape({}).isRequired,
+  logInUrl: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default SignUpPage;

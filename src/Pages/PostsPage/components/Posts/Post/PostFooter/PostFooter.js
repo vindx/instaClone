@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import PostActions from './PostActions/PostActions';
 import PostLikesCounter from './PostLikesCounter/PostLikesCounter';
@@ -8,7 +9,7 @@ import styles from './PostFooter.module.scss';
 const PostFooter = props => {
   const {
     id,
-    liked,
+    wasLiked,
     likesNumber,
     userName,
     description,
@@ -20,7 +21,7 @@ const PostFooter = props => {
     <div className={styles.postFooter}>
       <PostActions
         id={id}
-        liked={liked}
+        wasLiked={wasLiked}
         // putLikeOnPost={putLikeOnPost}
         dispatch={dispatch}
       />
@@ -28,6 +29,15 @@ const PostFooter = props => {
       <PostDescription userName={userName} description={description} />
     </div>
   );
+};
+
+PostFooter.propTypes = {
+  id: PropTypes.string.isRequired,
+  wasLiked: PropTypes.bool.isRequired,
+  likesNumber: PropTypes.arrayOf(PropTypes.string).isRequired,
+  userName: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default PostFooter;

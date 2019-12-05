@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import PropTypes from 'proptypes';
 
 import SignUpPage from '../Pages/SignUpPage/SignUpPage';
 import LogInPage from '../Pages/LogInPage/LogInPage';
@@ -10,6 +11,7 @@ import { getLikesStatusActionCreator } from '../redux/actions';
 
 function App(props) {
   const {
+    state,
     // createAccount,
     // createNewPost,
     // updateNewUserInfo,
@@ -24,7 +26,6 @@ function App(props) {
     // putLikeOnPost,
     dispatch,
   } = props;
-  let { state } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
     '/posts',
     '/profile',
@@ -33,11 +34,14 @@ function App(props) {
     '/login',
   ];
 
+  // eslint-disable-next-line consistent-return
   const getActiveUser = users => {
     if (localStorage.length) {
-      const user = users.find(user => {
-        return user.userName === JSON.parse(localStorage.activeUser);
-      });
+      // eslint-disable-next-line no-shadow
+      const user = users.find(
+        // eslint-disable-next-line no-shadow
+        user => user.userName === JSON.parse(localStorage.activeUser)
+      );
       if (user) {
         user.activeNow = true;
         if (state.firstLog) {
@@ -51,6 +55,7 @@ function App(props) {
 
   const activeUser = getActiveUser(state.users.existedUsers);
 
+  // eslint-disable-next-line no-shadow
   (activeUser => {
     if (activeUser) {
       if (activeUser.userName === 'admin') {
@@ -150,5 +155,23 @@ function App(props) {
     </BrowserRouter>
   );
 }
+
+App.propTypes = {
+  state: PropTypes.shape({
+    firstLog: PropTypes.bool,
+    users: PropTypes.shape({
+      newUserCheck: PropTypes.object,
+      newUser: PropTypes.object,
+      loginUser: PropTypes.object,
+      loginCheck: PropTypes.object,
+      existedUsers: PropTypes.arrayOf(PropTypes.object),
+    }),
+    posts: PropTypes.shape({
+      newPost: PropTypes.object,
+      existedPosts: PropTypes.arrayOf(PropTypes.object),
+    }),
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
 export default App;

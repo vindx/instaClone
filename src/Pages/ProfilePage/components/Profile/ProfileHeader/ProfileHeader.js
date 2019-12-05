@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'proptypes';
 
 import {
   logOutActionCreator,
@@ -54,6 +55,14 @@ const ProfileHeader = props => {
       </section>
     </header>
   );
+};
+
+ProfileHeader.propTypes = {
+  profilePhotoUrl: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired,
+  removeRequestStatus: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default ProfileHeader;

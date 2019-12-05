@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import styles from './PostHeader.module.scss';
 
@@ -17,6 +18,11 @@ const PostHeader = props => {
       </div>
     </header>
   );
+};
+
+PostHeader.propTypes = {
+  userName: PropTypes.string.isRequired,
+  profilePhotoUrl: PropTypes.string.isRequired,
 };
 
 export default PostHeader;

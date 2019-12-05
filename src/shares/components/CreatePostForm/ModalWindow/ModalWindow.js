@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import {
   createNewPostActionCreator,
@@ -84,6 +85,16 @@ const ModalWindow = props => {
       <div className={styles.background} onClick={close} />
     </div>
   );
+};
+
+ModalWindow.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  newPost: PropTypes.shape({
+    postPhoto: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default ModalWindow;

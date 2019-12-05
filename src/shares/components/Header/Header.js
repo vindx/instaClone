@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Grid, TextField } from '@material-ui/core';
+import PropTypes from 'proptypes';
 
 import styles from './Header.module.scss';
 
@@ -51,6 +52,10 @@ const Header = props => {
       </Grid>
     </Container>
   );
+};
+
+Header.propTypes = {
+  postsUrl: PropTypes.string.isRequired,
 };
 
 export default Header;

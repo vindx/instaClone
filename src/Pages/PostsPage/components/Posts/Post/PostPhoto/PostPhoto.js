@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'proptypes';
+
 import styles from './PostPhoto.module.scss';
 
 const PostPhoto = props => {
@@ -9,6 +11,10 @@ const PostPhoto = props => {
       <img alt="" src={photoUrl} />
     </div>
   );
+};
+
+PostPhoto.propTypes = {
+  photoUrl: PropTypes.string.isRequired,
 };
 
 export default PostPhoto;

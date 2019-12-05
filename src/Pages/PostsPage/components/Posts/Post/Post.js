@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import PostHeader from './PostHeader/PostHeader';
 import PostFooter from './PostFooter/PostFooter';
@@ -18,7 +19,7 @@ const Post = props => {
       <PostPhoto photoUrl={postPhoto} />
       <PostFooter
         id={id}
-        liked={wasLiked}
+        wasLiked={wasLiked}
         likesNumber={likes}
         userName={owner.userName}
         description={description}
@@ -27,6 +28,18 @@ const Post = props => {
       />
     </article>
   );
+};
+
+Post.propTypes = {
+  postInfo: PropTypes.shape({
+    owner: PropTypes.object,
+    postPhoto: PropTypes.string,
+    id: PropTypes.string,
+    wasLiked: PropTypes.bool,
+    likes: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default Post;

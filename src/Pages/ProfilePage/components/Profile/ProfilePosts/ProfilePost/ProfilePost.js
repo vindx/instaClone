@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import { deletePostActionCreator } from '../../../../../../redux/actions';
 import styles from './ProfilePost.module.scss';
@@ -22,6 +23,13 @@ const ProfilePost = props => {
       </button>
     </div>
   );
+};
+
+ProfilePost.propTypes = {
+  id: PropTypes.string.isRequired,
+  photo: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default ProfilePost;

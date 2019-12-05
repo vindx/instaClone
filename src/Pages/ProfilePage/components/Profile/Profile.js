@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import ProfileHeader from './ProfileHeader/ProfileHeader';
 import ProfilePosts from './ProfilePosts/ProfilePosts';
@@ -25,6 +26,17 @@ const Profile = props => {
       />
     </div>
   );
+};
+
+Profile.propTypes = {
+  user: PropTypes.shape({
+    profilePhoto: PropTypes.string,
+    userName: PropTypes.string,
+    fullName: PropTypes.string,
+    removeRequest: PropTypes.bool,
+    posts: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default Profile;

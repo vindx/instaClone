@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import PropTypes from 'proptypes';
 
 import {
   deleteAccountActionCreator,
@@ -137,6 +138,11 @@ const AdminPage = props => {
       </div>
     </>
   );
+};
+
+AdminPage.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default AdminPage;

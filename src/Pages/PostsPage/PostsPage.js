@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 import Header from '../../shares/components/Header/Header';
 import Posts from './components/Posts/Posts';
 import CreatePostForm from '../../shares/components/CreatePostForm/CreatePostForm';
@@ -8,8 +9,8 @@ const PostsPage = props => {
     postsUrl,
     posts,
     newPost,
-    //createNewPost,
-    //updateNewPost,
+    // createNewPost,
+    // updateNewPost,
     // putLikeOnPost,
     dispatch,
   } = props;
@@ -30,6 +31,17 @@ const PostsPage = props => {
       />
     </>
   );
+};
+
+PostsPage.propTypes = {
+  postsUrl: PropTypes.string.isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newPost: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    postPhoto: PropTypes.string,
+    tags: PropTypes.string,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default PostsPage;

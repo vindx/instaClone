@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'proptypes';
+
 import Header from '../../shares/components/Header/Header';
 import Profile from './components/Profile/Profile';
 import CreatePostForm from '../../shares/components/CreatePostForm/CreatePostForm';
@@ -34,6 +36,13 @@ const ProfilePage = props => {
       />
     </>
   );
+};
+
+ProfilePage.propTypes = {
+  postsUrl: PropTypes.string.isRequired,
+  user: PropTypes.shape({}).isRequired,
+  newPost: PropTypes.shape({}).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default ProfilePage;

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'proptypes';
 
 import ModalWindow from './ModalWindow/ModalWindow';
 import styles from './CreatePostForm.module.scss';
 
 const CreatePostForm = props => {
-  const { newPost, /*updateNewPost, createNewPost */ dispatch } = props;
+  const { newPost, /* updateNewPost, createNewPst */ dispatch } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -30,6 +31,11 @@ const CreatePostForm = props => {
       />
     </>
   );
+};
+
+CreatePostForm.propTypes = {
+  newPost: PropTypes.shape({}).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default CreatePostForm;

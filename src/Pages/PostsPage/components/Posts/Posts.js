@@ -1,10 +1,11 @@
 import React from 'react';
 
+import PropTypes from 'proptypes';
 import Post from './Post/Post';
 import styles from './Posts.module.scss';
 
 const Posts = props => {
-  const { posts, /*putLikeOnPost*/ dispatch } = props;
+  const { posts, /* putLikeOnPost */ dispatch } = props;
 
   return (
     <div className={styles.mainContainer}>
@@ -18,6 +19,11 @@ const Posts = props => {
       ))}
     </div>
   );
+};
+
+Posts.propTypes = {
+  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default Posts;
