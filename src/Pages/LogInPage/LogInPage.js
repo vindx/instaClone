@@ -13,7 +13,7 @@ import {
   loginCheckActionCreator,
   updateLoginInfoActionCreator,
 } from '../../redux/actions';
-import primaryInstaColor from '../../components/PrimaryInstaColor';
+import primaryInstaColor from '../../shares/components/PrimaryInstaColor';
 import styles from './LogInPage.module.scss';
 
 const useStyles = makeStyles(theme => ({

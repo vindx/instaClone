@@ -1,7 +1,7 @@
 import React from 'react';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
-import { putLikeOnPostActionCreator } from '../../../../../../redux/actions';
+import { putLikeOnPostActionCreator } from '../../../../../../../redux/actions';
 import styles from './PostActions.module.scss';
 
 const PostActions = props => {

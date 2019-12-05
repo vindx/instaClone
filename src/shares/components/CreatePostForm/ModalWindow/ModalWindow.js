@@ -3,7 +3,7 @@ import React from 'react';
 import {
   createNewPostActionCreator,
   updateNewPostInfoActionCreator,
-} from '../../../redux/actions';
+} from '../../../../redux/actions';
 import styles from './ModalWindow.module.scss';
 
 const ModalWindow = props => {

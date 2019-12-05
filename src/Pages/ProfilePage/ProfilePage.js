@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
-import Profile from './Profile/Profile';
-import CreatePostForm from '../../components/CreatePostForm/CreatePostForm';
+import Header from '../../shares/components/Header/Header';
+import Profile from './components/Profile/Profile';
+import CreatePostForm from '../../shares/components/CreatePostForm/CreatePostForm';
 
 const ProfilePage = props => {
   const {

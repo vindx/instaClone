@@ -13,7 +13,7 @@ import {
   getLikesStatusActionCreator,
   updateNewUserInfoActionCreator,
 } from '../../redux/actions';
-import primaryInstaColor from '../../components/PrimaryInstaColor';
+import primaryInstaColor from '../../shares/components/PrimaryInstaColor';
 import styles from './SignUpPage.module.scss';
 
 const useStyles = makeStyles(theme => ({
