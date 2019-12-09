@@ -9,11 +9,6 @@ import Container from '@material-ui/core/Container';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import PropTypes from 'proptypes';
 
-import {
-  getLikesStatusActionCreator,
-  loginCheckActionCreator,
-  updateLoginInfoActionCreator,
-} from '../../redux/actions';
 import primaryInstaColor from '../../shares/components/PrimaryInstaColor';
 import styles from './LogInPage.module.scss';
 
@@ -34,70 +29,40 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogInPage = props => {
-  const {
-    loginUser,
-    loginCheck,
-    /* updateLoginInfo, logInCheck, */ signUpUrl,
-    dispatch,
-  } = props;
+  const { loginUser, loginCheck, signUpUrl, onInputChange, logIn } = props;
   const classes = useStyles();
 
   const existAccountEmailOrUserName = React.createRef();
   const existAccountPassword = React.createRef();
 
-  const onInputChange = () => {
+  const handleInputChange = () => {
     const emailOrUserName = existAccountEmailOrUserName.current.value;
     const password = existAccountPassword.current.value;
-    dispatch(updateLoginInfoActionCreator({ emailOrUserName, password }));
+    onInputChange({ emailOrUserName, password });
   };
 
   const handleLogIn = () => {
-    const {
-      successLogin,
-      emailOrUserNameIsNull,
-      passwordIsNull,
-      shortPassword,
-    } = loginCheck;
+    const { successLogin, emailOrUserNameIsNull, passwordIsNull, shortPassword } = loginCheck;
     if (emailOrUserNameIsNull && passwordIsNull) {
-      existAccountEmailOrUserName.current.parentElement.classList.add(
-        styles.fillThisField
-      );
-      existAccountPassword.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      existAccountEmailOrUserName.current.parentElement.classList.add(styles.fillThisField);
+      existAccountPassword.current.parentElement.classList.add(styles.fillThisField);
     } else if (emailOrUserNameIsNull) {
-      existAccountEmailOrUserName.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      existAccountEmailOrUserName.current.parentElement.classList.add(styles.fillThisField);
     } else if (passwordIsNull) {
-      existAccountPassword.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      existAccountPassword.current.parentElement.classList.add(styles.fillThisField);
     } else if (shortPassword) {
-      existAccountPassword.current.parentElement.classList.add(
-        styles.shortPassword
-      );
+      existAccountPassword.current.parentElement.classList.add(styles.shortPassword);
     } else if (!successLogin) {
-      existAccountEmailOrUserName.current.parentElement.classList.add(
-        styles.wrongData
-      );
-      existAccountPassword.current.parentElement.classList.add(
-        styles.wrongData
-      );
+      existAccountEmailOrUserName.current.parentElement.classList.add(styles.wrongData);
+      existAccountPassword.current.parentElement.classList.add(styles.wrongData);
     } else {
-      dispatch(loginCheckActionCreator());
-      localStorage.activeUser = JSON.stringify(loginUser.emailOrUserName);
-      dispatch(getLikesStatusActionCreator());
+      logIn(loginUser.emailOrUserName);
     }
   };
 
   return (
     <>
-      <Container
-        className={styles.mainContainer}
-        component="main"
-        maxWidth="xs"
-      >
+      <Container className={styles.mainContainer} component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Typography component="h1" variant="h1">
             <div className={styles.headerText}>InstaClone</div>
@@ -114,7 +79,7 @@ const LogInPage = props => {
                   label="Email or username"
                   name="loginData"
                   value={loginUser.emailOrUserName}
-                  onChange={onInputChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -128,7 +93,7 @@ const LogInPage = props => {
                   type="password"
                   id="password"
                   value={loginUser.password}
-                  onChange={onInputChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
             </Grid>
@@ -160,11 +125,7 @@ const LogInPage = props => {
           </form>
         </div>
       </Container>
-      <Container
-        className={styles.mainContainer}
-        component="main"
-        maxWidth="xs"
-      >
+      <Container className={styles.mainContainer} component="main" maxWidth="xs">
         <div style={{ margin: 20 }}>
           <Typography align="center">
             Don&#39;t have an account?
@@ -190,7 +151,8 @@ LogInPage.propTypes = {
     successLogin: PropTypes.boolean,
   }).isRequired,
   signUpUrl: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  logIn: PropTypes.func.isRequired,
 };
 
 export default LogInPage;

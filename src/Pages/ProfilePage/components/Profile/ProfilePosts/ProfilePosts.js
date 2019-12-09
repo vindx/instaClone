@@ -5,7 +5,7 @@ import ProfilePost from './ProfilePost/ProfilePost';
 import styles from './ProfilePosts.module.scss';
 
 const ProfilePosts = props => {
-  const { posts, /* deletePost */ dispatch } = props;
+  const { posts, deletePost } = props;
 
   return (
     <div className={styles.profilePosts}>
@@ -16,8 +16,7 @@ const ProfilePosts = props => {
             id={id}
             photo={postPhoto}
             description={description}
-            // deletePost={deletePost}
-            dispatch={dispatch}
+            deletePost={deletePost}
           />
         ))
       ) : (
@@ -29,7 +28,7 @@ const ProfilePosts = props => {
 
 ProfilePosts.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
 };
 
 export default ProfilePosts;

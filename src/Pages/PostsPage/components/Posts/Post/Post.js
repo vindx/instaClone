@@ -7,15 +7,12 @@ import PostPhoto from './PostPhoto/PostPhoto';
 import styles from './Post.module.scss';
 
 const Post = props => {
-  const { postInfo, /* putLikeOnPost */ dispatch } = props;
+  const { postInfo, putLikeOnPost } = props;
   const { owner, postPhoto, id, wasLiked, likes, description } = postInfo;
 
   return (
     <article className={styles.mainContainer}>
-      <PostHeader
-        profilePhotoUrl={owner.profilePhoto}
-        userName={owner.userName}
-      />
+      <PostHeader profilePhotoUrl={owner.profilePhoto} userName={owner.userName} />
       <PostPhoto photoUrl={postPhoto} />
       <PostFooter
         id={id}
@@ -23,8 +20,7 @@ const Post = props => {
         likesNumber={likes}
         userName={owner.userName}
         description={description}
-        // putLikeOnPost={putLikeOnPost}
-        dispatch={dispatch}
+        putLikeOnPost={putLikeOnPost}
       />
     </article>
   );
@@ -39,7 +35,7 @@ Post.propTypes = {
     likes: PropTypes.arrayOf(PropTypes.string),
     description: PropTypes.string,
   }).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  putLikeOnPost: PropTypes.func.isRequired,
 };
 
 export default Post;

@@ -1,19 +1,10 @@
 import React from 'react';
 import PropTypes from 'proptypes';
 
-import {
-  createNewPostActionCreator,
-  updateNewPostInfoActionCreator,
-} from '../../../../redux/actions';
 import styles from './ModalWindow.module.scss';
 
 const ModalWindow = props => {
-  const {
-    onClose,
-    isOpen,
-    newPost,
-    /* updateNewPost, createNewPost */ dispatch,
-  } = props;
+  const { onClose, isOpen, newPost, addPost, newPostOnChange } = props;
 
   const postPhotoUrl = React.createRef();
   const postDescription = React.createRef();
@@ -30,23 +21,22 @@ const ModalWindow = props => {
     return null;
   }
 
-  const addPost = () => {
+  const handleAddPost = () => {
     const description = postDescription.current.value;
     if (!description) {
       postDescription.current.placeholder = 'Please fill this field';
       postDescription.current.style.borderColor = 'red';
       postDescription.current.style.outline = 'none';
     } else {
-      dispatch(createNewPostActionCreator());
+      addPost();
       onClose();
-      window.scrollTo(0, 0);
     }
   };
 
-  const newPostOnChange = () => {
+  const handleNewPostChange = () => {
     const postPhoto = postPhotoUrl.current.value;
     const description = postDescription.current.value;
-    dispatch(updateNewPostInfoActionCreator({ postPhoto, description }));
+    newPostOnChange({ postPhoto, description });
   };
 
   return (
@@ -60,7 +50,7 @@ const ModalWindow = props => {
               type="text"
               placeholder="Enter URL"
               value={newPost.postPhoto}
-              onChange={newPostOnChange}
+              onChange={handleNewPostChange}
               ref={postPhotoUrl}
             />
           </label>
@@ -68,13 +58,13 @@ const ModalWindow = props => {
             Description{' '}
             <textarea
               value={newPost.description}
-              onChange={newPostOnChange}
+              onChange={handleNewPostChange}
               ref={postDescription}
             />
           </label>
         </form>
         <div>
-          <button className={styles.button} onClick={addPost}>
+          <button className={styles.button} onClick={handleAddPost}>
             Create
           </button>
           <button className={styles.button} onClick={close}>
@@ -94,7 +84,8 @@ ModalWindow.propTypes = {
     postPhoto: PropTypes.string,
     description: PropTypes.string,
   }).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  addPost: PropTypes.func.isRequired,
+  newPostOnChange: PropTypes.func.isRequired,
 };
 
 export default ModalWindow;

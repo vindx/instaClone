@@ -11,12 +11,7 @@ const GET_LIKES_STATUS = 'GET_LIKES_STATUS';
 const PUT_LIKE_ON_POST = 'PUT_LIKE_ON_POST';
 const DELETE_ACCOUNT = 'DELETE_ACCOUNT';
 
-export const updateNewUserInfoActionCreator = ({
-  email,
-  fullName,
-  userName,
-  password,
-}) => ({
+export const updateNewUserInfoActionCreator = ({ email, fullName, userName, password }) => ({
   type: UPDATE_NEW_USER_INFO,
   email,
   fullName,
@@ -24,10 +19,7 @@ export const updateNewUserInfoActionCreator = ({
   password,
 });
 export const createAccountActionCreator = () => ({ type: CREATE_ACCOUNT });
-export const updateLoginInfoActionCreator = ({
-  emailOrUserName,
-  password,
-}) => ({
+export const updateLoginInfoActionCreator = ({ emailOrUserName, password }) => ({
   type: UPDATE_LOGIN_INFO,
   emailOrUserName,
   password,

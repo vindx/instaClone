@@ -9,11 +9,6 @@ import Container from '@material-ui/core/Container';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import PropTypes from 'proptypes';
 
-import {
-  createAccountActionCreator,
-  getLikesStatusActionCreator,
-  updateNewUserInfoActionCreator,
-} from '../../redux/actions';
 import primaryInstaColor from '../../shares/components/PrimaryInstaColor';
 import styles from './SignUpPage.module.scss';
 
@@ -34,13 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUpPage = props => {
-  const {
-    newUser,
-    newUserCheck,
-    /* createAccount, updateNewUserInfo, */
-    logInUrl,
-    dispatch,
-  } = props;
+  const { newUser, newUserCheck, logInUrl, onInputChange, createNewAccount } = props;
   const classes = useStyles();
 
   const newAccountEmail = React.createRef();
@@ -48,22 +37,20 @@ const SignUpPage = props => {
   const newAccountFullName = React.createRef();
   const newAccountPassword = React.createRef();
 
-  const onInputChange = () => {
+  const handleInputChange = () => {
     const email = newAccountEmail.current.value;
     const fullName = newAccountFullName.current.value;
     const userName = newAccountUserName.current.value;
     const password = newAccountPassword.current.value;
-    dispatch(
-      updateNewUserInfoActionCreator({
-        email,
-        fullName,
-        userName,
-        password,
-      })
-    );
+    onInputChange({
+      email,
+      fullName,
+      userName,
+      password,
+    });
   };
 
-  const createNewAccount = () => {
+  const handleSignUp = () => {
     const {
       emailIsNull,
       userNameIsNull,
@@ -73,62 +60,36 @@ const SignUpPage = props => {
     } = newUserCheck;
     if (emailIsNull && userNameIsNull && passwordIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
-      newAccountUserName.current.parentElement.classList.add(
-        styles.fillThisField
-      );
-      newAccountPassword.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
+      newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
     } else if (userNameIsNull && passwordIsNull) {
-      newAccountUserName.current.parentElement.classList.add(
-        styles.fillThisField
-      );
-      newAccountPassword.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
+      newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
     } else if (emailIsNull && passwordIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
-      newAccountPassword.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
     } else if (emailIsNull && userNameIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
-      newAccountUserName.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
     } else if (emailIsNull) {
       newAccountEmail.current.parentElement.classList.add(styles.fillThisField);
     } else if (userNameIsNull) {
-      newAccountUserName.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      newAccountUserName.current.parentElement.classList.add(styles.fillThisField);
     } else if (passwordIsNull) {
-      newAccountPassword.current.parentElement.classList.add(
-        styles.fillThisField
-      );
+      newAccountPassword.current.parentElement.classList.add(styles.fillThisField);
     } else if (shortPassword) {
-      newAccountPassword.current.parentElement.classList.add(
-        styles.wrongPassword
-      );
+      newAccountPassword.current.parentElement.classList.add(styles.wrongPassword);
     } else if (emailOrUserNameAlreadyExist) {
       newAccountEmail.current.parentElement.classList.add(styles.alreadyExist);
-      newAccountUserName.current.parentElement.classList.add(
-        styles.alreadyExist
-      );
+      newAccountUserName.current.parentElement.classList.add(styles.alreadyExist);
     } else {
-      dispatch(createAccountActionCreator());
-      localStorage.activeUser = JSON.stringify(newUser.userName);
-      dispatch(getLikesStatusActionCreator());
+      createNewAccount(newUser.userName);
     }
   };
 
   return (
     <>
-      <Container
-        className={styles.mainContainer}
-        component="main"
-        maxWidth="xs"
-      >
+      <Container className={styles.mainContainer} component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Typography component="h1" variant="h1">
             <div className={styles.headerText}>InstaClone</div>
@@ -148,7 +109,7 @@ const SignUpPage = props => {
                   label="Email"
                   name="email"
                   value={newUser.email}
-                  onChange={onInputChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -160,7 +121,7 @@ const SignUpPage = props => {
                   id="fullName"
                   label="Full name"
                   value={newUser.fullName}
-                  onChange={onInputChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -174,7 +135,7 @@ const SignUpPage = props => {
                   id="userName"
                   label="Username"
                   value={newUser.userName}
-                  onChange={onInputChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -190,7 +151,7 @@ const SignUpPage = props => {
                   id="password"
                   placeholder="At least 6 characters"
                   value={newUser.password}
-                  onChange={onInputChange}
+                  onChange={handleInputChange}
                 />
               </Grid>
             </Grid>
@@ -200,7 +161,7 @@ const SignUpPage = props => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={createNewAccount}
+                onClick={handleSignUp}
               >
                 Sign Up
               </Button>
@@ -208,11 +169,7 @@ const SignUpPage = props => {
           </form>
         </div>
       </Container>
-      <Container
-        className={styles.mainContainer}
-        component="main"
-        maxWidth="xs"
-      >
+      <Container className={styles.mainContainer} component="main" maxWidth="xs">
         <div style={{ margin: 20 }}>
           <Typography align="center">
             Have an account?
@@ -233,9 +190,16 @@ SignUpPage.propTypes = {
     password: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
   }).isRequired,
-  newUserCheck: PropTypes.shape({}).isRequired,
+  newUserCheck: PropTypes.shape({
+    emailIsNull: PropTypes.bool,
+    userNameIsNull: PropTypes.bool,
+    passwordIsNull: PropTypes.bool,
+    shortPassword: PropTypes.bool,
+    emailOrUserNameAlreadyExist: PropTypes.bool,
+  }).isRequired,
   logInUrl: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  createNewAccount: PropTypes.func.isRequired,
 };
 
 export default SignUpPage;

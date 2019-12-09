@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'proptypes';
 
-import ModalWindow from './ModalWindow/ModalWindow';
 import styles from './CreatePostForm.module.scss';
+import ModalWindowContainer from './ModalWindow/ModalWindowContainer';
 
 const CreatePostForm = props => {
-  const { newPost, /* updateNewPost, createNewPst */ dispatch } = props;
+  const { state, dispatch } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -21,12 +21,10 @@ const CreatePostForm = props => {
       <button onClick={openModal} className={styles.button}>
         +
       </button>
-      <ModalWindow
+      <ModalWindowContainer
         isOpen={isModalOpen}
         onClose={closeModal}
-        newPost={newPost}
-        // updateNewPost={updateNewPost}
-        // createNewPost={createNewPost}
+        state={state}
         dispatch={dispatch}
       />
     </>
@@ -34,7 +32,7 @@ const CreatePostForm = props => {
 };
 
 CreatePostForm.propTypes = {
-  newPost: PropTypes.shape({}).isRequired,
+  state: PropTypes.shape({}).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

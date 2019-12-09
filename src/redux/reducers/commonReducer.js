@@ -86,8 +86,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -101,8 +100,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -116,8 +114,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -131,8 +128,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -146,8 +142,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -161,8 +156,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -176,8 +170,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -191,8 +184,7 @@ const initialState = {
             postedDate: Date.now(),
             postPhoto:
               'https://wallbox.ru/wallpapers/main/201137/cherno-belaya-oblaka-more-ba2d425.jpg', // URL, optional
-            description:
-              "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+            description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
             tags: '',
             likes: [],
             wasLiked: false,
@@ -245,8 +237,7 @@ const initialState = {
         postedDate: Date.now(),
         postPhoto:
           'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-        description:
-          "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+        description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
         tags: '',
         likes: [],
         wasLiked: false,
@@ -261,8 +252,7 @@ const initialState = {
         postedDate: Date.now(),
         postPhoto:
           'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-        description:
-          "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+        description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
         tags: '',
         likes: [],
         wasLiked: false,
@@ -277,8 +267,7 @@ const initialState = {
         postedDate: Date.now(),
         postPhoto:
           'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-        description:
-          "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+        description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
         tags: '',
         likes: [],
         wasLiked: false,
@@ -293,8 +282,7 @@ const initialState = {
         postedDate: Date.now(),
         postPhoto:
           'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
-        description:
-          "this is my first time to archery. i'm not a good archer at all \u{1F606}",
+        description: "this is my first time to archery. i'm not a good archer at all \u{1F606}",
         tags: '',
         likes: [],
         wasLiked: false,
@@ -340,12 +328,9 @@ const commonReducer = (state = initialState, action) => {
           posts: [],
         };
         state.users.newUserCheck.emailIsNull = state.users.newUser.email === '';
-        state.users.newUserCheck.userNameIsNull =
-          state.users.newUser.userName === '';
-        state.users.newUserCheck.passwordIsNull =
-          state.users.newUser.password === '';
-        state.users.newUserCheck.shortPassword =
-          state.users.newUser.password.length < 6;
+        state.users.newUserCheck.userNameIsNull = state.users.newUser.userName === '';
+        state.users.newUserCheck.passwordIsNull = state.users.newUser.password === '';
+        state.users.newUserCheck.shortPassword = state.users.newUser.password.length < 6;
 
         state.users.newUserCheck.emailOrUserNameAlreadyExist = !!state.users.existedUsers.find(
           ({ email, userName }) =>
@@ -377,12 +362,9 @@ const commonReducer = (state = initialState, action) => {
           emailOrUserName: emailOrUserName.replace(/\s/g, ''),
           password: password.replace(/\s/g, ''),
         };
-        state.users.loginCheck.emailOrUserNameIsNull =
-          state.users.loginUser.emailOrUserName === '';
-        state.users.loginCheck.passwordIsNull =
-          state.users.loginUser.password === '';
-        state.users.loginCheck.shortPassword =
-          state.users.loginUser.password.length < 5;
+        state.users.loginCheck.emailOrUserNameIsNull = state.users.loginUser.emailOrUserName === '';
+        state.users.loginCheck.passwordIsNull = state.users.loginUser.password === '';
+        state.users.loginCheck.shortPassword = state.users.loginUser.password.length < 5;
         state.users.loginCheck.successLogin = !!state.users.existedUsers.find(
           ({ email, userName, password }) =>
             (email === state.users.loginUser.emailOrUserName ||
@@ -472,9 +454,7 @@ const commonReducer = (state = initialState, action) => {
         const { id: postId } = action;
         const post = state.posts.existedPosts.find(post => post.id === postId);
         if (post.likes.includes(activeUser.userName)) {
-          const index = post.likes.findIndex(
-            user => user === activeUser.userName
-          );
+          const index = post.likes.findIndex(user => user === activeUser.userName);
           post.wasLiked = false;
           post.likes.splice(index, 1);
         } else {
@@ -486,9 +466,7 @@ const commonReducer = (state = initialState, action) => {
     case DELETE_ACCOUNT:
       {
         const { userName } = action;
-        const index = state.users.existedUsers.findIndex(
-          user => user.userName === userName
-        );
+        const index = state.users.existedUsers.findIndex(user => user.userName === userName);
         if (index > -1) {
           state.users.existedUsers.splice(index, 1);
           for (let i = state.posts.existedPosts.length - 1; i >= 0; i--) {

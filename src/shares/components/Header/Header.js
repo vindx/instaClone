@@ -10,21 +10,10 @@ const Header = props => {
 
   return (
     <Container className={styles.container} maxWidth="xl">
-      <Grid
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-      >
+      <Grid container direction="row" justify="space-evenly" alignItems="center">
         <Grid item xs={2} className={styles.logo}>
           <Link to={postsUrl} onClick={() => window.scrollTo(0, 0)}>
-            <Grid
-              container
-              direction="row"
-              wrap="nowrap"
-              justify="flex-start"
-              alignItems="center"
-            >
+            <Grid container direction="row" wrap="nowrap" justify="flex-start" alignItems="center">
               <img
                 alt=""
                 src="https://www.instagram.com/static/images/ico/favicon.svg/fc72dd4bfde8.svg"

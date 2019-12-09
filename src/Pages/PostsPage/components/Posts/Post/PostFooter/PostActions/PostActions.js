@@ -2,22 +2,19 @@ import React from 'react';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import PropTypes from 'proptypes';
 
-import { putLikeOnPostActionCreator } from '../../../../../../../redux/actions';
 import styles from './PostActions.module.scss';
 
 const PostActions = props => {
-  const { id, wasLiked, /* putLikeOnPost */ dispatch } = props;
+  const { id, wasLiked, putLikeOnPost } = props;
 
   const handleLikePost = () => {
-    dispatch(putLikeOnPostActionCreator(id));
+    putLikeOnPost(id);
   };
 
   return (
     <section className={styles.postActions}>
       <button
-        className={`${styles.actionButton} ${
-          wasLiked ? styles.postWasLiked : null
-        }`}
+        className={`${styles.actionButton} ${wasLiked ? styles.postWasLiked : null}`}
         onClick={handleLikePost}
       >
         <FavoriteBorderOutlinedIcon />
@@ -29,7 +26,7 @@ const PostActions = props => {
 PostActions.propTypes = {
   id: PropTypes.string.isRequired,
   wasLiked: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  putLikeOnPost: PropTypes.func.isRequired,
 };
 
 export default PostActions;

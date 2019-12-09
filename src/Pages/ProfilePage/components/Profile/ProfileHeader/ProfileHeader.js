@@ -2,30 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'proptypes';
 
-import {
-  logOutActionCreator,
-  removeRequestActionCreator,
-} from '../../../../../redux/actions';
 import styles from './ProfileHeader.module.scss';
 
 const ProfileHeader = props => {
-  const {
-    profilePhotoUrl,
-    userName,
-    fullName,
-    removeRequestStatus: removeProfile,
-    // removeRequest,
-    dispatch,
-    // logOut
-  } = props;
+  const { profilePhotoUrl, userName, fullName, removeRequestStatus, removeRequest, logOut } = props;
 
   const handleLogOut = () => {
-    localStorage.clear();
-    dispatch(logOutActionCreator());
+    logOut();
   };
 
-  const deleteRequest = () => {
-    dispatch(removeRequestActionCreator());
+  const handleRemoveRequest = () => {
+    removeRequest();
   };
 
   return (
@@ -40,8 +27,8 @@ const ProfileHeader = props => {
           <span>{userName}</span>
         </div>
         <section className={styles.buttons}>
-          <button className={styles.button} onClick={deleteRequest}>
-            {removeProfile ? 'Undo Delete' : 'Delete Profile'}
+          <button className={styles.button} onClick={handleRemoveRequest}>
+            {removeRequestStatus ? 'Undo Delete' : 'Delete Profile'}
           </button>
           <Link to="/">
             <button className={styles.button} onClick={handleLogOut}>
@@ -62,7 +49,8 @@ ProfileHeader.propTypes = {
   userName: PropTypes.string.isRequired,
   fullName: PropTypes.string.isRequired,
   removeRequestStatus: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  removeRequest: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
 };
 
 export default ProfileHeader;

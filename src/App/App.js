@@ -2,30 +2,15 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import PropTypes from 'proptypes';
 
-import SignUpPage from '../Pages/SignUpPage/SignUpPage';
-import LogInPage from '../Pages/LogInPage/LogInPage';
-import AdminPage from '../Pages/AdminPage/AdminPage';
+import { getLikesStatusActionCreator } from '../redux/actions';
 import PostsPage from '../Pages/PostsPage/PostsPage';
 import ProfilePage from '../Pages/ProfilePage/ProfilePage';
-import { getLikesStatusActionCreator } from '../redux/actions';
+import SignUpPageContainer from '../Pages/SignUpPage/SignUpPageContainer';
+import LogInPageContainer from '../Pages/LogInPage/LogInPageContainer';
+import AdminPageContainer from '../Pages/AdminPage/AdminPageContainer';
 
 function App(props) {
-  const {
-    state,
-    // createAccount,
-    // createNewPost,
-    // updateNewUserInfo,
-    // updateLoginInfo,
-    // logInCheck,
-    // removeRequest,
-    // logOut,
-    // deleteUser,
-    // updateNewPost,
-    // deletePost,
-    // getLikeStatus,
-    // putLikeOnPost,
-    dispatch,
-  } = props;
+  const { state, dispatch } = props;
   let [postsUrl, profileUrl, adminUrl, signUpUrl, logInUrl] = [
     '/posts',
     '/profile',
@@ -78,62 +63,26 @@ function App(props) {
         <Route
           exact
           path={adminUrl}
-          render={() => (
-            <AdminPage
-              users={state.users.existedUsers}
-              // logOut={logOut}
-              // deleteUser={deleteUser}
-              dispatch={dispatch}
-            />
-          )}
+          render={() => <AdminPageContainer state={state} dispatch={dispatch} />}
         />
 
         <Route
           exact
           path={postsUrl}
-          render={() => (
-            <PostsPage
-              postsUrl={postsUrl}
-              posts={state.posts.existedPosts}
-              newPost={state.posts.newPost}
-              // updateNewPost={updateNewPost}
-              // createNewPost={createNewPost}
-              // putLikeOnPost={putLikeOnPost}
-              dispatch={dispatch}
-            />
-          )}
+          render={() => <PostsPage postsUrl={postsUrl} state={state} dispatch={dispatch} />}
         />
 
         <Route
           exact
           path={profileUrl}
-          render={() => (
-            <ProfilePage
-              postsUrl={postsUrl}
-              user={activeUser}
-              newPost={state.posts.newPost}
-              // removeRequest={removeRequest}
-              // logOut={logOut}
-              // updateNewPost={updateNewPost}
-              // createNewPost={createNewPost}
-              // deletePost={deletePost}
-              dispatch={dispatch}
-            />
-          )}
+          render={() => <ProfilePage postsUrl={postsUrl} state={state} dispatch={dispatch} />}
         />
 
         <Route
           exact
           path={signUpUrl}
           render={() => (
-            <SignUpPage
-              logInUrl={logInUrl}
-              newUserCheck={state.users.newUserCheck}
-              newUser={state.users.newUser}
-              // updateNewUserInfo={updateNewUserInfo}
-              // createAccount={createAccount}
-              dispatch={dispatch}
-            />
+            <SignUpPageContainer logInUrl={logInUrl} state={state} dispatch={dispatch} />
           )}
         />
 
@@ -141,14 +90,7 @@ function App(props) {
           exact
           path={logInUrl}
           render={() => (
-            <LogInPage
-              signUpUrl={signUpUrl}
-              loginCheck={state.users.loginCheck}
-              loginUser={state.users.loginUser}
-              // logInCheck={logInCheck}
-              // updateLoginInfo={updateLoginInfo}
-              dispatch={dispatch}
-            />
+            <LogInPageContainer signUpUrl={signUpUrl} state={state} dispatch={dispatch} />
           )}
         />
       </div>
@@ -165,10 +107,6 @@ App.propTypes = {
       loginUser: PropTypes.object,
       loginCheck: PropTypes.object,
       existedUsers: PropTypes.arrayOf(PropTypes.object),
-    }),
-    posts: PropTypes.shape({
-      newPost: PropTypes.object,
-      existedPosts: PropTypes.arrayOf(PropTypes.object),
     }),
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
