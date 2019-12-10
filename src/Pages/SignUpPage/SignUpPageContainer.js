@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'proptypes';
 
 import {
   createAccountActionCreator,
@@ -6,48 +7,46 @@ import {
   updateNewUserInfoActionCreator,
 } from '../../redux/actions';
 import SignUpPage from './SignUpPage';
+import StoreContext from '../../StoreContext';
 
 const SignUpPageContainer = props => {
-  const { logInUrl, state, dispatch } = props;
-
-  const onInputChange = ({ email, fullName, userName, password }) => {
-    dispatch(
-      updateNewUserInfoActionCreator({
-        email,
-        fullName,
-        userName,
-        password,
-      })
-    );
-  };
-
-  const createNewAccount = userName => {
-    dispatch(createAccountActionCreator());
-    localStorage.activeUser = JSON.stringify(userName);
-    dispatch(getLikesStatusActionCreator());
-  };
+  const { logInUrl } = props;
 
   return (
-    <SignUpPage
-      newUser={state.users.newUser}
-      newUserCheck={state.users.newUserCheck}
-      logInUrl={logInUrl}
-      onInputChange={onInputChange}
-      createNewAccount={createNewAccount}
-    />
+    <StoreContext.Consumer>
+      {store => {
+        const onInputChange = ({ email, fullName, userName, password }) => {
+          store.dispatch(
+            updateNewUserInfoActionCreator({
+              email,
+              fullName,
+              userName,
+              password,
+            })
+          );
+        };
+
+        const createNewAccount = userName => {
+          store.dispatch(createAccountActionCreator());
+          localStorage.activeUser = JSON.stringify(userName);
+          store.dispatch(getLikesStatusActionCreator());
+        };
+        return (
+          <SignUpPage
+            newUser={store.getState().state.users.newUser}
+            newUserCheck={store.getState().state.users.newUserCheck}
+            logInUrl={logInUrl}
+            onInputChange={onInputChange}
+            createNewAccount={createNewAccount}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
   );
 };
-//
-// SignUpPage.propTypes = {
-//   newUser: PropTypes.shape({
-//     email: PropTypes.string.isRequired,
-//     fullName: PropTypes.string.isRequired,
-//     password: PropTypes.string.isRequired,
-//     userName: PropTypes.string.isRequired,
-//   }).isRequired,
-//   newUserCheck: PropTypes.shape({}).isRequired,
-//   logInUrl: PropTypes.string.isRequired,
-//   dispatch: PropTypes.func.isRequired,
-// };
+
+SignUpPageContainer.propTypes = {
+  logInUrl: PropTypes.string.isRequired,
+};
 
 export default SignUpPageContainer;

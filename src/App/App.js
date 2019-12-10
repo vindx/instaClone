@@ -60,39 +60,11 @@ function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
-        <Route
-          exact
-          path={adminUrl}
-          render={() => <AdminPageContainer state={state} dispatch={dispatch} />}
-        />
-
-        <Route
-          exact
-          path={postsUrl}
-          render={() => <PostsPage postsUrl={postsUrl} state={state} dispatch={dispatch} />}
-        />
-
-        <Route
-          exact
-          path={profileUrl}
-          render={() => <ProfilePage postsUrl={postsUrl} state={state} dispatch={dispatch} />}
-        />
-
-        <Route
-          exact
-          path={signUpUrl}
-          render={() => (
-            <SignUpPageContainer logInUrl={logInUrl} state={state} dispatch={dispatch} />
-          )}
-        />
-
-        <Route
-          exact
-          path={logInUrl}
-          render={() => (
-            <LogInPageContainer signUpUrl={signUpUrl} state={state} dispatch={dispatch} />
-          )}
-        />
+        <Route exact path={adminUrl} render={() => <AdminPageContainer />} />
+        <Route exact path={postsUrl} render={() => <PostsPage postsUrl={postsUrl} />} />
+        <Route exact path={profileUrl} render={() => <ProfilePage postsUrl={postsUrl} />} />
+        <Route exact path={signUpUrl} render={() => <SignUpPageContainer logInUrl={logInUrl} />} />
+        <Route exact path={logInUrl} render={() => <LogInPageContainer signUpUrl={signUpUrl} />} />
       </div>
     </BrowserRouter>
   );
@@ -102,10 +74,6 @@ App.propTypes = {
   state: PropTypes.shape({
     firstLog: PropTypes.bool,
     users: PropTypes.shape({
-      newUserCheck: PropTypes.object,
-      newUser: PropTypes.object,
-      loginUser: PropTypes.object,
-      loginCheck: PropTypes.object,
       existedUsers: PropTypes.arrayOf(PropTypes.object),
     }),
   }).isRequired,

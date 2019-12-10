@@ -6,21 +6,19 @@ import Profile from './components/Profile/Profile';
 import CreatePostForm from '../../shares/components/CreatePostForm/CreatePostForm';
 
 const ProfilePage = props => {
-  const { state, postsUrl, dispatch } = props;
+  const { postsUrl } = props;
 
   return (
     <>
       <Header postsUrl={postsUrl} />
-      <Profile state={state} dispatch={dispatch} />
-      <CreatePostForm state={state} dispatch={dispatch} />
+      <Profile />
+      <CreatePostForm />
     </>
   );
 };
 
 ProfilePage.propTypes = {
   postsUrl: PropTypes.string.isRequired,
-  state: PropTypes.shape({}).isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
 
 export default ProfilePage;

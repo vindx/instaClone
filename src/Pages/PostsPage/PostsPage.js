@@ -6,21 +6,19 @@ import CreatePostForm from '../../shares/components/CreatePostForm/CreatePostFor
 import PostsContainer from './components/Posts/PostsContainer';
 
 const PostsPage = props => {
-  const { postsUrl, state, dispatch } = props;
+  const { postsUrl } = props;
 
   return (
     <>
       <Header postsUrl={postsUrl} />
-      <PostsContainer state={state} dispatch={dispatch} />
-      <CreatePostForm state={state} dispatch={dispatch} />
+      <PostsContainer />
+      <CreatePostForm />
     </>
   );
 };
 
 PostsPage.propTypes = {
   postsUrl: PropTypes.string.isRequired,
-  state: PropTypes.shape({}).isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
 
 export default PostsPage;
