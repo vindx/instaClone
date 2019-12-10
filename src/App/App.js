@@ -25,7 +25,9 @@ function App(props) {
       // eslint-disable-next-line no-shadow
       const user = users.find(
         // eslint-disable-next-line no-shadow
-        user => user.userName === JSON.parse(localStorage.activeUser)
+        user =>
+          user.userName === JSON.parse(localStorage.activeUser) ||
+          user.email === JSON.parse(localStorage.activeUser)
       );
       if (user) {
         user.activeNow = true;

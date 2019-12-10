@@ -312,39 +312,41 @@ const initialState = {
 };
 
 const commonReducer = (state = initialState, action) => {
-  const activeUser = state.users.existedUsers.find(user => user.activeNow);
   switch (action.type) {
-    case UPDATE_NEW_USER_INFO:
-      {
-        const { email, fullName, userName, password } = action;
-        state.users.newUser = {
-          activeNow: false,
-          email: email.replace(/\s/g, ''),
-          userName: userName.replace(/\s/g, ''),
-          fullName,
-          password: password.replace(/\s/g, ''),
-          profilePhoto: '',
-          removeRequest: false,
-          posts: [],
-        };
-        state.users.newUserCheck.emailIsNull = state.users.newUser.email === '';
-        state.users.newUserCheck.userNameIsNull = state.users.newUser.userName === '';
-        state.users.newUserCheck.passwordIsNull = state.users.newUser.password === '';
-        state.users.newUserCheck.shortPassword = state.users.newUser.password.length < 6;
+    case UPDATE_NEW_USER_INFO: {
+      const { email, fullName, userName, password } = action;
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.users.newUser = {
+        activeNow: false,
+        email: email.replace(/\s/g, ''),
+        userName: userName.replace(/\s/g, ''),
+        fullName,
+        password: password.replace(/\s/g, ''),
+        profilePhoto: '',
+        removeRequest: false,
+        posts: [],
+      };
+      stateCopy.users.newUserCheck.emailIsNull = stateCopy.users.newUser.email === '';
+      stateCopy.users.newUserCheck.userNameIsNull = stateCopy.users.newUser.userName === '';
+      stateCopy.users.newUserCheck.passwordIsNull = stateCopy.users.newUser.password === '';
+      stateCopy.users.newUserCheck.shortPassword = stateCopy.users.newUser.password.length < 6;
 
-        state.users.newUserCheck.emailOrUserNameAlreadyExist = !!state.users.existedUsers.find(
-          ({ email, userName }) =>
-            email === state.users.newUser.email ||
-            email === state.users.newUser.userName ||
-            userName === state.users.newUser.userName ||
-            userName === state.users.newUser.email
-        );
-      }
-      return state;
-    case CREATE_ACCOUNT:
-      state.users.newUser.activeNow = true;
-      state.users.existedUsers.push(state.users.newUser);
-      state.users.newUser = {
+      stateCopy.users.newUserCheck.emailOrUserNameAlreadyExist = !!state.users.existedUsers.find(
+        ({ email: existedEmail, userName: existedUserName }) =>
+          existedEmail === stateCopy.users.newUser.email ||
+          existedEmail === stateCopy.users.newUser.userName ||
+          existedUserName === stateCopy.users.newUser.userName ||
+          existedUserName === stateCopy.users.newUser.email
+      );
+      return stateCopy;
+    }
+    case CREATE_ACCOUNT: {
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.users.newUser.activeNow = true;
+      stateCopy.users.existedUsers.push(stateCopy.users.newUser);
+      stateCopy.users.newUser = {
         activeNow: false,
         email: '',
         userName: '',
@@ -354,129 +356,158 @@ const commonReducer = (state = initialState, action) => {
         removeRequest: false,
         posts: [],
       };
-      return state;
-    case UPDATE_LOGIN_INFO:
-      {
-        const { emailOrUserName, password } = action;
-        state.users.loginUser = {
-          emailOrUserName: emailOrUserName.replace(/\s/g, ''),
-          password: password.replace(/\s/g, ''),
-        };
-        state.users.loginCheck.emailOrUserNameIsNull = state.users.loginUser.emailOrUserName === '';
-        state.users.loginCheck.passwordIsNull = state.users.loginUser.password === '';
-        state.users.loginCheck.shortPassword = state.users.loginUser.password.length < 5;
-        state.users.loginCheck.successLogin = !!state.users.existedUsers.find(
-          ({ email, userName, password }) =>
-            (email === state.users.loginUser.emailOrUserName ||
-              userName === state.users.loginUser.emailOrUserName) &&
-            password === state.users.loginUser.password
-        );
-      }
-      return state;
-    case LOGIN_CHECK:
-      {
-        const foundedUser = state.users.existedUsers.find(
-          ({ email, userName, password }) =>
-            (email === state.users.loginUser.emailOrUserName ||
-              userName === state.users.loginUser.emailOrUserName) &&
-            password === state.users.loginUser.password
-        );
-        foundedUser.activeNow = true;
-        state.users.loginUser = {
-          emailOrUserName: '',
-          password: '',
-        };
-      }
-      return state;
-    case LOGOUT:
+      return stateCopy;
+    }
+    case UPDATE_LOGIN_INFO: {
+      const { emailOrUserName, password } = action;
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.users.loginUser = {
+        emailOrUserName: emailOrUserName.replace(/\s/g, ''),
+        password: password.replace(/\s/g, ''),
+      };
+      stateCopy.users.loginCheck.emailOrUserNameIsNull =
+        stateCopy.users.loginUser.emailOrUserName === '';
+      stateCopy.users.loginCheck.passwordIsNull = stateCopy.users.loginUser.password === '';
+      stateCopy.users.loginCheck.shortPassword = stateCopy.users.loginUser.password.length < 5;
+      stateCopy.users.loginCheck.successLogin = !!state.users.existedUsers.find(
+        ({ email: existedEmail, userName: existedUserName, password: existedPassword }) =>
+          (existedEmail === stateCopy.users.loginUser.emailOrUserName ||
+            existedUserName === stateCopy.users.loginUser.emailOrUserName) &&
+          existedPassword === stateCopy.users.loginUser.password
+      );
+      return stateCopy;
+    }
+    case LOGIN_CHECK: {
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      const foundedUser = stateCopy.users.existedUsers.find(
+        ({ email, userName, password }) =>
+          (email === state.users.loginUser.emailOrUserName ||
+            userName === state.users.loginUser.emailOrUserName) &&
+          password === state.users.loginUser.password
+      );
+      foundedUser.activeNow = true;
+      stateCopy.users.loginUser = {
+        emailOrUserName: '',
+        password: '',
+      };
+      return stateCopy;
+    }
+    case LOGOUT: {
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      const activeUser = stateCopy.users.existedUsers.find(user => user.activeNow);
       activeUser.activeNow = false;
       return state;
-    case REMOVE_REQUEST:
+    }
+    case REMOVE_REQUEST: {
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      const activeUser = stateCopy.users.existedUsers.find(user => user.activeNow);
       activeUser.removeRequest = !activeUser.removeRequest;
-      return state;
-    case UPDATE_NEW_POST_INFO:
-      {
-        const { postPhoto = '', description, tags = '' } = action;
-        state.posts.newPost = {
-          postPhoto,
-          description,
-          tags,
-        };
-      }
-      return state;
-    case CREATE_NEW_POST:
-      {
-        const { postPhoto, description, tags } = state.posts.newPost;
-        const newPost = {
-          id: generateID(),
-          postedDate: Date.now(),
-          postPhoto,
-          description,
-          tags,
-          likes: [],
-          wasLiked: false,
-          owner: {
-            userName: activeUser.userName,
-            profilePhoto: activeUser.profilePhoto,
-          },
-        };
-        state.posts.existedPosts.unshift(newPost);
-        activeUser.posts.unshift(newPost);
-        state.posts.newPost = {
-          postPhoto: '',
-          description: '',
-          tags: '',
-        };
-      }
-      return state;
-    case DELETE_POST:
-      {
-        const { id } = action;
-        for (let i = 0; i < state.posts.existedPosts.length; i++) {
-          if (state.posts.existedPosts[i].id === id) {
-            state.posts.existedPosts.splice(i, 1);
-          }
+      return stateCopy;
+    }
+    case UPDATE_NEW_POST_INFO: {
+      const { postPhoto = '', description, tags = '' } = action;
+      const stateCopy = { ...state };
+      stateCopy.posts = JSON.parse(JSON.stringify(state.posts));
+      stateCopy.posts.newPost = {
+        postPhoto,
+        description,
+        tags,
+      };
+      return stateCopy;
+    }
+    case CREATE_NEW_POST: {
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.posts = JSON.parse(JSON.stringify(state.posts));
+      const { postPhoto, description, tags } = stateCopy.posts.newPost;
+      const activeUser = stateCopy.users.existedUsers.find(user => user.activeNow);
+      const newPost = {
+        id: generateID(),
+        postedDate: Date.now(),
+        postPhoto,
+        description,
+        tags,
+        likes: [],
+        wasLiked: false,
+        owner: {
+          userName: activeUser.userName,
+          profilePhoto: activeUser.profilePhoto,
+        },
+      };
+      stateCopy.posts.existedPosts.unshift(newPost);
+      activeUser.posts.unshift(newPost);
+      stateCopy.posts.newPost = {
+        postPhoto: '',
+        description: '',
+        tags: '',
+      };
+      return stateCopy;
+    }
+    case DELETE_POST: {
+      const { id } = action;
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.posts = JSON.parse(JSON.stringify(state.posts));
+      const activeUser = stateCopy.users.existedUsers.find(user => user.activeNow);
+      for (let i = 0; i < stateCopy.posts.existedPosts.length; i++) {
+        if (stateCopy.posts.existedPosts[i].id === id) {
+          stateCopy.posts.existedPosts.splice(i, 1);
         }
-        for (let i = 0; i < activeUser.posts.length; i++) {
-          if (activeUser.posts[i].id === id) {
-            activeUser.posts.splice(i, 1);
-          }
+      }
+      for (let i = 0; i < activeUser.posts.length; i++) {
+        if (activeUser.posts[i].id === id) {
+          activeUser.posts.splice(i, 1);
         }
       }
-      return state;
-    case GET_LIKES_STATUS:
-      state.posts.existedPosts.forEach(post => {
+      return stateCopy;
+    }
+    case GET_LIKES_STATUS: {
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.posts = JSON.parse(JSON.stringify(state.posts));
+      const activeUser = stateCopy.users.existedUsers.find(user => user.activeNow);
+      stateCopy.posts.existedPosts.forEach(post => {
         post.wasLiked = post.likes.includes(activeUser.userName);
       });
-      return state;
-    case PUT_LIKE_ON_POST:
-      {
-        const { id: postId } = action;
-        const post = state.posts.existedPosts.find(post => post.id === postId);
-        if (post.likes.includes(activeUser.userName)) {
-          const index = post.likes.findIndex(user => user === activeUser.userName);
-          post.wasLiked = false;
-          post.likes.splice(index, 1);
-        } else {
-          post.wasLiked = true;
-          post.likes.push(activeUser.userName);
-        }
+      return stateCopy;
+    }
+    case PUT_LIKE_ON_POST: {
+      const { id: postId } = action;
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.posts = JSON.parse(JSON.stringify(state.posts));
+      const activeUser = stateCopy.users.existedUsers.find(user => user.activeNow);
+      const post = stateCopy.posts.existedPosts.find(post => post.id === postId);
+      if (post.likes.includes(activeUser.userName)) {
+        const index = post.likes.findIndex(user => user === activeUser.userName);
+        post.wasLiked = false;
+        post.likes.splice(index, 1);
+      } else {
+        post.wasLiked = true;
+        post.likes.push(activeUser.userName);
       }
-      return state;
-    case DELETE_ACCOUNT:
-      {
-        const { userName } = action;
-        const index = state.users.existedUsers.findIndex(user => user.userName === userName);
-        if (index > -1) {
-          state.users.existedUsers.splice(index, 1);
-          for (let i = state.posts.existedPosts.length - 1; i >= 0; i--) {
-            if (state.posts.existedPosts[i].owner.userName === userName) {
-              state.posts.existedPosts.splice(i, 1);
-            }
+      return stateCopy;
+    }
+    case DELETE_ACCOUNT: {
+      const { userName } = action;
+      const stateCopy = { ...state };
+      stateCopy.users = JSON.parse(JSON.stringify(state.users));
+      stateCopy.posts = JSON.parse(JSON.stringify(state.posts));
+      const index = stateCopy.users.existedUsers.findIndex(user => user.userName === userName);
+      if (index > -1) {
+        stateCopy.users.existedUsers.splice(index, 1);
+        for (let i = stateCopy.posts.existedPosts.length - 1; i >= 0; i--) {
+          if (stateCopy.posts.existedPosts[i].owner.userName === userName) {
+            stateCopy.posts.existedPosts.splice(i, 1);
           }
         }
       }
-      return state;
+      return stateCopy;
+    }
     default:
       return state;
   }
