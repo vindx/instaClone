@@ -1,29 +1,20 @@
-import React from 'react';
+import { connect } from 'react-redux';
 
 import { deleteAccountActionCreator, logOutActionCreator } from '../../redux/actions';
 import AdminPage from './AdminPage';
-import StoreContext from '../../StoreContext';
 
-const AdminPageContainer = () => (
-  <StoreContext.Consumer>
-    {store => {
-      const logOut = () => {
-        store.dispatch(logOutActionCreator());
-        localStorage.clear();
-      };
+const mapStateToProps = state => ({
+  users: state.state.users.existedUsers,
+});
 
-      const deleteUser = userName => {
-        store.dispatch(deleteAccountActionCreator(userName));
-      };
-      return (
-        <AdminPage
-          users={store.getState().state.users.existedUsers}
-          logOut={logOut}
-          deleteUser={deleteUser}
-        />
-      );
-    }}
-  </StoreContext.Consumer>
-);
+const mapDispatchToProps = dispatch => ({
+  logOut: () => {
+    dispatch(logOutActionCreator());
+    localStorage.clear();
+  },
+  deleteUser: userName => {
+    dispatch(deleteAccountActionCreator(userName));
+  },
+});
 
-export default AdminPageContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);

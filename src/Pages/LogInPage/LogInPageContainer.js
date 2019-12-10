@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'proptypes';
+import { connect } from 'react-redux';
 
 import {
   getLikesStatusActionCreator,
@@ -7,39 +6,21 @@ import {
   updateLoginInfoActionCreator,
 } from '../../redux/actions';
 import LogInPage from './LogInPage';
-import StoreContext from '../../StoreContext';
 
-const LogInPageContainer = props => {
-  const { signUpUrl } = props;
+const mapStateToProps = state => ({
+  loginUser: state.state.users.loginUser,
+  loginCheck: state.state.users.loginCheck,
+});
 
-  return (
-    <StoreContext.Consumer>
-      {store => {
-        const onInputChange = ({ emailOrUserName, password }) => {
-          store.dispatch(updateLoginInfoActionCreator({ emailOrUserName, password }));
-        };
+const mapDispatchToProps = dispatch => ({
+  onInputChange: ({ emailOrUserName, password }) => {
+    dispatch(updateLoginInfoActionCreator({ emailOrUserName, password }));
+  },
+  logIn: emailOrUserName => {
+    dispatch(loginCheckActionCreator());
+    localStorage.activeUser = JSON.stringify(emailOrUserName);
+    dispatch(getLikesStatusActionCreator());
+  },
+});
 
-        const logIn = emailOrUserName => {
-          store.dispatch(loginCheckActionCreator());
-          localStorage.activeUser = JSON.stringify(emailOrUserName);
-          store.dispatch(getLikesStatusActionCreator());
-        };
-        return (
-          <LogInPage
-            loginUser={store.getState().state.users.loginUser}
-            loginCheck={store.getState().state.users.loginCheck}
-            signUpUrl={signUpUrl}
-            onInputChange={onInputChange}
-            logIn={logIn}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
-};
-
-LogInPageContainer.propTypes = {
-  signUpUrl: PropTypes.string.isRequired,
-};
-
-export default LogInPageContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);

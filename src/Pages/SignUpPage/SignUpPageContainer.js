@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'proptypes';
+import { connect } from 'react-redux';
 
 import {
   createAccountActionCreator,
@@ -7,46 +6,28 @@ import {
   updateNewUserInfoActionCreator,
 } from '../../redux/actions';
 import SignUpPage from './SignUpPage';
-import StoreContext from '../../StoreContext';
 
-const SignUpPageContainer = props => {
-  const { logInUrl } = props;
+const mapStateToProps = state => ({
+  newUser: state.state.users.newUser,
+  newUserCheck: state.state.users.newUserCheck,
+});
 
-  return (
-    <StoreContext.Consumer>
-      {store => {
-        const onInputChange = ({ email, fullName, userName, password }) => {
-          store.dispatch(
-            updateNewUserInfoActionCreator({
-              email,
-              fullName,
-              userName,
-              password,
-            })
-          );
-        };
+const mapDispatchToProps = dispatch => ({
+  onInputChange: ({ email, fullName, userName, password }) => {
+    dispatch(
+      updateNewUserInfoActionCreator({
+        email,
+        fullName,
+        userName,
+        password,
+      })
+    );
+  },
+  createNewAccount: userName => {
+    dispatch(createAccountActionCreator());
+    localStorage.activeUser = JSON.stringify(userName);
+    dispatch(getLikesStatusActionCreator());
+  },
+});
 
-        const createNewAccount = userName => {
-          store.dispatch(createAccountActionCreator());
-          localStorage.activeUser = JSON.stringify(userName);
-          store.dispatch(getLikesStatusActionCreator());
-        };
-        return (
-          <SignUpPage
-            newUser={store.getState().state.users.newUser}
-            newUserCheck={store.getState().state.users.newUserCheck}
-            logInUrl={logInUrl}
-            onInputChange={onInputChange}
-            createNewAccount={createNewAccount}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
-};
-
-SignUpPageContainer.propTypes = {
-  logInUrl: PropTypes.string.isRequired,
-};
-
-export default SignUpPageContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
