@@ -1,0 +1,184 @@
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  .descriptionText {
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 17px;
+    margin: 0 40px 10px;
+    color: #999;
+    text-align: center;
+  }
+
+  .formElementWrapper {
+    margin: 0 40px 6px;
+
+    .formElementContainer {
+      align-items: center;
+      border-radius: 3px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      font-size: 14px;
+      position: relative;
+      border: 1px solid #efefef;
+      background: #fafafa;
+
+      .labelContainer {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        height: 36px;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 0 0;
+        -ms-flex: 1 0 0;
+        flex: 1 0 0;
+        padding: 0;
+        position: relative;
+        margin: 0;
+        font-size: 16px;
+
+        .nameOfInput {
+          color: #999;
+          font-size: 12px;
+          height: 36px;
+          left: 8px;
+          line-height: 36px;
+          overflow: hidden;
+          pointer-events: none;
+          position: absolute;
+          right: 0;
+          text-overflow: ellipsis;
+          -webkit-transform-origin: left;
+          transform-origin: left;
+          -webkit-transition: -webkit-transform ease-out 0.1s;
+          transition: transform ease-out 0.1s;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          white-space: nowrap;
+        }
+
+        .input {
+          border: 0;
+          border-radius: 2px;
+          -webkit-box-flex: 1;
+          -webkit-flex: 1 0 auto;
+          -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+          margin: 0;
+          outline: 0;
+          overflow: hidden;
+          padding: 9px 0 7px 8px;
+          text-overflow: ellipsis;
+          background: #fafafa;
+        }
+      }
+
+      .notNull {
+        .input {
+          padding: 14px 0 2px 8px;
+          font-size: 12px;
+        }
+        .nameOfInput {
+          transform: scale(0.83333) translateY(-10px);
+        }
+      }
+
+      .inputStatus {
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        height: 100%;
+        padding-right: 8px;
+        vertical-align: middle;
+
+        .unTouched {
+          background-image: url(https://www.instagram.com/static/bundles/metro/sprite_core_b20f2a3cd7e4.png/b20f2a3cd7e4.png);
+          background-repeat: no-repeat;
+          height: 22px;
+          width: 22px;
+          margin-left: 8px;
+          display: none;
+        }
+
+        .onError {
+          display: block;
+          background-position: -250px -146px;
+        }
+
+        .onAccept {
+          display: block;
+          background-position: -250px -122px;
+        }
+      }
+
+      &:focus-within {
+        border: 1px solid #b2b2b2;
+      }
+    }
+  }
+
+  .buttonContainer {
+    margin: 8px 40px;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-align-content: stretch;
+    align-content: stretch;
+
+    .button,
+    .button:visited {
+      border: 1px solid transparent;
+      background-color: #3897f0;
+      border-radius: 4px;
+      color: #fff;
+      position: relative;
+      box-sizing: border-box;
+      cursor: pointer;
+      display: block;
+      font-weight: 600;
+      padding: 5px 9px;
+      text-align: center;
+      text-transform: inherit;
+      text-overflow: ellipsis;
+      user-select: none;
+      width: 100%;
+      font-size: 14px;
+      line-height: 18px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+        sans-serif;
+      outline: none;
+
+      &:active {
+        opacity: 0.7;
+      }
+    }
+  }
+}

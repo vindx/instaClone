@@ -1,0 +1,37 @@
+@import '../../fonts/Billabong/style.scss';
+
+.mainContainer {
+  margin: 30px auto 0;
+  color: #262626;
+  max-width: 350px;
+
+  .container {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 1px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 0 10px;
+
+    .headerText {
+      margin: 22px auto 10px;
+      font-size: 4rem;
+      font-family: Billabong, sans-serif;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .mainContainer {
+    max-width: 100%;
+    .container {
+      background-color: inherit;
+      border: none;
+    }
+  }
+}
