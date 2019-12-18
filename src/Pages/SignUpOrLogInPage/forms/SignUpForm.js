@@ -1,101 +1,70 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
-import FormErrors from './FormErrors/FormErrors';
+import { Input } from '../../../shares/components/FormsControls/FormsControls';
+import {
+  invalidEmail,
+  notOnlyNumbers,
+  passwordMinLengthCreator,
+  required,
+  userNameValidator,
+} from '../../../utils/validators/validators';
 import styles from './forms.module.scss';
+import preloader from '../../../assets/images/whitePreloader.svg';
 
-const SignUpForm = () => (
-  <form className={styles.formContainer}>
+const passwordMinLength = passwordMinLengthCreator(6);
+
+const SignUpForm = props => (
+  <form className={styles.formContainer} onSubmit={props.handleSubmit}>
     <h5 className={styles.descriptionText}>Sign up to see photos and videos from your friends.</h5>
-    <div className={styles.formElementWrapper}>
-      <div className={styles.formElementContainer}>
-        <label className={`${styles.labelContainer}`}>
-          <span className={styles.nameOfInput}>Email</span>
-          <input
-            aria-label="Email"
-            aria-required="true"
-            autoCapitalize="off"
-            autoComplete="email"
-            autoCorrect="off"
-            name="email"
-            type="text"
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.inputStatus}>
-          <span className={`${styles.unTouched}`} />
-        </div>
-      </div>
-    </div>
+    <Field
+      component={Input}
+      label="Email"
+      autoComplete="email"
+      aria-required="true"
+      name="email"
+      type="text"
+      validate={[required, invalidEmail]}
+    />
 
-    <div className={styles.formElementWrapper}>
-      <div className={styles.formElementContainer}>
-        <label className={`${styles.labelContainer}`}>
-          <span className={styles.nameOfInput}>Full Name</span>
-          <input
-            aria-label="Full Name"
-            aria-required="false"
-            autoCapitalize="sentences"
-            autoCorrect="off"
-            name="fullName"
-            type="text"
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.inputStatus}>
-          <span className={`${styles.unTouched}`} />
-        </div>
-      </div>
-    </div>
-    <div className={styles.formElementWrapper}>
-      <div className={styles.formElementContainer}>
-        <label className={`${styles.labelContainer}`}>
-          <span className={styles.nameOfInput}>Username</span>
-          <input
-            aria-label="Username"
-            aria-required="true"
-            autoCapitalize="off"
-            autoCorrect="off"
-            maxLength="30"
-            name="username"
-            type="text"
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.inputStatus}>
-          <span className={`${styles.unTouched}`} />
-        </div>
-      </div>
-    </div>
+    <Field component={Input} label="Full name" aria-required="false" name="fullName" type="text" />
 
-    <div className={styles.formElementWrapper}>
-      <div className={styles.formElementContainer}>
-        <label className={`${styles.labelContainer}`}>
-          <span className={styles.nameOfInput}>Password</span>
-          <input
-            aria-label="Password"
-            aria-required="true"
-            autoCapitalize="off"
-            autoComplete="new-password"
-            autoCorrect="off"
-            name="password"
-            type="password"
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.inputStatus}>
-          <span className={`${styles.unTouched}`} />
-        </div>
-      </div>
-    </div>
+    <Field
+      component={Input}
+      label="Username"
+      aria-required="true"
+      autoComplete="username"
+      maxLength="30"
+      name="userName"
+      type="text"
+      validate={[required, notOnlyNumbers, userNameValidator]}
+    />
+
+    <Field
+      component={Input}
+      label="Password"
+      aria-required="true"
+      autoComplete="new-password"
+      name="password"
+      type="password"
+      validate={[required, passwordMinLength]}
+    />
 
     <div className={styles.buttonContainer}>
-      <button className={styles.button} type="submit">
-        Sign up
+      <button
+        className={`${styles.button} ${props.invalid && styles.inActive}`}
+        disabled={props.invalid || props.authInfo.isFetching}
+      >
+        {props.authInfo.isFetching ? (
+          <img alt="" src={preloader} className={styles.preloader} />
+        ) : (
+          'Sign up'
+        )}
       </button>
     </div>
 
-    {/* <FormErrors/> */}
+    {props.authInfo.error && <div className={styles.errorContainer}>{props.authInfo.error}</div>}
   </form>
 );
 
-export default SignUpForm;
+export default reduxForm({ form: 'signUpForm' })(SignUpForm);

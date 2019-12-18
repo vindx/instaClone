@@ -8,6 +8,7 @@ import ProfilePage from '../Pages/ProfilePage/ProfilePage';
 import SignUpPageContainer from '../Pages/SignUpPage/SignUpPageContainer';
 import LogInPageContainer from '../Pages/LogInPage/LogInPageContainer';
 import AdminPageContainer from '../Pages/AdminPage/AdminPageContainer';
+import SignUpOrLogInPage from '../Pages/SignUpOrLogInPage/SignUpOrLogInPage';
 
 function App(props) {
   const { state, dispatch } = props;
@@ -62,6 +63,7 @@ function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
+        <Route path="/" component={SignUpOrLogInPage} />
         <Route exact path={adminUrl} render={() => <AdminPageContainer />} />
         <Route exact path={postsUrl} render={() => <PostsPage postsUrl={postsUrl} />} />
         <Route exact path={profileUrl} render={() => <ProfilePage postsUrl={postsUrl} />} />

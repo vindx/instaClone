@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import SignUpView from './views/SignUpView';
-import LogInView from './views/LogInView';
+import LogInViewContainer from './views/LogInViewContainer';
+import SignUpViewContainer from './views/SignUpViewContainer';
 
 const SignUpOrLogInPage = () => (
   <>
-    <Route exact path="/signup123" component={SignUpView} />
-    <Route exact path="/login123" component={LogInView} />
+    <Route exact path="/signup123" component={SignUpViewContainer} />
+    <Route exact path="/login123" component={LogInViewContainer} />
   </>
 );
 

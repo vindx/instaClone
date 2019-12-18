@@ -1,59 +1,51 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
 
-import FormErrors from './FormErrors/FormErrors';
+import { Input } from '../../../shares/components/FormsControls/FormsControls';
+import {
+  notOnlyNumbers,
+  passwordMinLengthCreator,
+  required,
+} from '../../../utils/validators/validators';
+import preloader from '../../../assets/images/whitePreloader.svg';
 import styles from './forms.module.scss';
 
-const LogInForm = () => (
-  <form className={styles.formContainer}>
-    <div className={styles.formElementWrapper}>
-      <div className={styles.formElementContainer}>
-        <label className={`${styles.labelContainer}`}>
-          <span className={styles.nameOfInput}>Username or email</span>
-          <input
-            aria-label="Username or email"
-            aria-required="true"
-            autoCapitalize="off"
-            autoCorrect="off"
-            maxLength="75"
-            name="username"
-            type="text"
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.inputStatus}>
-          <span className={`${styles.unTouched}`} />
-        </div>
-      </div>
-    </div>
+const passwordMinLength = passwordMinLengthCreator(6);
 
-    <div className={styles.formElementWrapper}>
-      <div className={styles.formElementContainer}>
-        <label className={`${styles.labelContainer}`}>
-          <span className={styles.nameOfInput}>Password</span>
-          <input
-            aria-label="Password"
-            aria-required="true"
-            autoCapitalize="off"
-            autoCorrect="off"
-            name="password"
-            type="password"
-            className={styles.input}
-          />
-        </label>
-        <div className={styles.inputStatus}>
-          <span className={`${styles.unTouched}`} />
-        </div>
-      </div>
-    </div>
+const LogInForm = props => (
+  <form className={styles.formContainer} onSubmit={props.handleSubmit}>
+    <Field
+      component={Input}
+      label="Username or email"
+      maxLength="50"
+      name="emailOrUserName"
+      type="text"
+      validate={[required, notOnlyNumbers]}
+    />
+    <Field
+      component={Input}
+      autoComplete="password"
+      label="Password"
+      name="password"
+      type="password"
+      validate={[required, passwordMinLength]}
+    />
 
     <div className={styles.buttonContainer}>
-      <button className={styles.button} type="submit">
-        Log In
+      <button
+        className={`${styles.button} ${props.invalid && styles.inActive}`}
+        disabled={props.invalid || props.authInfo.isFetching}
+      >
+        {props.authInfo.isFetching ? (
+          <img alt="" src={preloader} className={styles.preloader} />
+        ) : (
+          'Log In'
+        )}
       </button>
     </div>
 
-    {/* <FormErrors /> */}
+    {props.authInfo.error && <div className={styles.errorContainer}>{props.authInfo.error}</div>}
   </form>
 );
 
-export default LogInForm;
+export default reduxForm({ form: 'logInForm' })(LogInForm);
