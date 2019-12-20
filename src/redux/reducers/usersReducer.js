@@ -1,90 +1,60 @@
-// const UPDATE_NEW_USER_INFO = 'UPDATE_NEW_USER_INFO';
-// const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
-// const UPDATE_LOGIN_INFO = 'UPDATE_LOGIN_INFO';
-// const LOGIN_CHECK = 'LOGIN_CHECK';
-// const LOGOUT = 'LOGOUT';
-// const REMOVE_REQUEST = 'REMOVE_REQUEST';
-//
-// const usersReducer = (state, action) => {
-//   const { emailOrUserName, email, fullName, userName, password } = action;
-//   let activeUser = state.existedUsers.find(user => user.activeNow);
-//   switch (action.type) {
-//     case UPDATE_NEW_USER_INFO:
-//       state.newUser = {
-//         activeNow: false,
-//         email: email.replace(/\s/g, ''),
-//         userName: userName.replace(/\s/g, ''),
-//         fullName,
-//         password: password.replace(/\s/g, ''),
-//         profilePhoto: '',
-//         removeRequest: false,
-//         posts: [],
-//       };
-//       state.newUserCheck.emailIsNull = state.newUser.email === '';
-//       state.newUserCheck.userNameIsNull = state.newUser.userName === '';
-//       state.newUserCheck.passwordIsNull = state.newUser.password === '';
-//       state.newUserCheck.shortPassword = state.newUser.password.length < 6;
-//
-//       state.newUserCheck.emailOrUserNameAlreadyExist = !!state.existedUsers.find(
-//         ({ email, userName }) =>
-//           email === state.newUser.email ||
-//           email === state.newUser.userName ||
-//           userName === state.newUser.userName ||
-//           userName === state.newUser.email
-//       );
-//       return state;
-//     case CREATE_ACCOUNT:
-//       state.newUser.activeNow = true;
-//       state.existedUsers.push(state.newUser);
-//       state.newUser = {
-//         activeNow: false,
-//         email: '',
-//         userName: '',
-//         fullName: '',
-//         profilePhoto: '',
-//         password: '',
-//         removeRequest: false,
-//         posts: [],
-//       };
-//       return state;
-//     case UPDATE_LOGIN_INFO:
-//       state.loginUser = {
-//         emailOrUserName: emailOrUserName.replace(/\s/g, ''),
-//         password: password.replace(/\s/g, ''),
-//       };
-//       state.loginCheck.emailOrUserNameIsNull =
-//         state.loginUser.emailOrUserName === '';
-//       state.loginCheck.passwordIsNull = state.loginUser.password === '';
-//       state.loginCheck.shortPassword = state.loginUser.password.length < 5;
-//       state.loginCheck.successLogin = !!state.existedUsers.find(
-//         ({ email, userName, password }) =>
-//           (email === state.loginUser.emailOrUserName ||
-//             userName === state.loginUser.emailOrUserName) &&
-//           password === state.loginUser.password
-//       );
-//       return state;
-//     case LOGIN_CHECK:
-//       let foundedUser = state.existedUsers.find(
-//         ({ email, userName, password }) =>
-//           (email === state.loginUser.emailOrUserName ||
-//             userName === state.loginUser.emailOrUserName) &&
-//           password === state.loginUser.password
-//       );
-//       foundedUser.activeNow = true;
-//       state.loginUser = {
-//         emailOrUserName: '',
-//         password: '',
-//       };
-//       return state;
-//     case LOGOUT:
-//       activeUser.activeNow = false;
-//       return state;
-//     case REMOVE_REQUEST:
-//       activeUser.removeRequest = !activeUser.removeRequest;
-//       return state;
-//     default:
-//       return state;
-//   }
-// };
-//
-// export default usersReducer;
+const USERS_FETCHING_ON_PROGRESS = 'USERS_FETCHING_ON_PROGRESS';
+const USERS_FETCHING_ON_SUCCESS = 'USERS_FETCHING_ON_SUCCESS';
+const USERS_FETCHING_ON_ERROR = 'USERS_FETCHING_ON_ERROR';
+const DELETE_USER_FETCHING_ON_PROGRESS = 'DELETE_USER_FETCHING_ON_PROGRESS';
+const DELETE_USER_FETCHING_ON_SUCCESS = 'DELETE_USER_FETCHING_ON_SUCCESS';
+
+const initialState = {
+  initIsFetching: false,
+  deletingIsFetching: false,
+  error: null,
+  data: {
+    users: [],
+    totalCount: 0,
+  },
+};
+
+const usersReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case USERS_FETCHING_ON_PROGRESS:
+      return { ...state, initIsFetching: true };
+    case USERS_FETCHING_ON_ERROR:
+      return { ...state, initIsFetching: false, error: action.payload };
+    case USERS_FETCHING_ON_SUCCESS:
+      return {
+        ...state,
+        initIsFetching: false,
+        error: null,
+        data: {
+          users: action.payload.users,
+          totalCount: action.payload.totalCount,
+        },
+      };
+    case DELETE_USER_FETCHING_ON_PROGRESS:
+      return { ...state, deletingIsFetching: true };
+    case DELETE_USER_FETCHING_ON_SUCCESS:
+      return {
+        ...state,
+        deletingIsFetching: false,
+        data: {
+          users: action.payload.users,
+          totalCount: action.payload.totalCount,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+export const usersFetchingOnProgress = () => ({ type: USERS_FETCHING_ON_PROGRESS });
+export const usersFetchingOnError = error => ({ type: USERS_FETCHING_ON_ERROR, payload: error });
+export const usersFetchingOnSuccess = (users, totalCount) => ({
+  type: USERS_FETCHING_ON_SUCCESS,
+  payload: { users, totalCount },
+});
+export const deleteUserFetchingOnProgress = () => ({ type: DELETE_USER_FETCHING_ON_PROGRESS });
+export const deleteUserFetchingOnSuccess = (users, totalCount) => ({
+  type: DELETE_USER_FETCHING_ON_SUCCESS,
+  payload: { users, totalCount },
+});
+export default usersReducer;

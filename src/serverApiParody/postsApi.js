@@ -155,13 +155,13 @@ const PostsApi = {
     return Promise.resolve({ responseCode: 200, post });
   },
 
-  deleteAccount(user) {
+  deleteAccount(userName) {
     for (let i = this.posts.length - 1; i >= 0; i--) {
-      if (this.posts[i].owner.userName === user.userName) {
+      if (this.posts[i].owner.userName === userName) {
         this.posts.splice(i, 1);
       }
     }
-    return this.getAllPosts();
+    return Promise.resolve({ responseCode: 200, message: 'Done' });
   },
 };
 

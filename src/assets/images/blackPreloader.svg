@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="497px" height="207px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<g transform="rotate(0 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.7768361581920903s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(30 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.7062146892655367s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(60 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.6355932203389829s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(90 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.5649717514124293s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(120 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.49435028248587565s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(150 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.42372881355932196s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(180 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.3531073446327683s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(210 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.28248587570621464s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(240 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.21186440677966098s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(270 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.14124293785310732s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(300 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="-0.07062146892655366s" repeatCount="indefinite"></animate>
+  </rect>
+</g><g transform="rotate(330 50 50)">
+  <rect x="48.5" y="0" rx="0" ry="0" width="4" height="20" fill='currentColor'>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="0.8474576271186439s" begin="0s" repeatCount="indefinite"></animate>
+  </rect>
+</g>
+</svg>

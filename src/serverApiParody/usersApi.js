@@ -18,7 +18,271 @@ const UsersApi = {
     {
       id: generateID(),
       email: 'kkdasod@kao.com',
+      userName: 'loqa54sy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqv4asy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loq33h3asy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqasyh3y',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqaga1asy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqeg341asy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqg231g1asy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqg4qgasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqagq2g4sy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'lag32oqasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqasg2g2asy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqasd4fy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqah2sy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqaasdg1sy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqafgshasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqazxssy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqaasassy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqwqewqasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'lo1241231qasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqas124123y',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
       userName: 'loqasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'loqas4123y',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdasod@kao.com',
+      userName: 'l1241231oqasy',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkdas1od@kao.com',
+      userName: 'loqasy321',
+      fullName: '', // optional
+      profilePhoto:
+        'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
+      password: '1234566',
+      removeRequest: true, // default value - FALSE
+      posts: [],
+    },
+    {
+      id: generateID(),
+      email: 'kkd2asod@kao.com',
+      userName: 'loqasy123',
       fullName: '', // optional
       profilePhoto:
         'https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL
@@ -115,8 +379,11 @@ const UsersApi = {
     },
   ],
 
-  getAllUsers() {
-    return Promise.resolve({ responseCode: 200, users: this.users });
+  getAllUsers(pageSize = this.users.length, pageNum = 1) {
+    const fromNum = pageSize * pageNum - pageSize + 1; // default from 1 cause users[0] = ADMIN
+    const toNum = pageSize * pageNum + 1; // default to 11 cause slice's work
+    const copyUsers = JSON.parse(JSON.stringify(this.users.slice(fromNum, toNum)));
+    return Promise.resolve({ responseCode: 200, users: copyUsers, totalCount: this.users.length });
   },
 
   getUserById(id) {
