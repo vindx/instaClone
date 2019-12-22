@@ -1,5 +1,6 @@
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import thunk from 'redux-thunk';
 import { commonReducer, authReducer, usersReducer, postsReducer } from './reducers';
 
 const reducers = combineReducers({
@@ -11,8 +12,8 @@ const reducers = combineReducers({
   form: formReducer,
 });
 
-const enhancer = () => window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const composeEnhancers = compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__());
 
-const store = createStore(reducers, enhancer());
+const store = createStore(reducers, composeEnhancers);
 
 export default store;

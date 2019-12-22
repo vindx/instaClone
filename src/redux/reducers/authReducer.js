@@ -1,3 +1,5 @@
+import UsersApi from '../../serverApiParody/usersApi';
+
 const AUTH_IS_FETCHING = 'AUTH_IS_FETCHING';
 const AUTH_ON_ERROR = 'AUTH_ON_ERROR';
 const AUTH_ON_SUCCESS = 'AUTH_ON_SUCCESS';
@@ -43,4 +45,31 @@ export const authIsFetching = () => ({ type: AUTH_IS_FETCHING });
 export const authOnError = error => ({ type: AUTH_ON_ERROR, payload: error });
 export const authOnSuccess = userData => ({ type: AUTH_ON_SUCCESS, payload: userData });
 export const deAuth = () => ({ type: DE_AUTH });
+
+export const createAccount = ({ email, fullName, userName, password }) => dispatch => {
+  dispatch(authIsFetching());
+  setTimeout(() => {
+    UsersApi.createUser({ email, fullName, userName, password }).then(response => {
+      if (response.responseCode === 200) {
+        dispatch(authOnSuccess(response.user));
+      } else {
+        dispatch(authOnError(response.error));
+      }
+    });
+  }, 1000);
+};
+
+export const logIn = ({ emailOrUserName, password }) => dispatch => {
+  dispatch(authIsFetching());
+  setTimeout(() => {
+    UsersApi.getUserByLogInInfo({ emailOrUserName, password }).then(response => {
+      if (response.responseCode === 200) {
+        dispatch(authOnSuccess(response.user));
+      } else {
+        dispatch(authOnError(response.error));
+      }
+    });
+  }, 1000);
+};
+
 export default authReducer;

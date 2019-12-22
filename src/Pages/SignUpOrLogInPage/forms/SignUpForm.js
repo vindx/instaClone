@@ -53,9 +53,9 @@ const SignUpForm = props => (
     <div className={styles.buttonContainer}>
       <button
         className={`${styles.button} ${props.invalid && styles.inActive}`}
-        disabled={props.invalid || props.authInfo.isFetching}
+        disabled={props.invalid || props.authIsFetching}
       >
-        {props.authInfo.isFetching ? (
+        {props.authIsFetching ? (
           <img alt="" src={preloader} className={styles.preloader} />
         ) : (
           'Sign up'
@@ -63,7 +63,7 @@ const SignUpForm = props => (
       </button>
     </div>
 
-    {props.authInfo.error && <div className={styles.errorContainer}>{props.authInfo.error}</div>}
+    {props.authError && <div className={styles.errorContainer}>{props.authError}</div>}
   </form>
 );
 

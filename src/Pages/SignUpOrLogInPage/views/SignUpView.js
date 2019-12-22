@@ -8,7 +8,11 @@ const SignUpView = props => (
   <div className={styles.mainContainer}>
     <div className={styles.container}>
       <h1 className={styles.headerText}>InstaClone</h1>
-      <SignUpForm onSubmit={props.createNewAccount} authInfo={props.authInfo} />
+      <SignUpForm
+        onSubmit={props.createAccount}
+        authIsFetching={props.isFetching}
+        authError={props.error}
+      />
     </div>
     <RedirectToLogIn />
   </div>

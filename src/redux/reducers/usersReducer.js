@@ -1,3 +1,6 @@
+import UsersApi from '../../serverApiParody/usersApi';
+import PostsApi from '../../serverApiParody/postsApi';
+
 const USERS_FETCHING_ON_PROGRESS = 'USERS_FETCHING_ON_PROGRESS';
 const USERS_FETCHING_ON_SUCCESS = 'USERS_FETCHING_ON_SUCCESS';
 const USERS_FETCHING_ON_ERROR = 'USERS_FETCHING_ON_ERROR';
@@ -57,4 +60,29 @@ export const deleteUserFetchingOnSuccess = (users, totalCount) => ({
   type: DELETE_USER_FETCHING_ON_SUCCESS,
   payload: { users, totalCount },
 });
+
+export const getAllUsers = () => dispatch => {
+  dispatch(usersFetchingOnProgress());
+  setTimeout(() => {
+    UsersApi.getAllUsers().then(response => {
+      if (response.responseCode === 200) {
+        dispatch(usersFetchingOnSuccess(response.users, response.totalCount));
+      } else {
+        dispatch(usersFetchingOnError(response.error));
+      }
+    });
+  }, 1000);
+};
+
+export const deleteUser = (userId, userName) => dispatch => {
+  dispatch(deleteUserFetchingOnProgress());
+  setTimeout(() => {
+    Promise.all([UsersApi.deleteUser(userId), PostsApi.deleteAccount(userName)]).then(
+      response =>
+        response.every(obj => obj.responseCode === 200) &&
+        dispatch(deleteUserFetchingOnSuccess(response[0].users, response[0].totalCount))
+    );
+  }, 1000);
+};
+
 export default usersReducer;
