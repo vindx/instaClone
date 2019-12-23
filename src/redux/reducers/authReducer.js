@@ -1,18 +1,25 @@
 import UsersApi from '../../serverApiParody/usersApi';
+import { fade } from '@material-ui/core/styles';
 
 const AUTH_IS_FETCHING = 'AUTH_IS_FETCHING';
 const AUTH_ON_ERROR = 'AUTH_ON_ERROR';
 const AUTH_ON_SUCCESS = 'AUTH_ON_SUCCESS';
+const APP_INIT_FETCHING_TOGGLE = 'APP_INIT_FETCHING_TOGGLE';
 const DE_AUTH = 'DE_AUTH';
 
 const initialState = {
   isFetching: false,
+  firstInitIsFetching: false,
   error: null,
   data: null,
+  isAuth: false,
+  activeUser: null,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case APP_INIT_FETCHING_TOGGLE:
+      return { ...state, firstInitIsFetching: action.payload };
     case AUTH_IS_FETCHING:
       return {
         ...state,
@@ -28,19 +35,25 @@ const authReducer = (state = initialState, action) => {
         data: {
           ...action.payload,
         },
+        isAuth: true,
+        activeUser: action.payload.userName,
       };
     case DE_AUTH:
       return {
         ...state,
         isFetching: false,
+        firstInitIsFetching: false,
         error: null,
         data: null,
+        isAuth: false,
+        activeUser: null,
       };
     default:
       return state;
   }
 };
 
+export const appInitFetchingToggle = bool => ({ type: APP_INIT_FETCHING_TOGGLE, payload: bool });
 export const authIsFetching = () => ({ type: AUTH_IS_FETCHING });
 export const authOnError = error => ({ type: AUTH_ON_ERROR, payload: error });
 export const authOnSuccess = userData => ({ type: AUTH_ON_SUCCESS, payload: userData });
@@ -52,6 +65,7 @@ export const createAccount = ({ email, fullName, userName, password }) => dispat
     UsersApi.createUser({ email, fullName, userName, password }).then(response => {
       if (response.responseCode === 200) {
         dispatch(authOnSuccess(response.user));
+        localStorage.activeUser = response.user.userName;
       } else {
         dispatch(authOnError(response.error));
       }
@@ -65,10 +79,27 @@ export const logIn = ({ emailOrUserName, password }) => dispatch => {
     UsersApi.getUserByLogInInfo({ emailOrUserName, password }).then(response => {
       if (response.responseCode === 200) {
         dispatch(authOnSuccess(response.user));
+        localStorage.activeUser = response.user.userName;
       } else {
         dispatch(authOnError(response.error));
       }
     });
+  }, 1000);
+};
+
+export const firstAppInit = () => dispatch => {
+  dispatch(appInitFetchingToggle(true));
+  setTimeout(() => {
+    if (localStorage.activeUser) {
+      UsersApi.getUserByUserName(localStorage.activeUser).then(response => {
+        if (response.responseCode === 200) {
+          dispatch(authOnSuccess(response.user));
+        } else {
+          localStorage.clear();
+        }
+      });
+    }
+    dispatch(appInitFetchingToggle(false));
   }, 1000);
 };
 

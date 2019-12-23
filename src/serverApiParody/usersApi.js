@@ -386,8 +386,8 @@ const UsersApi = {
     return Promise.resolve({ responseCode: 200, users: copyUsers, totalCount: this.users.length });
   },
 
-  getUserById(id) {
-    const user = this.users.find(u => u.id === id);
+  getUserByUserName(userName) {
+    const user = this.users.find(u => u.userName === userName);
     if (user) {
       return Promise.resolve({ responseCode: 200, user });
     }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import AdminPage from './AdminPage';
 import { getAllUsers, deleteUser } from '../../redux/reducers/usersReducer';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 
 class AdminPageContainer extends React.Component {
   // use effect hook
@@ -15,6 +17,7 @@ class AdminPageContainer extends React.Component {
   };
 
   render() {
+    if (this.props.activeUser !== 'admin') return <Redirect to="/" />;
     return (
       <AdminPage
         initIsFetching={this.props.initIsFetching}
@@ -26,11 +29,17 @@ class AdminPageContainer extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   initIsFetching: state.users.initIsFetching,
   deletingIsFetching: state.users.deletingIsFetching,
   error: state.users.error,
   data: state.users.data,
+  activeUser: state.auth.activeUser,
 });
 
-export default connect(mapStateToProps, { getAllUsers, deleteUser })(AdminPageContainer);
+const withAuthRedirectedAdminPageContainer = withAuthRedirect(AdminPageContainer);
+
+export default connect(mapStateToProps, { getAllUsers, deleteUser })(
+  withAuthRedirectedAdminPageContainer
+);

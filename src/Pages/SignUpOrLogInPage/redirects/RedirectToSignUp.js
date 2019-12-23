@@ -6,7 +6,7 @@ import styles from './redirects.module.scss';
 const RedirectToSignUp = () => (
   <div className={styles.container}>
     <p className={styles.footer}>
-      Don&#39;t have an account? <Link to="/signup123">Sign up</Link>
+      Don&#39;t have an account? <Link to="/accounts/signup">Sign up</Link>
     </p>
   </div>
 );
