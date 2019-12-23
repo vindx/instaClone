@@ -405,7 +405,7 @@ const UsersApi = {
       }
       if (userNameExist) {
         return Promise.resolve({
-          responseCode: 10,
+          responseCode: 11,
           error: "This username isn't available. Please try another.",
         });
       }

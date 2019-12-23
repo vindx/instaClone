@@ -1,5 +1,5 @@
+import { stopSubmit } from 'redux-form';
 import UsersApi from '../../serverApiParody/usersApi';
-import { fade } from '@material-ui/core/styles';
 
 const AUTH_IS_FETCHING = 'AUTH_IS_FETCHING';
 const AUTH_ON_ERROR = 'AUTH_ON_ERROR';
@@ -67,6 +67,12 @@ export const createAccount = ({ email, fullName, userName, password }) => dispat
         dispatch(authOnSuccess(response.user));
         localStorage.activeUser = response.user.userName;
       } else {
+        if (response.responseCode === 10) {
+          dispatch(stopSubmit('signUpForm', { email: response.error, _error: response.error }));
+        }
+        if (response.responseCode === 11) {
+          dispatch(stopSubmit('signUpForm', { userName: response.error, _error: response.error }));
+        }
         dispatch(authOnError(response.error));
       }
     });
