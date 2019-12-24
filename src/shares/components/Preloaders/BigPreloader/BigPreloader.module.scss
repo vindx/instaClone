@@ -1,0 +1,11 @@
+import React from "react";
+import styles from "../../../../Pages/AdminPage/AdminPage.module.scss";
+import {ReactComponent as Preloader} from "../../../../assets/images/blackPreloader.svg";
+
+const BigPreloader = () => {
+    return (
+        <div className={styles.preloaderBackground}>
+            <Preloader className={styles.preloader} />
+        </div>
+    )
+}
