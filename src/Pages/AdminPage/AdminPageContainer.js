@@ -1,4 +1,5 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -38,8 +39,7 @@ const mapStateToProps = state => ({
   activeUser: state.auth.activeUser,
 });
 
-const withAuthRedirectedAdminPageContainer = withAuthRedirect(AdminPageContainer);
-
-export default connect(mapStateToProps, { getAllUsers, deleteUser })(
-  withAuthRedirectedAdminPageContainer
-);
+export default compose(
+  connect(mapStateToProps, { getAllUsers, deleteUser }),
+  withAuthRedirect
+)(AdminPageContainer);
