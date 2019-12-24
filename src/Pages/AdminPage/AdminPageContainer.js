@@ -6,11 +6,14 @@ import { Redirect } from 'react-router-dom';
 import AdminPage from './AdminPage';
 import { getAllUsers, deleteUser } from '../../redux/reducers/usersReducer';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
+import BigPreloader from '../../shares/components/Preloaders/BigPreloader/BigPreloader';
 
 class AdminPageContainer extends React.Component {
   // use effect hook
   componentDidMount() {
-    this.props.getAllUsers();
+    if (this.props.activeUser === 'admin') {
+      this.props.getAllUsers();
+    }
   }
 
   deleteUser = user => {
@@ -19,9 +22,9 @@ class AdminPageContainer extends React.Component {
 
   render() {
     if (this.props.activeUser !== 'admin') return <Redirect to="/" />;
+    if (this.props.initIsFetching) return <BigPreloader />;
     return (
       <AdminPage
-        initIsFetching={this.props.initIsFetching}
         deletingIsFetching={this.props.deletingIsFetching}
         error={this.props.error}
         data={this.props.data}

@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import PropTypes from 'proptypes';
 
-import { ReactComponent as Preloader } from '../../assets/images/blackPreloader.svg';
+import BigPreloader from '../../shares/components/Preloaders/BigPreloader/BigPreloader';
 import Button from '../../shares/components/Button/Button';
 import LogOutContainer from '../../shares/components/LogOut/LogOutContainer';
 import styles from './AdminPage.module.scss';
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 });
 
 const AdminPage = props => {
-  const { initIsFetching, deletingIsFetching, data, deleteUser } = props;
+  const { deletingIsFetching, data, deleteUser } = props;
   const { users: dataBase } = data;
 
   const classes = useStyles();
@@ -61,80 +61,67 @@ const AdminPage = props => {
 
   return (
     <>
-      {deletingIsFetching && (
-        <div className={styles.preloaderBackground}>
-          <Preloader className={styles.preloader} />
-        </div>
-      )}
-      {initIsFetching ? (
-        <div className={styles.preloaderBackground}>
-          <Preloader className={styles.preloader} />
-        </div>
-      ) : (
-        <>
-          <Paper className={classes.root}>
-            <div className={classes.tableWrapper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    {columns.map(column => (
-                      <TableCell key={column.id} align={column.align} className={classes.tableHead}>
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
+      {deletingIsFetching && <BigPreloader />}
+      <Paper className={classes.root}>
+        <div className={classes.tableWrapper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {columns.map(column => (
+                  <TableCell key={column.id} align={column.align} className={classes.tableHead}>
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
 
-                <TableBody>
-                  {dataBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
-                    <TableRow tabIndex={-1} key={row.id}>
-                      {columns.map(column => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align} style={{ height: 25 }}>
-                            {typeof value === 'boolean' && value ? (
-                              <Button
-                                btn_name="Delete profile"
-                                onClick={() => handleDeleteAccount(row)}
-                              />
-                            ) : (
-                              value
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 50]}
-              component="div"
-              count={dataBase.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              backIconButtonProps={{
-                'aria-label': 'previous page',
-              }}
-              nextIconButtonProps={{
-                'aria-label': 'next page',
-              }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </Paper>
-          <div className={styles.logOutButtonContainer}>
-            <LogOutContainer />
-          </div>
-        </>
-      )}
+            <TableBody>
+              {dataBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
+                <TableRow tabIndex={-1} key={row.id}>
+                  {columns.map(column => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align} style={{ height: 25 }}>
+                        {typeof value === 'boolean' && value ? (
+                          <Button
+                            btn_name="Delete profile"
+                            onClick={() => handleDeleteAccount(row)}
+                          />
+                        ) : (
+                          value
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 50]}
+          component="div"
+          count={dataBase.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          backIconButtonProps={{
+            'aria-label': 'previous page',
+          }}
+          nextIconButtonProps={{
+            'aria-label': 'next page',
+          }}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+      <div className={styles.logOutButtonContainer}>
+        <LogOutContainer />
+      </div>
     </>
   );
 };
 
 AdminPage.propTypes = {
-  initIsFetching: PropTypes.bool.isRequired,
   deletingIsFetching: PropTypes.bool.isRequired,
   data: PropTypes.shape({ users: PropTypes.arrayOf(PropTypes.object).isRequired }).isRequired,
   deleteUser: PropTypes.func.isRequired,
