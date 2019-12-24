@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const mapStateToProps = state => ({
-  isAuth: state.auth.isAuth,
+  activeUser: state.auth.activeUser,
 });
 
-const withAuthRedirect = Component => {
+const withAdminAuthRedirect = Component => {
   const AuthRedirectedComponent = props => {
-    if (!props.isAuth) return <Redirect to="/accounts/signup" />;
+    if (props.activeUser === 'admin') return <Redirect to="/admin" />;
     return <Component {...props} />;
   };
   return connect(mapStateToProps)(AuthRedirectedComponent);
 };
 
-export default withAuthRedirect;
+export default withAdminAuthRedirect;
