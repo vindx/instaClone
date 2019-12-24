@@ -99,8 +99,11 @@ const PostsApi = {
     },
   ],
 
-  getAllPosts() {
-    return Promise.resolve({ responseCode: 200, posts: this.posts });
+  getAllPosts(pageSize = this.posts.length, pageNum = 1) {
+    const fromNum = pageSize * pageNum - pageSize;
+    const toNum = pageSize * pageNum + 1;
+    const copyPosts = JSON.parse(JSON.stringify(this.posts.slice(fromNum, toNum)));
+    return Promise.resolve({ responseCode: 200, posts: copyPosts, totalCount: this.posts.length });
   },
 
   createPost({ postPhoto, description, tags, authUser }) {
@@ -125,7 +128,7 @@ const PostsApi = {
     const index = this.posts.findIndex(post => post.id === postId);
     if (index > -1) {
       this.posts.splice(index, 1);
-      return this.getAllPosts();
+      return Promise.resolve({ responseCode: 200, message: 'Done' });
     }
     return Promise.resolve({ responseCode: 404, error: "Post didn't found" });
   },

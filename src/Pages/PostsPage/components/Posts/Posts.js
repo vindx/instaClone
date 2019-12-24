@@ -5,12 +5,12 @@ import Post from './Post/Post';
 import styles from './Posts.module.scss';
 
 const Posts = props => {
-  const { posts, putLikeOnPost } = props;
+  const { posts } = props;
 
   return (
     <div className={styles.mainContainer}>
       {posts.map(post => (
-        <Post key={post.id} postInfo={post} putLikeOnPost={putLikeOnPost} />
+        <Post key={post.id} postInfo={post} />
       ))}
     </div>
   );
@@ -18,7 +18,6 @@ const Posts = props => {
 
 Posts.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  putLikeOnPost: PropTypes.func.isRequired,
 };
 
 export default Posts;

@@ -6,9 +6,9 @@ import { commonReducer, authReducer, usersReducer, postsReducer, appReducer } fr
 const reducers = combineReducers({
   //autorized user on action.payload
   // state: commonReducer,
-  // posts: postsReducer,
   app: appReducer,
   users: usersReducer,
+  posts: postsReducer,
   auth: authReducer,
   form: formReducer,
 });
