@@ -118,3 +118,29 @@
     }
   }
 }
+
+.wrapper {
+  width: 75%;
+  margin: 10px 40px;
+  .newPostInput,
+  .newPostTextArea {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: #fafafa;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 20px;
+    max-height: 200px;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    text-wrap: normal;
+    height: auto;
+    text-overflow: ellipsis;
+  }
+  .onError {
+    border-color: #ed4956;
+    outline: none;
+    &::placeholder {
+      color: #ed4956;
+    }
+  }
+}

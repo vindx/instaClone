@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './FormsControls.module.scss';
 
-export const Input = ({ input, meta, ...props }) => {
+export const SignUpOrLogInFormsInput = ({ input, meta, ...props }) => {
   const hasError = meta.touched && meta.error;
   const withoutErrors = meta.touched && meta.dirty && meta.valid;
   return (
@@ -20,6 +20,42 @@ export const Input = ({ input, meta, ...props }) => {
             />
           </div>
         </div>
+      </div>
+    </>
+  );
+};
+
+export const CreatePostFormInput = ({ input, meta, ...props }) => {
+  const hasError = meta.touched && meta.error;
+  return (
+    <>
+      <div className={styles.wrapper}>
+        <label>
+          {props.label}
+          <input
+            className={`${styles.newPostInput} ${hasError && styles.onError}`}
+            {...input}
+            {...props}
+          />
+        </label>
+      </div>
+    </>
+  );
+};
+
+export const CreatePostFormTextArea = ({ input, meta, ...props }) => {
+  const hasError = meta.touched && meta.error;
+  return (
+    <>
+      <div className={styles.wrapper}>
+        <label>
+          {props.label}
+          <textarea
+            className={`${styles.newPostTextArea} ${hasError && styles.onError}`}
+            {...input}
+            {...props}
+          />
+        </label>
       </div>
     </>
   );
