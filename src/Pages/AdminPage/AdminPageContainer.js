@@ -17,7 +17,7 @@ class AdminPageContainer extends React.Component {
   }
 
   deleteUser = user => {
-    this.props.deleteUser(user.id, user, user.userName);
+    this.props.deleteUser(user.id, user.userName);
   };
 
   render() {
