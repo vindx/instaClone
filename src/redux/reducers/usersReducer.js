@@ -28,10 +28,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         initIsFetching: false,
         error: null,
-        data: {
-          users: action.payload.users,
-          totalCount: action.payload.totalCount,
-        },
+        data: { ...state.data, ...action.payload },
       };
     case DELETE_USER_FETCHING_ON_PROGRESS:
       return { ...state, deletingIsFetching: true };
@@ -39,10 +36,7 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         deletingIsFetching: false,
-        data: {
-          users: action.payload.users,
-          totalCount: action.payload.totalCount,
-        },
+        data: { ...state.data, ...action.payload },
       };
     default:
       return state;

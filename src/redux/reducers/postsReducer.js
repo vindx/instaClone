@@ -4,16 +4,12 @@ const POSTS_FETCHING_ON_PROGRESS = 'POSTS_FETCHING_ON_PROGRESS';
 const POSTS_FETCHING_ON_SUCCESS = 'POSTS_FETCHING_ON_SUCCESS';
 const POSTS_FETCHING_ON_ERROR = 'POSTS_FETCHING_ON_ERROR';
 const UPDATE_POSTS = 'UPDATE_POSTS';
-// const CREATE_POST_FETCHING_ON_PROGRESS = 'DELETE_USER_FETCHING_ON_PROGRESS';
-// const CREATE_POST_FETCHING_ON_ERROR = 'CREATE_POST_FETCHING_ON_ERROR';
-// const CREATE_POST_FETCHING_ON_SUCCESS = 'DELETE_USER_FETCHING_ON_SUCCESS';
 // const DELETE_POST_FETCHING_ON_PROGRESS = 'DELETE_USER_FETCHING_ON_PROGRESS';
 // const DELETE_POST_FETCHING_ON_ERROR = 'DELETE_POST_FETCHING_ON_ERROR';
 // const DELETE_POST_FETCHING_ON_SUCCESS = 'DELETE_USER_FETCHING_ON_SUCCESS';
 
 const initialState = {
   initIsFetching: false,
-  // creatingIsFetching: false,
   // deletingIsFetching: false,
   error: null,
   data: {
@@ -40,12 +36,6 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         data: { ...state.data, ...action.payload },
       };
-    // case CREATE_POST_FETCHING_ON_PROGRESS:
-    //   return { ...state, creatingIsFetching: true };
-    // case CREATE_POST_FETCHING_ON_ERROR:
-    //   return { ...state, creatingIsFetching: false, error: action.payload };
-    // case CREATE_POST_FETCHING_ON_SUCCESS:
-    //   return { ...state, creatingIsFetching: false, error: null, data: action.payload };
     // case DELETE_POST_FETCHING_ON_PROGRESS:
     //   return { ...state, deletingIsFetching: true };
     // case DELETE_POST_FETCHING_ON_ERROR:
@@ -67,16 +57,6 @@ export const updatePosts = (posts, totalCount) => ({
   type: UPDATE_POSTS,
   payload: { posts, totalCount },
 });
-// export const createPostFetchingOnProgress = () => ({ type: CREATE_POST_FETCHING_ON_PROGRESS });
-// export const createPostFetchingOnError = error => ({
-//   type: CREATE_POST_FETCHING_ON_ERROR,
-//   payload: error,
-// });
-// export const createPostFetchingOnSuccess = (posts, totalCount) => ({
-//   type: CREATE_POST_FETCHING_ON_SUCCESS,
-//   payload: { posts, totalCount },
-// });
-
 // export const deletePostFetchingOnProgress = () => ({ type: DELETE_POST_FETCHING_ON_PROGRESS });
 // export const deletePostFetchingOnError = error => ({
 //   type: DELETE_POST_FETCHING_ON_ERROR,

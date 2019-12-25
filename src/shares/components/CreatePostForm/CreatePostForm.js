@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import styles from './CreatePostForm.module.scss';
+import { openCreatingPostForm } from '../../../redux/reducers/createPostReducer';
 import ModalWindowContainer from './ModalWindow/ModalWindowContainer';
+import styles from './CreatePostForm.module.scss';
 
-const CreatePostForm = () => {
+const CreatePostForm = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
+    props.openCreatingPostForm();
   };
 
   const closeModal = () => {
@@ -24,4 +27,4 @@ const CreatePostForm = () => {
   );
 };
 
-export default CreatePostForm;
+export default connect(null, { openCreatingPostForm })(CreatePostForm);

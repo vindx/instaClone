@@ -7,7 +7,8 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  div {
+  .header,
+  .footer {
     width: fit-content;
     font-size: 26px;
     font-weight: 400;
@@ -17,35 +18,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    label {
-      width: 75%;
-      margin-bottom: 20px;
-    }
-    input,
-    textarea {
-      min-width: 100%;
-      max-width: 100%;
-      min-height: 20px;
-      max-height: 300px;
-      border: 1px solid #dbdbdb;
-      border-radius: 3px;
-      text-wrap: normal;
-      height: auto;
-    }
-  }
-  .button {
-    background-color: inherit;
-    border: 1px solid #dbdbdb;
-    font-size: 14px;
-    border-radius: 4px;
-    padding: 5px 9px;
-    font-weight: 500;
-    outline: none;
-    cursor: pointer;
-    margin-right: 5px;
-    &:active {
-      opacity: 0.5;
-    }
   }
 }
 

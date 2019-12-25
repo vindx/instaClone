@@ -1,13 +1,39 @@
 import React from 'react';
-import PropTypes from 'proptypes';
+import { Field, reduxForm } from 'redux-form';
 
 import styles from './ModalWindow.module.scss';
+import { CreatePostFormTextArea, CreatePostFormInput } from '../../FormsControls/FormsControls';
+import Button from '../../Button/Button';
+import { required } from '../../../../utils/validators/validators';
+
+const ModalWindowForm = props => (
+  <form className={styles.form} onSubmit={props.handleSubmit}>
+    <Field
+      component={CreatePostFormInput}
+      label="Post photo"
+      placeholder="Enter URL (optional)"
+      name="postPhoto"
+      type="text"
+    />
+    <Field
+      component={CreatePostFormTextArea}
+      label="Description"
+      name="description"
+      type="text"
+      placeholder={required()}
+      validate={[required]}
+    />
+    {props.error && <span style={{ color: 'red' }}>{props.error}</span>}
+    <div className={styles.footer}>
+      <Button btn_name="Create" disabled={props.invalid || props.isFetching} />
+    </div>
+  </form>
+);
+
+const ModalWindowFormRedux = reduxForm({ form: 'createPostForm' })(ModalWindowForm);
 
 const ModalWindow = props => {
-  const { onClose, isOpen, newPost, addPost, newPostOnChange } = props;
-
-  const postPhotoUrl = React.createRef();
-  const postDescription = React.createRef();
+  const { onClose, isOpen, createPost, isFetching } = props;
 
   const close = e => {
     e.preventDefault();
@@ -17,75 +43,19 @@ const ModalWindow = props => {
     }
   };
 
-  if (!isOpen) {
+  if (!isOpen || props.success) {
     return null;
   }
 
-  const handleAddPost = () => {
-    const description = postDescription.current.value;
-    if (!description) {
-      postDescription.current.placeholder = 'Please fill this field';
-      postDescription.current.style.borderColor = 'red';
-      postDescription.current.style.outline = 'none';
-    } else {
-      addPost();
-      onClose();
-    }
-  };
-
-  const handleNewPostChange = () => {
-    const postPhoto = postPhotoUrl.current.value;
-    const description = postDescription.current.value;
-    newPostOnChange({ postPhoto, description });
-  };
-
   return (
-    <div>
+    <>
       <div className={styles.modalContainer}>
-        <div>Create a post</div>
-        <form className={styles.form}>
-          <label>
-            Photo (optionally){' '}
-            <input
-              type="text"
-              placeholder="Enter URL"
-              value={newPost.postPhoto}
-              onChange={handleNewPostChange}
-              ref={postPhotoUrl}
-            />
-          </label>
-          <label>
-            Description{' '}
-            <textarea
-              value={newPost.description}
-              onChange={handleNewPostChange}
-              ref={postDescription}
-            />
-          </label>
-        </form>
-        <div>
-          <button className={styles.button} onClick={handleAddPost}>
-            Create
-          </button>
-          <button className={styles.button} onClick={close}>
-            Cancel
-          </button>
-        </div>
+        <div className={styles.header}> Create a post</div>
+        <ModalWindowFormRedux isFetching={isFetching} onSubmit={createPost} />
       </div>
       <div className={styles.background} onClick={close} />
-    </div>
+    </>
   );
-};
-
-ModalWindow.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  newPost: PropTypes.shape({
-    postPhoto: PropTypes.string,
-    description: PropTypes.string,
-  }).isRequired,
-  addPost: PropTypes.func.isRequired,
-  newPostOnChange: PropTypes.func.isRequired,
 };
 
 export default ModalWindow;

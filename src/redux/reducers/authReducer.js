@@ -5,6 +5,7 @@ const AUTH_IS_FETCHING = 'AUTH_IS_FETCHING';
 const AUTH_ON_ERROR = 'AUTH_ON_ERROR';
 const AUTH_ON_SUCCESS = 'AUTH_ON_SUCCESS';
 const DE_AUTH = 'DE_AUTH';
+const UPDATE_AUTH_USER_DATA = 'UPDATE_AUTH_USER_DATA';
 
 const initialState = {
   isFetching: false,
@@ -38,11 +39,17 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        firstInitIsFetching: false,
         error: null,
         data: null,
         isAuth: false,
         activeUser: null,
+      };
+    case UPDATE_AUTH_USER_DATA:
+      return {
+        ...state,
+        data: {
+          ...action.payload,
+        },
       };
     default:
       return state;
@@ -53,6 +60,7 @@ export const authIsFetching = () => ({ type: AUTH_IS_FETCHING });
 export const authOnError = error => ({ type: AUTH_ON_ERROR, payload: error });
 export const authOnSuccess = userData => ({ type: AUTH_ON_SUCCESS, payload: userData });
 export const deAuth = () => ({ type: DE_AUTH });
+export const updateAuthUser = userData => ({ type: UPDATE_AUTH_USER_DATA, payload: userData });
 
 export const createAccount = ({ email, fullName, userName, password }) => dispatch => {
   dispatch(authIsFetching());
@@ -94,10 +102,9 @@ export const authMe = () => dispatch =>
       resolve(
         UsersApi.getUserByUserName(localStorage.activeUser).then(response => {
           if (response.responseCode === 200) {
-            dispatch(authOnSuccess(response.user));
-          } else {
-            localStorage.clear();
+            return dispatch(authOnSuccess(response.user));
           }
+          localStorage.clear();
         })
       );
     }, 1000);

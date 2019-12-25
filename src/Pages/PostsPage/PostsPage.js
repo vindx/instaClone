@@ -9,7 +9,7 @@ const PostsPage = () => (
   <>
     <Header />
     <PostsContainer />
-    {/*<CreatePostForm />*/}
+    <CreatePostForm />
   </>
 );
 
