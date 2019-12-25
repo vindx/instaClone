@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { Input } from '../../../shares/components/FormsControls/FormsControls';
+import { SignUpOrLogInFormsInput } from '../../../shares/components/FormsControls/FormsControls';
 import {
   notOnlyNumbers,
   passwordMinLengthCreator,
@@ -15,7 +15,7 @@ const passwordMinLength = passwordMinLengthCreator(6);
 const LogInForm = props => (
   <form className={styles.formContainer} onSubmit={props.handleSubmit}>
     <Field
-      component={Input}
+      component={SignUpOrLogInFormsInput}
       label="Username or email"
       maxLength="50"
       name="emailOrUserName"
@@ -23,7 +23,7 @@ const LogInForm = props => (
       validate={[required, notOnlyNumbers]}
     />
     <Field
-      component={Input}
+      component={SignUpOrLogInFormsInput}
       autoComplete="password"
       label="Password"
       name="password"

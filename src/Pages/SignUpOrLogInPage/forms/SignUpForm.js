@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { Input } from '../../../shares/components/FormsControls/FormsControls';
+import { SignUpOrLogInFormsInput } from '../../../shares/components/FormsControls/FormsControls';
 import {
   invalidEmail,
   notOnlyNumbers,
@@ -18,7 +18,7 @@ const SignUpForm = props => (
   <form className={styles.formContainer} onSubmit={props.handleSubmit}>
     <h5 className={styles.descriptionText}>Sign up to see photos and videos from your friends.</h5>
     <Field
-      component={Input}
+      component={SignUpOrLogInFormsInput}
       label="Email"
       autoComplete="email"
       aria-required="true"
@@ -27,10 +27,10 @@ const SignUpForm = props => (
       validate={[required, invalidEmail]}
     />
 
-    <Field component={Input} label="Full name" aria-required="false" name="fullName" type="text" />
+    <Field component={SignUpOrLogInFormsInput} label="Full name" aria-required="false" name="fullName" type="text" />
 
     <Field
-      component={Input}
+      component={SignUpOrLogInFormsInput}
       label="Username"
       aria-required="true"
       autoComplete="username"
@@ -41,7 +41,7 @@ const SignUpForm = props => (
     />
 
     <Field
-      component={Input}
+      component={SignUpOrLogInFormsInput}
       label="Password"
       aria-required="true"
       autoComplete="new-password"
