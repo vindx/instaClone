@@ -23,7 +23,7 @@ const PostsApi = {
       }, // userName
     },
     {
-      id: 123,
+      id: generateID(),
       postedDate: Date.now(),
       postPhoto:
         'https://images.pexels.com/photos/413879/pexels-photo-413879.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // URL, optional
@@ -99,11 +99,21 @@ const PostsApi = {
     },
   ],
 
-  getAllPosts(pageSize = this.posts.length, pageNum = 1) {
+  getAllPosts(pageSize = this.posts.length, pageNum = 1, userId) {
     const fromNum = pageSize * pageNum - pageSize;
-    const toNum = pageSize * pageNum + 1;
-    const copyPosts = JSON.parse(JSON.stringify(this.posts.slice(fromNum, toNum)));
-    return Promise.resolve({ responseCode: 200, posts: copyPosts, totalCount: this.posts.length });
+    const toNum = pageSize * pageNum;
+    const postsPack = this.posts.slice(fromNum, toNum);
+    const postsPackWithLikesStatus = postsPack.map(post => {
+      if (post.likes.includes(userId)) {
+        return { ...post, likes: [...post.likes], owner: { ...post.owner }, wasLiked: true };
+      }
+      return { ...post, likes: [...post.likes], owner: { ...post.owner } };
+    });
+    return Promise.resolve({
+      responseCode: 200,
+      posts: postsPackWithLikesStatus,
+      totalCount: postsPackWithLikesStatus.length,
+    });
   },
 
   createPost({ postPhoto, description, tags, authUser }) {
@@ -121,7 +131,7 @@ const PostsApi = {
       },
     };
     this.posts.unshift(newPost);
-    return this.getAllPosts();
+    return Promise.resolve({ responseCode: 200, post: newPost });
   },
 
   deletePost(postId) {
@@ -133,15 +143,15 @@ const PostsApi = {
     return Promise.resolve({ responseCode: 404, error: "Post didn't found" });
   },
 
-  getAllPostsWithLikesStatus(userId) {
-    const postsWithLikes = this.posts.map(post => {
-      if (post.likes.includes(userId)) {
-        return { ...post, wasLiked: true };
-      }
-      return post;
-    });
-    return Promise.resolve({ responseCode: 200, posts: postsWithLikes });
-  },
+  // getAllPostsWithLikesStatus(userId) {
+  //   const postsWithLikes = this.posts.map(post => {
+  //     if (post.likes.includes(userId)) {
+  //       return { ...post, likes: [...post.likes], owner: { ...post.owner }, wasLiked: true };
+  //     }
+  //     return { ...post, likes: [...post.likes], owner: { ...post.owner } };
+  //   });
+  //   return Promise.resolve({ responseCode: 200, posts: postsWithLikes });
+  // },
 
   putLikeOnPost({ postId, userId }) {
     const post = { ...this.posts.find(p => p.id === postId) };

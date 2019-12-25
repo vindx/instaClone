@@ -2,7 +2,7 @@ import { stopSubmit } from 'redux-form';
 import UsersApi from '../../serverApiParody/usersApi';
 import PostsApi from '../../serverApiParody/postsApi';
 import { authMe, updateAuthUser } from './authReducer';
-import { updatePosts } from './postsReducer';
+import { addPost, postsFetchingOnProgress } from './postsReducer';
 
 const CREATE_POST_FETCHING_ON_PROGRESS = 'CREATE_POST_FETCHING_ON_PROGRESS';
 const CREATE_POST_FETCHING_ON_ERROR = 'CREATE_POST_FETCHING_ON_ERROR';
@@ -73,7 +73,7 @@ export const createPost = ({ postPhoto = '', description, tags = '' }) =>
       }),
     ]).then(responses => {
       if (responses.every(({ responseCode }) => responseCode === 200)) {
-        dispatch(updatePosts(responses[0].posts, responses[0].totalCount));
+        dispatch(addPost(responses[0].post));
         dispatch(updateAuthUser(responses[1].user));
         dispatch(createPostFetchingOnSuccess());
       } else {

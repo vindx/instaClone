@@ -5,12 +5,17 @@ import Post from './Post/Post';
 import styles from './Posts.module.scss';
 
 const Posts = props => {
-  const { posts } = props;
+  const { posts, putLikeOnPost, likeIsFetching } = props;
 
   return (
     <div className={styles.mainContainer}>
       {posts.map(post => (
-        <Post key={post.id} postInfo={post} />
+        <Post
+          key={post.id}
+          postInfo={post}
+          putLikeOnPost={putLikeOnPost}
+          likeIsFetching={likeIsFetching}
+        />
       ))}
     </div>
   );

@@ -7,7 +7,7 @@ import PostPhoto from './PostPhoto/PostPhoto';
 import styles from './Post.module.scss';
 
 const Post = props => {
-  const { postInfo, putLikeOnPost } = props;
+  const { postInfo, putLikeOnPost, likeIsFetching } = props;
   const { owner, postPhoto, id, wasLiked, likes, description } = postInfo;
 
   return (
@@ -21,6 +21,7 @@ const Post = props => {
         userName={owner.userName}
         description={description}
         putLikeOnPost={putLikeOnPost}
+        likeIsFetching={likeIsFetching}
       />
     </article>
   );
@@ -32,7 +33,7 @@ Post.propTypes = {
     postPhoto: PropTypes.string,
     id: PropTypes.string,
     wasLiked: PropTypes.bool,
-    likes: PropTypes.arrayOf(PropTypes.string),
+    likes: PropTypes.array,
     description: PropTypes.string,
   }).isRequired,
   putLikeOnPost: PropTypes.func.isRequired,

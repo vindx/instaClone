@@ -21,7 +21,7 @@ const PostLikesCounter = props => {
 };
 
 PostLikesCounter.propTypes = {
-  likesArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+  likesArray: PropTypes.array.isRequired,
 };
 
 export default PostLikesCounter;
