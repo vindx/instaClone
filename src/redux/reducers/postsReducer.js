@@ -7,14 +7,10 @@ const POSTS_FETCHING_ON_ERROR = 'POSTS_FETCHING_ON_ERROR';
 const ADD_POST = 'ADD_POST';
 const PUT_LIKE_ON_POST = 'PUT_LIKE_ON_POST';
 const LIKE_FETCHING_TOGGLE = 'LIKE_FETCHING_TOGGLE';
-// const DELETE_POST_FETCHING_ON_PROGRESS = 'DELETE_USER_FETCHING_ON_PROGRESS';
-// const DELETE_POST_FETCHING_ON_ERROR = 'DELETE_POST_FETCHING_ON_ERROR';
-// const DELETE_POST_FETCHING_ON_SUCCESS = 'DELETE_USER_FETCHING_ON_SUCCESS';
 
 const initialState = {
   initIsFetching: false,
   likeIsFetching: [],
-  // deletingIsFetching: false,
   error: null,
   data: {
     posts: [],
@@ -68,12 +64,6 @@ const postsReducer = (state = initialState, action) => {
           }),
         },
       };
-    // case DELETE_POST_FETCHING_ON_PROGRESS:
-    //   return { ...state, deletingIsFetching: true };
-    // case DELETE_POST_FETCHING_ON_ERROR:
-    //   return { ...state, deletingIsFetching: false, error: action.payload };
-    // case DELETE_POST_FETCHING_ON_SUCCESS:
-    //   return { ...state, deletingIsFetching: false, error: null, data: action.payload };
     default:
       return state;
   }
@@ -94,15 +84,6 @@ export const likeFetchingToggle = (isFetching, postId) => ({
   type: LIKE_FETCHING_TOGGLE,
   payload: { isFetching, postId },
 });
-// export const deletePostFetchingOnProgress = () => ({ type: DELETE_POST_FETCHING_ON_PROGRESS });
-// export const deletePostFetchingOnError = error => ({
-//   type: DELETE_POST_FETCHING_ON_ERROR,
-//   payload: error,
-// });
-// export const deletePostFetchingOnSuccess = (posts, totalCount) => ({
-//   type: DELETE_POST_FETCHING_ON_SUCCESS,
-//   payload: { posts, totalCount },
-// });
 
 export const getAllPosts = (pageSize, pageNum, userId) => dispatch => {
   dispatch(postsFetchingOnProgress());
