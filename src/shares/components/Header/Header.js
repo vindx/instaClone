@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Container, Grid, TextField } from '@material-ui/core';
 
 import styles from './Header.module.scss';
-import LogOutContainer from '../LogOut/LogOutContainer';
 
 const Header = () => (
   <Container className={styles.container} maxWidth="xl">
@@ -21,7 +20,6 @@ const Header = () => (
         </Link>
       </Grid>
       <Grid item xs={4}>
-        <LogOutContainer />
         {/*<TextField*/}
         {/*  className={styles.textField}*/}
         {/*  variant="outlined"*/}
