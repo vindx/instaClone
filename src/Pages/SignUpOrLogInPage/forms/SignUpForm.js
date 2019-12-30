@@ -27,7 +27,13 @@ const SignUpForm = props => (
       validate={[required, invalidEmail]}
     />
 
-    <Field component={SignUpOrLogInFormsInput} label="Full name" aria-required="false" name="fullName" type="text" />
+    <Field
+      component={SignUpOrLogInFormsInput}
+      label="Full name"
+      aria-required="false"
+      name="fullName"
+      type="text"
+    />
 
     <Field
       component={SignUpOrLogInFormsInput}
