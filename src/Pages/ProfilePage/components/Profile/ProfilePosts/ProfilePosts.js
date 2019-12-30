@@ -5,7 +5,7 @@ import ProfilePost from './ProfilePost/ProfilePost';
 import styles from './ProfilePosts.module.scss';
 
 const ProfilePosts = props => {
-  const { posts, deletePost } = props;
+  const { posts, deletePost, deleteIsFetching, viewMode } = props;
 
   return (
     <div className={styles.profilePosts}>
@@ -17,6 +17,8 @@ const ProfilePosts = props => {
             photo={postPhoto}
             description={description}
             deletePost={deletePost}
+            deleteIsFetching={deleteIsFetching}
+            viewMode={viewMode}
           />
         ))
       ) : (

@@ -1,18 +1,11 @@
 import { connect } from 'react-redux';
+
+import { deletePost } from '../../../../../redux/reducers/profileReducer';
 import ProfilePosts from './ProfilePosts';
-import { deletePostActionCreator } from '../../../../../redux/actions';
 
-const mapStateToProps = state => {
-  const activeUser = state.state.users.existedUsers.find(user => user.activeNow);
-  return {
-    posts: activeUser.posts,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  deletePost: id => {
-    dispatch(deletePostActionCreator(id));
-  },
+const mapStateToProps = state => ({
+  viewMode: state.profile.viewMode,
+  deleteIsFetching: state.profile.deleteIsFetching,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePosts);
+export default connect(mapStateToProps, { deletePost })(ProfilePosts);

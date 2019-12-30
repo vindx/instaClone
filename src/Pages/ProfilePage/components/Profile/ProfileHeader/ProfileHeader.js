@@ -1,41 +1,51 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'proptypes';
 
+import { ReactComponent as Preloader } from '../../../../../assets/images/blackPreloader.svg';
+import LogOutContainer from '../../../../../shares/components/LogOut/LogOutContainer';
 import styles from './ProfileHeader.module.scss';
+import Button from '../../../../../shares/components/Button/Button';
 
 const ProfileHeader = props => {
-  const { profilePhotoUrl, userName, fullName, removeRequestStatus, removeRequest, logOut } = props;
-
-  const handleLogOut = () => {
-    logOut();
-  };
+  const { userData, isFetching, changeRemoveRequestStatus, viewMode } = props;
+  const { userName, fullName, profilePhoto, removeRequest } = userData;
 
   const handleRemoveRequest = () => {
-    removeRequest();
+    changeRemoveRequestStatus();
   };
 
   return (
     <header className={styles.container}>
       <div className={styles.photoContainer}>
         <button className={styles.photo}>
-          <img alt="" src={profilePhotoUrl} />
+          <img alt="" src={profilePhoto} />
         </button>
       </div>
       <section>
         <div className={styles.userName}>
           <span>{userName}</span>
         </div>
-        <section className={styles.buttons}>
-          <button className={styles.button} onClick={handleRemoveRequest}>
-            {removeRequestStatus ? 'Undo Delete' : 'Delete Profile'}
-          </button>
-          <Link to="/">
-            <button className={styles.button} onClick={handleLogOut}>
-              Log Out
-            </button>
-          </Link>
-        </section>
+        {!viewMode && (
+          <section className={styles.buttons}>
+            <Button
+              btn_name={
+                !isFetching ? (
+                  removeRequest ? (
+                    'Undo Delete'
+                  ) : (
+                    'Delete Profile'
+                  )
+                ) : (
+                  <Preloader className={styles.preloader} style={{}} />
+                )
+              }
+              onClick={handleRemoveRequest}
+              style={{ marginRight: 5 }}
+            />
+            <LogOutContainer />
+          </section>
+        )}
+
         <div className={styles.profileDescription}>
           <span>{fullName}</span>
         </div>
@@ -45,12 +55,15 @@ const ProfileHeader = props => {
 };
 
 ProfileHeader.propTypes = {
-  profilePhotoUrl: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
-  fullName: PropTypes.string.isRequired,
-  removeRequestStatus: PropTypes.bool.isRequired,
-  removeRequest: PropTypes.func.isRequired,
-  logOut: PropTypes.func.isRequired,
+  userData: PropTypes.shape({
+    userName: PropTypes.string.isRequired,
+    fullName: PropTypes.string.isRequired,
+    profilePhoto: PropTypes.string.isRequired,
+    removeRequest: PropTypes.bool.isRequired,
+  }).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  changeRemoveRequestStatus: PropTypes.func.isRequired,
+  viewMode: PropTypes.bool.isRequired,
 };
 
 export default ProfileHeader;

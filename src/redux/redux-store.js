@@ -1,21 +1,20 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
-import { createPostReducer, authReducer, usersReducer, postsReducer, appReducer } from './reducers';
+import * as reducers from './reducers';
 
-const reducers = combineReducers({
-  //autorized user on action.payload
-  // state: commonReducer,
-  creatingPost: createPostReducer,
-  app: appReducer,
-  users: usersReducer,
-  posts: postsReducer,
-  auth: authReducer,
+const combinedReducers = combineReducers({
+  profile: reducers.profileReducer,
+  creatingPost: reducers.createPostReducer,
+  app: reducers.appReducer,
+  users: reducers.usersReducer,
+  posts: reducers.postsReducer,
+  auth: reducers.authReducer,
   form: formReducer,
 });
 
 const composeEnhancers = compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__());
 
-const store = createStore(reducers, composeEnhancers);
+const store = createStore(combinedReducers, composeEnhancers);
 
 export default store;

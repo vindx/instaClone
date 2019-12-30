@@ -389,7 +389,7 @@ const UsersApi = {
   getUserByUserName(userName) {
     const user = this.users.find(u => u.userName === userName);
     if (user) {
-      return Promise.resolve({ responseCode: 200, user });
+      return Promise.resolve({ responseCode: 200, user: JSON.parse(JSON.stringify(user)) });
     }
     return Promise.resolve({ responseCode: 404, error: "User didn't found" });
   },
@@ -421,7 +421,10 @@ const UsersApi = {
         posts: [],
       };
       this.users.push(newUser);
-      return Promise.resolve({ responseCode: 200, user: { ...newUser, password: null } });
+      return Promise.resolve({
+        responseCode: 200,
+        user: { ...JSON.parse(JSON.stringify(newUser)), password: null },
+      });
     }
     return Promise.resolve({
       responseCode: 10,
@@ -435,7 +438,10 @@ const UsersApi = {
     );
     if (foundUser) {
       if (foundUser.password === password) {
-        return Promise.resolve({ responseCode: 200, user: { ...foundUser, password: null } });
+        return Promise.resolve({
+          responseCode: 200,
+          user: { ...JSON.parse(JSON.stringify(foundUser)), password: null },
+        });
       }
       return Promise.resolve({
         responseCode: 10,
@@ -453,7 +459,7 @@ const UsersApi = {
     const user = this.users.find(u => u.id === id);
     if (user) {
       user.removeRequest = !user.removeRequest;
-      return Promise.resolve({ responseCode: 200, user });
+      return Promise.resolve({ responseCode: 200, message: 'Changed!' });
     }
     return Promise.resolve({ responseCode: 404, error: "User didn't found" });
   },
@@ -467,9 +473,9 @@ const UsersApi = {
     return Promise.resolve({ responseCode: 404, error: "User didn't found" });
   },
 
-  createPost({ postPhoto, description, tags, userId }) {
+  createPost({ postPhoto, description, tags, userId, postId }) {
     const newPost = {
-      id: generateID(),
+      id: postId,
       postedDate: Date.now(),
       postPhoto,
       description,
@@ -477,20 +483,24 @@ const UsersApi = {
     };
     const authorizedUser = this.users.find(u => u.id === userId);
     authorizedUser.posts.unshift(newPost);
-    return Promise.resolve({ responseCode: 200, user: authorizedUser });
+    return Promise.resolve({
+      responseCode: 200,
+      user: JSON.parse(JSON.stringify(authorizedUser)),
+    });
   },
 
   deletePost({ postId, userId }) {
     const authorizedUser = this.users.find(u => u.id === userId);
     const postIndex = authorizedUser.posts.findIndex(p => p.id === postId);
-    if (postIndex) {
-      if (postIndex > -1) {
-        authorizedUser.posts.splice(postIndex, 1);
-      }
+    if (postIndex > -1) {
+      authorizedUser.posts.splice(postIndex, 1);
     } else {
       return Promise.resolve({ responseCode: 404, error: "Post didn't found" });
     }
-    return Promise.resolve({ responseCode: 200, user: authorizedUser });
+    return Promise.resolve({
+      responseCode: 200,
+      user: JSON.parse(JSON.stringify(authorizedUser)),
+    });
   },
 };
 

@@ -4,6 +4,11 @@ import PostsApi from '../../serverApiParody/postsApi';
 import { authMe, updateAuthUser } from './authReducer';
 import { addPost, postsFetchingOnProgress } from './postsReducer';
 
+const generateID = () =>
+  Math.random()
+    .toString(36)
+    .substr(2, 10);
+
 const CREATE_POST_FETCHING_ON_PROGRESS = 'CREATE_POST_FETCHING_ON_PROGRESS';
 const CREATE_POST_FETCHING_ON_ERROR = 'CREATE_POST_FETCHING_ON_ERROR';
 const CREATE_POST_FETCHING_ON_SUCCESS = 'CREATE_POST_FETCHING_ON_SUCCESS';
@@ -56,6 +61,7 @@ export const openCreatingPostForm = () => ({ type: CREATE_POST_FORM_IS_OPEN });
 
 export const createPost = ({ postPhoto = '', description, tags = '' }) =>
   async function(dispatch) {
+    const postId = generateID();
     dispatch(createPostFetchingOnProgress());
     const activeUser = await dispatch(authMe());
     Promise.all([
@@ -64,12 +70,14 @@ export const createPost = ({ postPhoto = '', description, tags = '' }) =>
         description,
         tags,
         authUser: activeUser.payload,
+        postId,
       }),
       UsersApi.createPost({
         postPhoto,
         description,
         tags,
         userId: activeUser.payload.id,
+        postId,
       }),
     ]).then(responses => {
       if (responses.every(({ responseCode }) => responseCode === 200)) {

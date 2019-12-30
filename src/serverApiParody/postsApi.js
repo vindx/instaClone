@@ -116,9 +116,9 @@ const PostsApi = {
     });
   },
 
-  createPost({ postPhoto, description, tags, authUser }) {
+  createPost({ postPhoto, description, tags, authUser, postId }) {
     const newPost = {
-      id: generateID(),
+      id: postId,
       postedDate: Date.now(),
       postPhoto,
       description,

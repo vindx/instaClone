@@ -6,6 +6,7 @@ const AUTH_ON_ERROR = 'AUTH_ON_ERROR';
 const AUTH_ON_SUCCESS = 'AUTH_ON_SUCCESS';
 const DE_AUTH = 'DE_AUTH';
 const UPDATE_AUTH_USER_DATA = 'UPDATE_AUTH_USER_DATA';
+const CHANGE_REMOVE_REQUEST_STATUS = 'CHANGE_REMOVE_REQUEST_STATUS';
 
 const initialState = {
   isFetching: false,
@@ -51,6 +52,15 @@ const authReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case CHANGE_REMOVE_REQUEST_STATUS:
+      return {
+        ...state,
+        isFetching: false,
+        data: {
+          ...state.data,
+          removeRequest: !state.data.removeRequest,
+        },
+      };
     default:
       return state;
   }
@@ -61,6 +71,7 @@ export const authOnError = error => ({ type: AUTH_ON_ERROR, payload: error });
 export const authOnSuccess = userData => ({ type: AUTH_ON_SUCCESS, payload: userData });
 export const deAuth = () => ({ type: DE_AUTH });
 export const updateAuthUser = userData => ({ type: UPDATE_AUTH_USER_DATA, payload: userData });
+export const changeRemoveRequest = () => ({ type: CHANGE_REMOVE_REQUEST_STATUS });
 
 export const createAccount = ({ email, fullName, userName, password }) => dispatch => {
   dispatch(authIsFetching());
@@ -109,5 +120,16 @@ export const authMe = () => dispatch =>
       );
     }, 1000);
   });
+
+export const changeRemoveRequestStatus = () =>
+  async function(dispatch) {
+    dispatch(authIsFetching());
+    const activeUser = await dispatch(authMe());
+    UsersApi.changeRemoveRequest(activeUser.payload.id).then(response => {
+      if (response.responseCode === 200) {
+        dispatch(changeRemoveRequest());
+      }
+    });
+  };
 
 export default authReducer;
