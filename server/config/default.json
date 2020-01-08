@@ -1,4 +1,5 @@
 {
-    "port": 5000,
-    "mongoUri": "mongodb+srv://vindx:vindx2020@cluster0-4hwl9.azure.mongodb.net/instaClone?retryWrites=true&w=majority"
+  "port": 5000,
+  "jwtSecret": "vindx project instaClone",
+  "mongoUri": "mongodb+srv://vindx:vindx2020@cluster0-4hwl9.azure.mongodb.net/instaClone?retryWrites=true&w=majority"
 }
