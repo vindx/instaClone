@@ -45,7 +45,12 @@ router.post(
         password: hashedPassword,
       });
       await user.save();
-      res.status(201).json({ msg: 'Register successful' });
+      const existedUser = await User.findOne({ email });
+      const token = jwt.sign({ userId: existedUser.id }, config.get('jwtSecret'), {
+        expiresIn: '1h',
+      });
+
+      res.json({ msg: 'Register successful', userId: existedUser.id, token });
     } catch (e) {
       res.status(500).json({ message: 'Something went wrong. Please try again later.' });
     }
