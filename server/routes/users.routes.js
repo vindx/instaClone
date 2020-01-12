@@ -1,8 +1,10 @@
 const router = require('express').Router();
+const auth = require('../middleware/auth.midddleware');
+const admin = require('../middleware/admin.middleware');
 const User = require('../models/User');
 
-// api/users/
-router.get('/', async (req, res) => {
+// api/users/all
+router.get('/all', admin, async (req, res) => {
   try {
     const users = await User.find();
     res.json({ users });
@@ -11,7 +13,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-// api/users/:id
+// api/users/auth
+router.get('/auth', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
+
+// api/users/userName
 router.get('/:userName', async (req, res) => {
   try {
     const user = await User.findOne({ userName: req.params.userName });
@@ -24,7 +36,7 @@ router.get('/:userName', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', admin, async (req, res) => {
   try {
     const removedUser = await User.findByIdAndDelete(req.params.id);
     if (!removedUser) {
