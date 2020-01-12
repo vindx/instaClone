@@ -1,0 +1,26 @@
+const jwt = require('jsonwebtoken');
+const config = require('config');
+
+module.exports = (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ msg: 'You are not authorized' });
+    }
+
+    const decoded = jwt.verify(token, config.get('jwtSecret'));
+
+    if (decoded.userId !== 'admin') {
+      return res.status(403).json({ msg: 'Login like administrator to see this page' });
+    }
+    req.admin = decoded;
+    next();
+  } catch (e) {
+    res.status(401).json({ msg: 'You are not authorized' });
+  }
+};
