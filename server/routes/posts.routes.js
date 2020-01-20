@@ -49,18 +49,19 @@ router.delete('/delete/:id', auth, async (req, res) => {
 });
 
 // api/posts/like
-router.put('/like/:id', auth, async (req, res) => {
+router.get('/like/:id', auth, async (req, res) => {
   try {
-    let post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id);
     if (!post) {
       return res.status(400).json({ msg: "Post didn't found" });
     }
     if (post.likes.includes(req.user.userId)) {
       await Post.findByIdAndUpdate(req.params.id, { $pull: { likes: req.user.userId } });
+      res.json({ wasLiked: false });
     } else {
       await Post.findByIdAndUpdate(req.params.id, { $push: { likes: req.user.userId } });
+      res.json({ wasLiked: true });
     }
-    res.json(post);
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
