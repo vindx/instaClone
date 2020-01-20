@@ -25,6 +25,18 @@ router.get('/auth', auth, async (req, res) => {
   }
 });
 
+// api/users/auth/removeRequest
+router.get('/auth/removeRequest', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    await User.findByIdAndUpdate(req.user.userId, { $set: { removeRequest: !user.removeRequest } });
+    const changedUser = await User.findById(req.user.userId);
+    res.json(changedUser.removeRequest);
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
+
 // api/users/userName
 router.get('/:userName', async (req, res) => {
   try {
