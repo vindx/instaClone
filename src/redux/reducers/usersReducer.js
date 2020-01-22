@@ -1,12 +1,11 @@
-import UsersApi from '../../serverApiParody/usersApi';
-import PostsApi from '../../serverApiParody/postsApi';
-import { getUsers } from '../../api/api';
+import { usersApi } from '../../api/api';
 
 const USERS_FETCHING_ON_PROGRESS = 'USERS_FETCHING_ON_PROGRESS';
 const USERS_FETCHING_ON_SUCCESS = 'USERS_FETCHING_ON_SUCCESS';
 const USERS_FETCHING_ON_ERROR = 'USERS_FETCHING_ON_ERROR';
 const DELETE_USER_FETCHING_ON_PROGRESS = 'DELETE_USER_FETCHING_ON_PROGRESS';
 const DELETE_USER_FETCHING_ON_SUCCESS = 'DELETE_USER_FETCHING_ON_SUCCESS';
+const DELETE_USER_FETCHING_ON_ERROR = 'DELETE_USER_FETCHING_ON_ERROR';
 
 const initialState = {
   initIsFetching: false,
@@ -33,11 +32,16 @@ const usersReducer = (state = initialState, action) => {
       };
     case DELETE_USER_FETCHING_ON_PROGRESS:
       return { ...state, deletingIsFetching: true };
+    case DELETE_USER_FETCHING_ON_ERROR:
+      return { ...state, deletingIsFetching: false, error: action.payload };
     case DELETE_USER_FETCHING_ON_SUCCESS:
       return {
         ...state,
         deletingIsFetching: false,
-        data: { ...state.data, ...action.payload },
+        data: {
+          users: state.data.users.filter(user => user._id !== action.payload._id),
+          totalCount: state.data.totalCount - 1,
+        },
       };
     default:
       return state;
@@ -51,31 +55,33 @@ export const usersFetchingOnSuccess = (users, totalCount) => ({
   payload: { users, totalCount },
 });
 export const deleteUserFetchingOnProgress = () => ({ type: DELETE_USER_FETCHING_ON_PROGRESS });
-export const deleteUserFetchingOnSuccess = (users, totalCount) => ({
+export const deleteUserFetchingOnError = error => ({
+  type: DELETE_USER_FETCHING_ON_ERROR,
+  payload: error,
+});
+export const deleteUserFetchingOnSuccess = user => ({
   type: DELETE_USER_FETCHING_ON_SUCCESS,
-  payload: { users, totalCount },
+  payload: user,
 });
 
-export const getAllUsers = () => dispatch => {
+export const getAllUsers = () => async dispatch => {
   dispatch(usersFetchingOnProgress());
-  getUsers().then(response => {
-    if (response.status === 200) {
-      dispatch(usersFetchingOnSuccess(response.data.users, response.data.users.length));
-    } else {
-      dispatch(usersFetchingOnError(response.data.msg));
-    }
-  });
+  const response = await usersApi.getUsers();
+  if (response.status === 200) {
+    dispatch(usersFetchingOnSuccess(response.data.users, response.data.users.length));
+  } else {
+    dispatch(usersFetchingOnError(response.data.msg));
+  }
 };
 
-export const deleteUser = (userId, userName) => dispatch => {
+export const deleteUser = userId => async dispatch => {
   dispatch(deleteUserFetchingOnProgress());
-  setTimeout(() => {
-    Promise.all([UsersApi.deleteUser(userId), PostsApi.deleteAccount(userName)]).then(
-      response =>
-        response.every(obj => obj.responseCode === 200) &&
-        dispatch(deleteUserFetchingOnSuccess(response[0].users, response[0].totalCount))
-    );
-  }, 1000);
+  const response = await usersApi.deleteUser(userId);
+  if (response.status === 200) {
+    dispatch(deleteUserFetchingOnSuccess(response.data.removedUser));
+  } else {
+    dispatch(deleteUserFetchingOnError(response.data.msg));
+  }
 };
 
 export default usersReducer;

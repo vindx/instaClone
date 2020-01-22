@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 
 // api/users/all
+// only for admin
 router.get('/all', async (req, res) => {
   try {
     const users = await User.find();
@@ -51,7 +52,9 @@ router.get('/:userName', async (req, res) => {
   }
 });
 
-router.delete('/:id', admin, async (req, res) => {
+// api/users/id
+// only for admin
+router.delete('/:id', async (req, res) => {
   try {
     const removedUser = await User.findByIdAndDelete(req.params.id);
     if (!removedUser) {
