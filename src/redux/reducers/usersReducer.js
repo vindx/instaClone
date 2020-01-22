@@ -1,5 +1,6 @@
 import UsersApi from '../../serverApiParody/usersApi';
 import PostsApi from '../../serverApiParody/postsApi';
+import { getUsers } from '../../api/api';
 
 const USERS_FETCHING_ON_PROGRESS = 'USERS_FETCHING_ON_PROGRESS';
 const USERS_FETCHING_ON_SUCCESS = 'USERS_FETCHING_ON_SUCCESS';
@@ -57,15 +58,13 @@ export const deleteUserFetchingOnSuccess = (users, totalCount) => ({
 
 export const getAllUsers = () => dispatch => {
   dispatch(usersFetchingOnProgress());
-  setTimeout(() => {
-    UsersApi.getAllUsers().then(response => {
-      if (response.responseCode === 200) {
-        dispatch(usersFetchingOnSuccess(response.users, response.totalCount));
-      } else {
-        dispatch(usersFetchingOnError(response.error));
-      }
-    });
-  }, 1000);
+  getUsers().then(response => {
+    if (response.status === 200) {
+      dispatch(usersFetchingOnSuccess(response.data.users, response.data.users.length));
+    } else {
+      dispatch(usersFetchingOnError(response.data.msg));
+    }
+  });
 };
 
 export const deleteUser = (userId, userName) => dispatch => {

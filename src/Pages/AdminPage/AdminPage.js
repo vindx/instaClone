@@ -82,7 +82,7 @@ const AdminPage = props => {
 
             <TableBody>
               {dataBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
-                <TableRow tabIndex={-1} key={row.id}>
+                <TableRow tabIndex={-1} key={row._id}>
                   {columns.map(column => {
                     const value = row[column.id];
                     return (

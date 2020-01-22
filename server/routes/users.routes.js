@@ -5,7 +5,7 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 
 // api/users/all
-router.get('/all', admin, async (req, res) => {
+router.get('/all', async (req, res) => {
   try {
     const users = await User.find();
     res.json({ users });
