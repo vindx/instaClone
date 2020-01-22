@@ -55,7 +55,12 @@ const AdminPage = props => {
     setPage(0);
   };
 
-  const handleDeleteAccount = user => {
+  const handleDeleteAccount = event => {
+    const arr = event.target.value.split(' ');
+    const user = {
+      id: arr[0],
+      userName: arr[1],
+    };
     deleteUser(user);
   };
 
@@ -85,7 +90,8 @@ const AdminPage = props => {
                         {typeof value === 'boolean' && value ? (
                           <Button
                             btn_name="Delete profile"
-                            onClick={() => handleDeleteAccount(row)}
+                            value={`${row.id} ${row.userName}`}
+                            onClick={handleDeleteAccount}
                           />
                         ) : (
                           value
