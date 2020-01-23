@@ -44,7 +44,7 @@ const LogInForm = props => (
       </button>
     </div>
 
-    {props.authError && <div className={styles.errorContainer}>{props.authError}</div>}
+    {props.error && <div className={styles.errorContainer}>{props.error}</div>}
   </form>
 );
 

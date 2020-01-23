@@ -3,7 +3,17 @@ const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const auth = require('../middleware/auth.midddleware');
 const User = require('../models/User');
+
+// api/auth/me
+router.get('/me', auth, async (req, res) => {
+  try {
+    res.json({ msg: 'You are authorized', userId: req.user.userId });
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
 
 // /api/auth/register
 router.post(
@@ -29,12 +39,15 @@ router.post(
 
       if (emailExist || userNameExist) {
         if (emailExist) {
-          return res.status(400).json({ msg: 'Another account is using this email.' });
-        }
-        if (userNameExist) {
           return res
             .status(400)
-            .json({ msg: "This username isn't available. Please try another." });
+            .json({ errorFiled: 'email', msg: 'Another account is using this email.' });
+        }
+        if (userNameExist) {
+          return res.status(400).json({
+            errorFiled: 'userName',
+            msg: "This username isn't available. Please try another.",
+          });
         }
       }
       const hashedPassword = await bcrypt.hash(password, 12);
@@ -78,6 +91,7 @@ router.post(
         (await User.findOne({ userName: emailOrUserName }));
       if (!user) {
         return res.status(400).json({
+          errorFiled: 'userName',
           msg:
             "The username you entered doesn't belong to an account. Please check your username and try again.",
         });
@@ -85,6 +99,7 @@ router.post(
       const passwordIsMatched = await bcrypt.compare(password, user.password);
       if (!passwordIsMatched) {
         return res.status(400).json({
+          errorFiled: 'password',
           msg: 'Sorry, your password was incorrect. Please double-check your password.',
         });
       }
