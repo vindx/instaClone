@@ -4,8 +4,12 @@ const auth = require('../middleware/auth.midddleware');
 const Post = require('../models/Post');
 
 // api/posts/all
+// admin dont have access
 router.get('/all', auth, async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
     const posts = await Post.find();
     res.json({ posts });
   } catch (e) {
@@ -14,12 +18,16 @@ router.get('/all', auth, async (req, res) => {
 });
 
 // api/posts/create
+// admin dont have access
 router.post(
   '/create',
   auth,
   check('description', 'This field is required.').exists(),
   async (req, res) => {
     try {
+      if (req.user.role === 'admin') {
+        return res.status(403).json({ msg: 'Login like common user to see this page' });
+      }
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ msg: 'Some errors', errors: errors.array() });
@@ -36,8 +44,12 @@ router.post(
 );
 
 // api/posts/delete/id
+// admin dont have access
 router.delete('/delete/:id', auth, async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
     const removedPost = await Post.findByIdAndDelete(req.params.id);
     if (!removedPost) {
       return res.status(400).json({ msg: "Post didn't found" });
@@ -49,8 +61,12 @@ router.delete('/delete/:id', auth, async (req, res) => {
 });
 
 // api/posts/like
+// admin dont have access
 router.get('/like/:id', auth, async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
     const post = await Post.findById(req.params.id);
     if (!post) {
       return res.status(400).json({ msg: "Post didn't found" });

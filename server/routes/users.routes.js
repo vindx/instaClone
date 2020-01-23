@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const auth = require('../middleware/auth.midddleware');
-const admin = require('../middleware/admin.middleware');
 const User = require('../models/User');
 const Post = require('../models/Post');
 
 // api/users/all
 // only for admin
-router.get('/all', async (req, res) => {
+router.get('/all', auth, async (req, res) => {
   try {
+    if (req.user.role === 'user') {
+      return res.status(403).json({ msg: 'Login like admin to see this page' });
+    }
     const users = await User.find();
     res.json({ users });
   } catch (e) {
@@ -16,8 +18,12 @@ router.get('/all', async (req, res) => {
 });
 
 // api/users/auth
+// admin dont have access
 router.get('/auth', auth, async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
     const user = await User.findById(req.user.userId);
     user.posts = await Post.find({ owner: req.user.userId });
     res.json(user);
@@ -27,8 +33,12 @@ router.get('/auth', auth, async (req, res) => {
 });
 
 // api/users/auth/removeRequest
+// admin dont have access
 router.get('/auth/removeRequest', auth, async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
     const user = await User.findById(req.user.userId);
     await User.findByIdAndUpdate(req.user.userId, { $set: { removeRequest: !user.removeRequest } });
     const changedUser = await User.findById(req.user.userId);
@@ -54,8 +64,11 @@ router.get('/:userName', async (req, res) => {
 
 // api/users/id
 // only for admin
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
+    if (req.user.role === 'user') {
+      return res.status(403).json({ msg: 'Login like admin to see this page' });
+    }
     const removedUser = await User.findByIdAndDelete(req.params.id);
     if (!removedUser) {
       return res.status(400).json({ msg: "User didn't found" });
@@ -66,4 +79,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
 });
+
 module.exports = router;

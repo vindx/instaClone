@@ -9,7 +9,7 @@ const User = require('../models/User');
 // api/auth/me
 router.get('/me', auth, async (req, res) => {
   try {
-    res.json({ msg: 'You are authorized', userId: req.user.userId });
+    res.json({ msg: 'You are authorized', userId: req.user.userId, role: req.user.role });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
@@ -106,8 +106,9 @@ router.post(
 
       const token = jwt.sign(
         {
-          userId:
-            emailOrUserName === 'admin' || emailOrUserName === 'admin@a.admin' ? 'admin' : user.id,
+          userId: user.id,
+          role:
+            emailOrUserName === 'admin' || emailOrUserName === 'admin@a.admin' ? 'admin' : 'user',
         },
         config.get('jwtSecret'),
         { expiresIn: '1h' }
