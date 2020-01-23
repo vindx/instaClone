@@ -63,7 +63,7 @@ router.post(
         expiresIn: '1h',
       });
 
-      res.json({ msg: 'Register successful', userId: existedUser.id, token });
+      res.json({ msg: 'Register successful', userId: existedUser.id, token, role: 'user' });
     } catch (e) {
       res.status(500).json({ message: 'Something went wrong. Please try again later.' });
     }
@@ -103,18 +103,18 @@ router.post(
           msg: 'Sorry, your password was incorrect. Please double-check your password.',
         });
       }
-
+      const role =
+        emailOrUserName === 'admin' || emailOrUserName === 'admin@a.admin' ? 'admin' : 'user';
       const token = jwt.sign(
         {
           userId: user.id,
-          role:
-            emailOrUserName === 'admin' || emailOrUserName === 'admin@a.admin' ? 'admin' : 'user',
+          role,
         },
         config.get('jwtSecret'),
         { expiresIn: '1h' }
       );
 
-      res.json({ msg: 'Login successful', userId: user.id, token });
+      res.json({ msg: 'Login successful', userId: user.id, token, role });
     } catch (e) {
       res.status(500).json({ message: 'Something went wrong. Please try again later.' });
     }

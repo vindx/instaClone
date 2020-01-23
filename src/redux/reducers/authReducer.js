@@ -58,7 +58,10 @@ const authReducer = (state = initialState, action) => {
 };
 
 export const authFetchingToggle = boolean => ({ type: AUTH_FETCHING_ON_TOGGLE, payload: boolean });
-export const authOnSuccess = userData => ({ type: AUTH_ON_SUCCESS, payload: userData });
+export const authOnSuccess = (userId, role) => ({
+  type: AUTH_ON_SUCCESS,
+  payload: { userId, role },
+});
 export const deAuth = () => ({ type: DE_AUTH });
 export const updateAuthUser = userData => ({ type: UPDATE_AUTH_USER_DATA, payload: userData });
 export const changeRemoveRequest = () => ({ type: CHANGE_REMOVE_REQUEST_STATUS });
@@ -67,7 +70,7 @@ export const createAccount = ({ email, fullName, userName, password }) => dispat
   dispatch(authFetchingToggle(true));
   authApi.register(email, fullName, userName, password).then(response => {
     if (response.status === 200) {
-      dispatch(authOnSuccess(response.data.userId));
+      dispatch(authOnSuccess(response.data.userId, response.data.role));
       localStorage.activeUser = response.data.token;
     } else {
       if (response.data.errorFiled === 'email') {
@@ -88,7 +91,7 @@ export const logIn = ({ emailOrUserName, password }) => dispatch => {
   dispatch(authFetchingToggle(true));
   authApi.login(emailOrUserName, password).then(response => {
     if (response.status === 200) {
-      dispatch(authOnSuccess(response.data.userId));
+      dispatch(authOnSuccess(response.data.userId, response.data.role));
       localStorage.activeUser = response.data.token;
     } else {
       if (response.data.errorFiled === 'userName') {
@@ -109,7 +112,7 @@ export const logIn = ({ emailOrUserName, password }) => dispatch => {
 export const authMe = () => async dispatch => {
   const response = await authApi.authMe(localStorage.activeUser);
   if (response.status === 200) {
-    return dispatch(authOnSuccess(response.data.userId));
+    return dispatch(authOnSuccess(response.data.userId, response.data.role));
   }
   localStorage.removeItem('activeUser');
 };
