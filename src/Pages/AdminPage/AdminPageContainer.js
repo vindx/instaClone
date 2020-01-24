@@ -11,7 +11,7 @@ import BigPreloader from '../../shares/components/Preloaders/BigPreloader/BigPre
 class AdminPageContainer extends React.Component {
   // use effect hook
   componentDidMount() {
-    if (this.props.activeUser === 'admin') {
+    if (this.props.activeUser.role === 'admin') {
       this.props.getAllUsers();
     }
   }
@@ -21,7 +21,7 @@ class AdminPageContainer extends React.Component {
   };
 
   render() {
-    if (this.props.activeUser !== 'admin') return <Redirect to="/" />;
+    if (this.props.activeUser.role !== 'admin') return <Redirect to="/" />;
     if (this.props.initIsFetching) return <BigPreloader />;
     return (
       <AdminPage
@@ -39,7 +39,7 @@ const mapStateToProps = state => ({
   deletingIsFetching: state.users.deletingIsFetching,
   error: state.users.error,
   data: state.users.data,
-  activeUser: state.auth.activeUser,
+  activeUser: state.auth.data,
 });
 
 export default compose(

@@ -66,7 +66,7 @@ export const deleteUserFetchingOnSuccess = user => ({
 
 export const getAllUsers = () => async dispatch => {
   dispatch(usersFetchingOnProgress());
-  const response = await usersApi.getUsers();
+  const response = await usersApi.getUsers(localStorage.activeUser);
   if (response.status === 200) {
     dispatch(usersFetchingOnSuccess(response.data.users, response.data.users.length));
   } else {

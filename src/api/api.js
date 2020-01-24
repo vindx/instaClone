@@ -40,9 +40,13 @@ export const authApi = {
 };
 
 export const usersApi = {
-  getUsers: async () => {
+  getUsers: async token => {
     try {
-      const response = await axios.get('/api/users/all');
+      const response = await axios.get('/api/users/all', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };
