@@ -7,7 +7,7 @@ import LogOut from './LogOut';
 const LogOutContainer = props => {
   const logOut = () => {
     props.deAuth();
-    localStorage.clear();
+    localStorage.removeItem('activeUser');
   };
   return <LogOut logOut={logOut} />;
 };
