@@ -76,7 +76,7 @@ export const getAllUsers = () => async dispatch => {
 
 export const deleteUser = userId => async dispatch => {
   dispatch(deleteUserFetchingOnProgress());
-  const response = await usersApi.deleteUser(userId);
+  const response = await usersApi.deleteUser(userId, localStorage.activeUser);
   if (response.status === 200) {
     dispatch(deleteUserFetchingOnSuccess(response.data.removedUser));
   } else {

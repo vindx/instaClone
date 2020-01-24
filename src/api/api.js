@@ -1,13 +1,16 @@
 import * as axios from 'axios';
 
+const axiosWithToken = token =>
+  axios.create({
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 export const authApi = {
   authMe: async token => {
     try {
-      const response = await axios.get('/api/auth/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axiosWithToken(token).get('/api/auth/me');
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };
@@ -42,19 +45,15 @@ export const authApi = {
 export const usersApi = {
   getUsers: async token => {
     try {
-      const response = await axios.get('/api/users/all', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axiosWithToken(token).get('/api/users/all');
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };
     }
   },
-  deleteUser: async id => {
+  deleteUser: async (id, token) => {
     try {
-      const response = await axios.delete(`/api/users/${id}`);
+      const response = await axiosWithToken(token).delete(`/api/users/${id}`);
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };
