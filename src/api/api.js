@@ -60,3 +60,30 @@ export const usersApi = {
     }
   },
 };
+
+export const profileApi = {
+  getAuthUser: async token => {
+    try {
+      const response = await axiosWithToken(token).get('/api/users/auth');
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  getUserByUserName: async userName => {
+    try {
+      const response = await axios.get(`/api/users/${userName}`);
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  changeRemoveRequestStatus: async token => {
+    try {
+      const response = await axiosWithToken(token).get('api/users/auth/removeRequest');
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+};

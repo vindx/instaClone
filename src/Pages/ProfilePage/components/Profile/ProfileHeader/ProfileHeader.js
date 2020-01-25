@@ -7,7 +7,7 @@ import styles from './ProfileHeader.module.scss';
 import Button from '../../../../../shares/components/Button/Button';
 
 const ProfileHeader = props => {
-  const { userData, isFetching, changeRemoveRequestStatus, viewMode } = props;
+  const { userData, removeRequestIsFetching, changeRemoveRequestStatus, viewMode } = props;
   const { userName, fullName, profilePhoto, removeRequest } = userData;
 
   const handleRemoveRequest = () => {
@@ -29,7 +29,7 @@ const ProfileHeader = props => {
           <section className={styles.buttons}>
             <Button
               btn_name={
-                !isFetching ? (
+                !removeRequestIsFetching ? (
                   removeRequest ? (
                     'Undo Delete'
                   ) : (
@@ -61,7 +61,7 @@ ProfileHeader.propTypes = {
     profilePhoto: PropTypes.string.isRequired,
     removeRequest: PropTypes.bool.isRequired,
   }).isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  removeRequestIsFetching: PropTypes.bool.isRequired,
   changeRemoveRequestStatus: PropTypes.func.isRequired,
   viewMode: PropTypes.bool.isRequired,
 };

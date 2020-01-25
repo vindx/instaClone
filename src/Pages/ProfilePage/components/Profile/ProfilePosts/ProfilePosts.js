@@ -10,7 +10,7 @@ const ProfilePosts = props => {
   return (
     <div className={styles.profilePosts}>
       {posts.length ? (
-        posts.map(({ id, postPhoto, description }) => (
+        posts.map(({ _id: id, postPhoto, description }) => (
           <ProfilePost
             key={id}
             id={id}
