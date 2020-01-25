@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth.midddleware');
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 // api/posts/all
 // admin dont have access
@@ -32,9 +33,15 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({ msg: 'Some errors', errors: errors.array() });
       }
-
+      const ownerInfo = await User.findById(req.user.userId);
       const { description, postPhoto, tags } = req.body;
-      const post = new Post({ owner: req.user.userId, description, postPhoto, tags });
+      const post = new Post({
+        owner: req.user.userId,
+        ownerInfo: { profilePhoto: ownerInfo.profilePhoto, userName: ownerInfo.userName },
+        description,
+        postPhoto,
+        tags,
+      });
       await post.save();
       res.status(201).json({ msg: 'Post creation successful', post });
     } catch (e) {
