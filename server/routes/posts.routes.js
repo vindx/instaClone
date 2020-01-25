@@ -61,7 +61,7 @@ router.delete('/delete/:id', auth, async (req, res) => {
     if (!removedPost) {
       return res.status(400).json({ msg: "Post didn't found" });
     }
-    res.json({ msg: 'Post successfully deleted ', removedPost });
+    res.json({ msg: 'Post successfully deleted' });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
@@ -80,10 +80,10 @@ router.get('/like/:id', auth, async (req, res) => {
     }
     if (post.likes.includes(req.user.userId)) {
       await Post.findByIdAndUpdate(req.params.id, { $pull: { likes: req.user.userId } });
-      res.json({ wasLiked: false });
+      res.json({ byWhom: req.user.userId, wasLiked: false });
     } else {
       await Post.findByIdAndUpdate(req.params.id, { $push: { likes: req.user.userId } });
-      res.json({ wasLiked: true });
+      res.json({ byWhom: req.user.userId, wasLiked: true });
     }
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });

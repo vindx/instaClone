@@ -1,13 +1,6 @@
 import { stopSubmit } from 'redux-form';
-import UsersApi from '../../serverApiParody/usersApi';
-import PostsApi from '../../serverApiParody/postsApi';
-import { authMe, updateAuthUser } from './authReducer';
-import { addPost, postsFetchingOnProgress } from './postsReducer';
-
-const generateID = () =>
-  Math.random()
-    .toString(36)
-    .substr(2, 10);
+import { postsApi } from '../../api/api';
+import { addPost } from './postsReducer';
 
 const CREATE_POST_FETCHING_ON_PROGRESS = 'CREATE_POST_FETCHING_ON_PROGRESS';
 const CREATE_POST_FETCHING_ON_ERROR = 'CREATE_POST_FETCHING_ON_ERROR';
@@ -59,40 +52,21 @@ export const createPostFetchingOnError = error => ({
 export const createPostFetchingOnSuccess = () => ({ type: CREATE_POST_FETCHING_ON_SUCCESS });
 export const openCreatingPostForm = () => ({ type: CREATE_POST_FORM_IS_OPEN });
 
-export const createPost = ({ postPhoto = '', description, tags = '' }) =>
-  async function(dispatch) {
-    const postId = generateID();
-    dispatch(createPostFetchingOnProgress());
-    const activeUser = await dispatch(authMe());
-    Promise.all([
-      PostsApi.createPost({
-        postPhoto,
-        description,
-        tags,
-        authUser: activeUser.payload,
-        postId,
-      }),
-      UsersApi.createPost({
-        postPhoto,
-        description,
-        tags,
-        userId: activeUser.payload.id,
-        postId,
-      }),
-    ]).then(responses => {
-      if (responses.every(({ responseCode }) => responseCode === 200)) {
-        dispatch(addPost(responses[0].post));
-        dispatch(updateAuthUser(responses[1].user));
-        dispatch(createPostFetchingOnSuccess());
-      } else {
-        dispatch(
-          stopSubmit('createPostForm', {
-            _error: 'Something went wrong! Try again later.',
-          })
-        );
-        dispatch(createPostFetchingOnError());
-      }
-    });
-  };
+export const createPost = ({ postPhoto = '', description, tags = '' }) => async dispatch => {
+  dispatch(createPostFetchingOnProgress());
+  const response = await postsApi.createPost(localStorage.activeUser, postPhoto, description, tags);
+  if (response.status === 201) {
+    response.data.post.wasLiked = false;
+    dispatch(addPost(response.data.post));
+    dispatch(createPostFetchingOnSuccess());
+  } else {
+    dispatch(
+      stopSubmit('createPostForm', {
+        _error: 'Something went wrong! Try again later.',
+      })
+    );
+    dispatch(createPostFetchingOnError());
+  }
+};
 
 export default createPostReducer;

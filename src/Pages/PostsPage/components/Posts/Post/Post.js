@@ -8,17 +8,17 @@ import styles from './Post.module.scss';
 
 const Post = props => {
   const { postInfo, putLikeOnPost, likeIsFetching } = props;
-  const { owner, postPhoto, id, wasLiked, likes, description } = postInfo;
+  const { ownerInfo, postPhoto, _id: id, wasLiked, likes, description } = postInfo;
 
   return (
     <article className={styles.mainContainer}>
-      <PostHeader profilePhotoUrl={owner.profilePhoto} userName={owner.userName} />
+      <PostHeader profilePhotoUrl={ownerInfo.profilePhoto} userName={ownerInfo.userName} />
       <PostPhoto photoUrl={postPhoto} />
       <PostFooter
         id={id}
         wasLiked={wasLiked}
         likesNumber={likes}
-        userName={owner.userName}
+        userName={ownerInfo.userName}
         description={description}
         putLikeOnPost={putLikeOnPost}
         likeIsFetching={likeIsFetching}
@@ -29,14 +29,15 @@ const Post = props => {
 
 Post.propTypes = {
   postInfo: PropTypes.shape({
-    owner: PropTypes.object,
+    ownerInfo: PropTypes.object,
     postPhoto: PropTypes.string,
-    id: PropTypes.string,
+    _id: PropTypes.string,
     wasLiked: PropTypes.bool,
     likes: PropTypes.array,
     description: PropTypes.string,
   }).isRequired,
   putLikeOnPost: PropTypes.func.isRequired,
+  likeIsFetching: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Post;

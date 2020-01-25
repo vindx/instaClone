@@ -1,5 +1,4 @@
-import PostsApi from '../../serverApiParody/postsApi';
-import { authMe } from './authReducer';
+import { postsApi } from '../../api/api';
 
 const POSTS_FETCHING_ON_PROGRESS = 'POSTS_FETCHING_ON_PROGRESS';
 const POSTS_FETCHING_ON_SUCCESS = 'POSTS_FETCHING_ON_SUCCESS';
@@ -43,7 +42,7 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          posts: [action.payload, ...state.data.posts],
+          posts: [...state.data.posts, action.payload],
           totalCount: state.data.totalCount + 1,
         },
       };
@@ -53,10 +52,12 @@ const postsReducer = (state = initialState, action) => {
         data: {
           ...state.data,
           posts: state.data.posts.map(post => {
-            if (post.id === action.payload.id) {
+            if (post._id === action.payload.postId) {
               return {
                 ...post,
-                likes: [...action.payload.likes],
+                likes: action.payload.wasLiked
+                  ? [...post.likes, action.payload.byWhom]
+                  : post.likes.filter(id => id !== action.payload.byWhom),
                 wasLiked: action.payload.wasLiked,
               };
             }
@@ -79,35 +80,39 @@ export const addPost = post => ({
   type: ADD_POST,
   payload: post,
 });
-export const changePostsWithLiedPost = post => ({ type: PUT_LIKE_ON_POST, payload: post });
+export const changePostsWithLiedPost = (postId, byWhom, wasLiked) => ({
+  type: PUT_LIKE_ON_POST,
+  payload: { postId, byWhom, wasLiked },
+});
 export const likeFetchingToggle = (isFetching, postId) => ({
   type: LIKE_FETCHING_TOGGLE,
   payload: { isFetching, postId },
 });
 
-export const getAllPosts = (pageSize, pageNum, userId) => dispatch => {
+export const getAllPosts = userId => async dispatch => {
   dispatch(postsFetchingOnProgress());
-  setTimeout(() => {
-    PostsApi.getAllPosts(pageSize, pageNum, userId).then(response => {
-      if (response.responseCode === 200) {
-        dispatch(postsFetchingOnSuccess(response.posts, response.totalCount));
-      } else {
-        dispatch(postsFetchingOnError(response.error));
+  const response = await postsApi.getAllPosts(localStorage.activeUser);
+  if (response.status === 200) {
+    const postsWithLikes = response.data.posts.map(post => {
+      if (post.likes.includes(userId)) {
+        return { ...post, wasLiked: true };
       }
+      return { ...post, wasLiked: false };
     });
-  }, 1000);
+    dispatch(postsFetchingOnSuccess(postsWithLikes, postsWithLikes.length));
+  } else {
+    dispatch(postsFetchingOnError(response.data.msg));
+  }
 };
 
-export const putLikeOnPost = postId =>
-  async function(dispatch) {
-    dispatch(likeFetchingToggle(true, postId));
-    const activeUser = await dispatch(authMe());
-    PostsApi.putLikeOnPost({ postId, userId: activeUser.payload.userName }).then(response => {
-      if (response.responseCode === 200) {
-        dispatch(changePostsWithLiedPost(response.post));
-      }
-      dispatch(likeFetchingToggle(false, postId));
-    });
-  };
+export const putLikeOnPost = postId => async dispatch => {
+  dispatch(likeFetchingToggle(true, postId));
+  const response = await postsApi.putLikeOnPost(localStorage.activeUser, postId);
+  if (response.status === 200) {
+    const { byWhom, wasLiked } = response.data;
+    dispatch(changePostsWithLiedPost(postId, byWhom, wasLiked));
+  }
+  dispatch(likeFetchingToggle(false, postId));
+};
 
 export default postsReducer;

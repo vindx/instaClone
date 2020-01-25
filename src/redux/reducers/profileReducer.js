@@ -1,7 +1,4 @@
-import { authMe } from './authReducer';
-import PostsApi from '../../serverApiParody/postsApi';
-import UsersApi from '../../serverApiParody/usersApi';
-import { profileApi } from '../../api/api';
+import { postsApi, profileApi } from '../../api/api';
 
 const PROFILE_INIT_TOGGLE = 'PROFILE_INIT_TOGGLE';
 const POST_DELETING_TOGGLE = 'POST_DELETING_TOGGLE';
@@ -39,7 +36,14 @@ const profileReducer = (state = initialState, action) => {
     case POST_DELETING_ON_ERROR:
       return { ...state, error: action.payload };
     case POST_DELETING_ON_SUCCESS:
-      return { ...state, error: null };
+      return {
+        ...state,
+        error: null,
+        data: {
+          ...state.data,
+          posts: state.data.posts.filter(({ _id: id }) => id !== action.payload),
+        },
+      };
     case SET_USER_DATA:
       return {
         ...state,
@@ -80,7 +84,10 @@ export const postDeletingOnError = error => ({
   type: POST_DELETING_ON_ERROR,
   payload: error,
 });
-export const postDeletingOnSuccess = () => ({ type: POST_DELETING_ON_SUCCESS });
+export const postDeletingOnSuccess = postId => ({
+  type: POST_DELETING_ON_SUCCESS,
+  payload: postId,
+});
 export const setUserData = userData => ({ type: SET_USER_DATA, payload: userData });
 export const viewModeToggle = viewModeTurnedOn => ({
   type: VIEW_MODE_TOGGLE,
@@ -123,21 +130,14 @@ export const changeRemoveRequestStatus = () => async dispatch => {
   dispatch(removeRequestToggle(false));
 };
 
-export const deletePost = postId =>
-  async function(dispatch) {
-    dispatch(postDeletingToggle(true, postId));
-    const activeUser = await dispatch(authMe());
-    Promise.all([
-      PostsApi.deletePost(postId),
-      UsersApi.deletePost({ userId: activeUser.payload.id, postId }),
-    ]).then(responses => {
-      if (responses.every(res => res.responseCode === 200)) {
-        // dispatch(updateAuthUser(responses[1].user));
-        dispatch(postDeletingOnSuccess());
-      } else dispatch(postDeletingOnError('SOMETHING WENT WRONG!'));
-      dispatch(postDeletingToggle(false, postId));
-    });
-  };
+export const deletePost = postId => async dispatch => {
+  dispatch(postDeletingToggle(true, postId));
+  const response = await postsApi.deletePost(localStorage.activeUser, postId);
+  if (response.status === 200) {
+    dispatch(postDeletingOnSuccess(postId));
+  } else dispatch(postDeletingOnError('SOMETHING WENT WRONG!'));
+  dispatch(postDeletingToggle(false, postId));
+};
 
 export const turnOffViewMode = () => dispatch => {
   dispatch(viewModeToggle(false));

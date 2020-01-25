@@ -80,7 +80,46 @@ export const profileApi = {
   },
   changeRemoveRequestStatus: async token => {
     try {
-      const response = await axiosWithToken(token).get('api/users/auth/removeRequest');
+      const response = await axiosWithToken(token).get('/api/users/auth/removeRequest');
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+};
+
+export const postsApi = {
+  getAllPosts: async token => {
+    try {
+      const response = await axiosWithToken(token).get('/api/posts/all');
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  putLikeOnPost: async (token, postId) => {
+    try {
+      const response = await axiosWithToken(token).get(`/api/posts/like/${postId}`);
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  createPost: async (token, postPhoto, description, tags) => {
+    try {
+      const response = await axiosWithToken(token).post('/api/posts/create', {
+        postPhoto,
+        description,
+        tags,
+      });
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  deletePost: async (token, postId) => {
+    try {
+      const response = await axiosWithToken(token).delete(`/api/posts/delete/${postId}`);
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };

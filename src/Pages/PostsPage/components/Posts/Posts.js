@@ -9,20 +9,24 @@ const Posts = props => {
 
   return (
     <div className={styles.mainContainer}>
-      {posts.map(post => (
-        <Post
-          key={post.id}
-          postInfo={post}
-          putLikeOnPost={putLikeOnPost}
-          likeIsFetching={likeIsFetching}
-        />
-      ))}
+      {posts
+        .map(post => (
+          <Post
+            key={post._id}
+            postInfo={post}
+            putLikeOnPost={putLikeOnPost}
+            likeIsFetching={likeIsFetching}
+          />
+        ))
+        .reverse()}
     </div>
   );
 };
 
 Posts.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  putLikeOnPost: PropTypes.func.isRequired,
+  likeIsFetching: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Posts;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
@@ -8,29 +8,26 @@ import { getAllPosts, putLikeOnPost } from '../../../../redux/reducers/postsRedu
 import withAuthRedirect from '../../../../hoc/withAuthRedirect';
 import withAdminAuthRedirect from '../../../../hoc/withAdminAuthRedirect';
 
-class PostsContainer extends React.Component {
-  componentDidMount() {
-    if (this.props.activeUser !== 'admin') {
-      this.props.getAllPosts(100, 1, this.props.activeUser);
-    }
-  }
+const PostsContainer = props => {
+  useEffect(() => {
+    props.getAllPosts(props.userData.userId);
+  }, [props.getAllPosts, props.userData.userId]);
 
-  render() {
-    if (this.props.initIsFetching) return <BigPreloader />;
-    return (
-      <Posts
-        posts={this.props.posts}
-        putLikeOnPost={this.props.putLikeOnPost}
-        likeIsFetching={this.props.likeIsFetching}
-      />
-    );
-  }
-}
+  if (props.initIsFetching) return <BigPreloader />;
+
+  return (
+    <Posts
+      posts={props.posts}
+      putLikeOnPost={props.putLikeOnPost}
+      likeIsFetching={props.likeIsFetching}
+    />
+  );
+};
 
 const mapStateToProps = state => ({
+  userData: state.auth.data,
   initIsFetching: state.posts.initIsFetching,
   posts: state.posts.data.posts,
-  activeUser: state.auth.activeUser,
   likeIsFetching: state.posts.likeIsFetching,
 });
 

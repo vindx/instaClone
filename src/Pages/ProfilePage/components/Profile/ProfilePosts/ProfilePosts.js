@@ -10,17 +10,19 @@ const ProfilePosts = props => {
   return (
     <div className={styles.profilePosts}>
       {posts.length ? (
-        posts.map(({ _id: id, postPhoto, description }) => (
-          <ProfilePost
-            key={id}
-            id={id}
-            photo={postPhoto}
-            description={description}
-            deletePost={deletePost}
-            deleteIsFetching={deleteIsFetching}
-            viewMode={viewMode}
-          />
-        ))
+        posts
+          .map(({ _id: id, postPhoto, description }) => (
+            <ProfilePost
+              key={id}
+              id={id}
+              photo={postPhoto}
+              description={description}
+              deletePost={deletePost}
+              deleteIsFetching={deleteIsFetching}
+              viewMode={viewMode}
+            />
+          ))
+          .reverse()
       ) : (
         <div className={styles.zeroPosts}>No Posts Yet</div>
       )}
