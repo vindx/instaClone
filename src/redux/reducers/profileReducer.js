@@ -107,6 +107,9 @@ export const takeUserData = userName => async dispatch => {
     if (response.status === 200) {
       dispatch(setUserData(response.data));
       dispatch(profileInitToggle(false));
+    } else {
+      dispatch(profileInitToggle(false));
+      dispatch(deleteUserData());
     }
   } else {
     const response = await profileApi.getUserByUserName(userName);
