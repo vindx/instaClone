@@ -28,5 +28,12 @@
   .owner {
     font-weight: 600;
     cursor: pointer;
+    color: black;
+  }
+  .accountLogo,
+  .owner {
+    &:active {
+      opacity: 0.4;
+    }
   }
 }

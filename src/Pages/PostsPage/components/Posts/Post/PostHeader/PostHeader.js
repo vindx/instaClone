@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'proptypes';
 
 import styles from './PostHeader.module.scss';
@@ -8,13 +9,13 @@ const PostHeader = props => {
 
   return (
     <header className={styles.postHeader}>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <a className={styles.accountLogo}>
+      <Link to={`/profile/${userName}`} className={styles.accountLogo}>
         <img alt="" src={profilePhotoUrl} />
-      </a>
+      </Link>
       <div className={styles.accountName}>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a className={styles.owner}>{userName}</a>
+        <Link to={`/profile/${userName}`} className={styles.owner}>
+          {userName}
+        </Link>
       </div>
     </header>
   );
