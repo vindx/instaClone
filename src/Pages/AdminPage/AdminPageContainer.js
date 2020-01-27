@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -8,31 +8,27 @@ import { getAllUsers, deleteUser } from '../../redux/reducers/usersReducer';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
 import BigPreloader from '../../shares/components/Preloaders/BigPreloader/BigPreloader';
 
-class AdminPageContainer extends React.Component {
-  // use effect hook
-  componentDidMount() {
-    if (this.props.activeUser.role === 'admin') {
-      this.props.getAllUsers();
-    }
-  }
+const AdminPageContainer = props => {
+  useEffect(() => {
+    props.getAllUsers();
+  }, [props.getAllUsers]);
 
-  deleteUser = userId => {
-    this.props.deleteUser(userId);
+  const deleteAccount = userId => {
+    props.deleteUser(userId);
   };
 
-  render() {
-    if (this.props.activeUser.role !== 'admin') return <Redirect to="/" />;
-    if (this.props.initIsFetching) return <BigPreloader />;
-    return (
-      <AdminPage
-        deletingIsFetching={this.props.deletingIsFetching}
-        error={this.props.error}
-        data={this.props.data}
-        deleteUser={this.deleteUser}
-      />
-    );
-  }
-}
+  if (props.activeUser && props.activeUser.role !== 'admin') return <Redirect to="/" />;
+  if (props.initIsFetching) return <BigPreloader />;
+
+  return (
+    <AdminPage
+      deletingIsFetching={props.deletingIsFetching}
+      error={props.error}
+      data={props.data}
+      deleteUser={deleteAccount}
+    />
+  );
+};
 
 const mapStateToProps = state => ({
   initIsFetching: state.users.initIsFetching,
