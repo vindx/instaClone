@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Grid, TextField } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 
 import styles from './Header.module.scss';
 

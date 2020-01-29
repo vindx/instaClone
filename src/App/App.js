@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'proptypes';
 
 import BigPreloader from '../shares/components/Preloaders/BigPreloader/BigPreloader';
 import PostsPage from '../Pages/PostsPage/PostsPage';
@@ -12,11 +13,13 @@ import PageNotFound from '../shares/components/PageNotFound/PageNotFound';
 import { initialize } from '../redux/reducers/appReducer';
 
 const App = props => {
-  useEffect(() => {
-    props.initialize();
-  }, [props.initialize]);
+  const { initialize, initialized } = props;
 
-  if (!props.initialized) return <BigPreloader />;
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
+  if (!initialized) return <BigPreloader />;
   return (
     <div className="App">
       <Switch>
@@ -33,5 +36,10 @@ const App = props => {
 const mapStateToProps = state => ({
   initialized: state.app.initialized,
 });
+
+App.propTypes = {
+  initialize: PropTypes.func.isRequired,
+  initialized: PropTypes.bool.isRequired,
+};
 
 export default compose(withRouter, connect(mapStateToProps, { initialize }))(App);

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'proptypes';
 
 import BigPreloader from '../../../../shares/components/Preloaders/BigPreloader/BigPreloader';
 import Posts from './Posts';
@@ -9,19 +10,15 @@ import withAuthRedirect from '../../../../hoc/withAuthRedirect';
 import withAdminAuthRedirect from '../../../../hoc/withAdminAuthRedirect';
 
 const PostsContainer = props => {
+  const { getAllPosts, putLikeOnPost, userData, initIsFetching, posts, likeIsFetching } = props;
+
   useEffect(() => {
-    props.getAllPosts(props.userData.userId);
-  }, [props.getAllPosts, props.userData.userId]);
+    getAllPosts(userData.userId);
+  }, [getAllPosts, userData.userId]);
 
-  if (props.initIsFetching) return <BigPreloader />;
+  if (initIsFetching) return <BigPreloader />;
 
-  return (
-    <Posts
-      posts={props.posts}
-      putLikeOnPost={props.putLikeOnPost}
-      likeIsFetching={props.likeIsFetching}
-    />
-  );
+  return <Posts posts={posts} putLikeOnPost={putLikeOnPost} likeIsFetching={likeIsFetching} />;
 };
 
 const mapStateToProps = state => ({
@@ -30,6 +27,17 @@ const mapStateToProps = state => ({
   posts: state.posts.data.posts,
   likeIsFetching: state.posts.likeIsFetching,
 });
+
+PostsContainer.propTypes = {
+  getAllPosts: PropTypes.func.isRequired,
+  putLikeOnPost: PropTypes.func.isRequired,
+  userData: PropTypes.shape({
+    userId: PropTypes.string,
+  }).isRequired,
+  initIsFetching: PropTypes.bool.isRequired,
+  posts: PropTypes.array.isRequired,
+  likeIsFetching: PropTypes.array.isRequired,
+};
 
 export default compose(
   connect(mapStateToProps, { getAllPosts, putLikeOnPost }),

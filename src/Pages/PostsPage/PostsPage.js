@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'proptypes';
 
 import Header from '../../shares/components/Header/Header';
 import CreatePostForm from '../../shares/components/CreatePostForm/CreatePostForm';

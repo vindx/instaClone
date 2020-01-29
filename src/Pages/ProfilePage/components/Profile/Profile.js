@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'proptypes';
 
 import ProfileHeaderContainer from './ProfileHeader/ProfileHeaderContainer';
 import ProfilePostsContainer from './ProfilePosts/ProfilePostsContainer';
@@ -12,38 +13,53 @@ import PageNotFound from '../../../../shares/components/PageNotFound/PageNotFoun
 import styles from './Profile.module.scss';
 
 const Profile = props => {
-  const userName = props.userNameUrl;
+  const { takeUserData, turnOffViewMode, isAuth, initIsFetching, userData, userNameUrl } = props;
 
   useEffect(() => {
-    props.takeUserData(userName);
-  }, [props.takeUserData, userName]);
+    takeUserData(userNameUrl);
+  }, [takeUserData, userNameUrl]);
 
-  if (props.initIsFetching) return <BigPreloader />;
+  if (initIsFetching) return <BigPreloader />;
 
-  if (!userName && !props.isAuth) {
+  if (!userNameUrl && !isAuth) {
     return <Redirect to="/" />;
   }
-  if (!userName && props.isAuth) {
-    props.turnOffViewMode();
+  if (!userNameUrl && isAuth) {
+    turnOffViewMode();
   }
-  if (!props.userData) {
+  if (!userData) {
     return <PageNotFound />;
   }
 
   return (
     <div className={styles.profileContainer}>
-      <ProfileHeaderContainer userData={props.userData} />
-      <ProfilePostsContainer posts={props.userData.posts} />
+      <ProfileHeaderContainer userData={userData} />
+      <ProfilePostsContainer posts={userData.posts} />
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   isAuth: state.auth.isAuth,
-  authUserData: state.auth.data,
   initIsFetching: state.profile.initIsFetching,
   userData: state.profile.data,
 });
+
+Profile.propTypes = {
+  takeUserData: PropTypes.func.isRequired,
+  turnOffViewMode: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  initIsFetching: PropTypes.bool.isRequired,
+  userData: PropTypes.shape({
+    posts: PropTypes.array,
+  }),
+  userNameUrl: PropTypes.string,
+};
+
+Profile.defaultProps = {
+  userData: null,
+  userNameUrl: '',
+};
 
 export default compose(
   connect(mapStateToProps, { takeUserData, turnOffViewMode }),
