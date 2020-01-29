@@ -8,7 +8,15 @@ This application has been created just for practice my React JS skills and for f
 
 ## Before start the project
 
-In the project directory run:
+#### CLIENT PART
+In the `root` directory (root folder) run:
+
+### `npm install`
+
+to install all dependencies for correct operation of the application
+
+#### SERVER PART
+In the `server` directory (root folder/server) run:
 
 ### `npm install`
 
@@ -18,7 +26,10 @@ to install all dependencies for correct operation of the application
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm client` to start client part
+#### `npm server` to start sever part
+
+### `npm dev` for start client and server concurrently
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

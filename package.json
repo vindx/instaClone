@@ -19,7 +19,9 @@
     "serialize-javascript": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "client": "react-scripts start",
+    "server": "npm run start --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "proxy": "http://localhost:5000",
   "browserslist": {
@@ -35,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "eslint": "^6.7.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
