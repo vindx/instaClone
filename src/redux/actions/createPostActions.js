@@ -1,14 +1,9 @@
-import {
-  CREATE_POST_FETCHING_ON_ERROR,
-  CREATE_POST_FETCHING_ON_PROGRESS,
-  CREATE_POST_FETCHING_ON_SUCCESS,
-  CREATE_POST_FORM_IS_OPEN,
-} from '../../shares/constants/constants';
+import { createAction } from 'redux-actions';
 
-export const createPostFetchingOnProgress = () => ({ type: CREATE_POST_FETCHING_ON_PROGRESS });
-export const createPostFetchingOnError = error => ({
-  type: CREATE_POST_FETCHING_ON_ERROR,
-  payload: error,
-});
-export const createPostFetchingOnSuccess = () => ({ type: CREATE_POST_FETCHING_ON_SUCCESS });
-export const openCreatingPostForm = () => ({ type: CREATE_POST_FORM_IS_OPEN });
+export const createPostFetchingOnProgress = createAction('CREATE_POST_FETCHING_ON_PROGRESS');
+export const createPostFetchingOnError = createAction(
+  'CREATE_POST_FETCHING_ON_ERROR',
+  error => error
+);
+export const createPostFetchingOnSuccess = createAction('CREATE_POST_FETCHING_ON_SUCCESS');
+export const openCreatingPostForm = createAction('CREATE_POST_FORM_IS_OPEN');

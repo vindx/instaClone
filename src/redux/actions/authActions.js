@@ -1,12 +1,8 @@
-import {
-  AUTH_FETCHING_ON_TOGGLE,
-  AUTH_ON_SUCCESS,
-  DE_AUTH,
-} from '../../shares/constants/constants';
+import { createAction } from 'redux-actions';
 
-export const authFetchingToggle = boolean => ({ type: AUTH_FETCHING_ON_TOGGLE, payload: boolean });
-export const authOnSuccess = (userId, role) => ({
-  type: AUTH_ON_SUCCESS,
-  payload: { userId, role },
-});
-export const deAuth = () => ({ type: DE_AUTH });
+export const authFetchingToggle = createAction('AUTH_FETCHING_ON_TOGGLE', boolean => boolean);
+export const authOnSuccess = createAction('AUTH_ON_SUCCESS', (userId, role) => ({
+  userId,
+  role,
+}));
+export const deAuth = createAction('DE_AUTH');

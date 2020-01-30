@@ -1,24 +1,17 @@
-import {
-  DELETE_USER_FETCHING_ON_ERROR,
-  DELETE_USER_FETCHING_ON_PROGRESS,
-  DELETE_USER_FETCHING_ON_SUCCESS,
-  USERS_FETCHING_ON_ERROR,
-  USERS_FETCHING_ON_PROGRESS,
-  USERS_FETCHING_ON_SUCCESS,
-} from '../../shares/constants/constants';
+import { createAction } from 'redux-actions';
 
-export const usersFetchingOnProgress = () => ({ type: USERS_FETCHING_ON_PROGRESS });
-export const usersFetchingOnError = error => ({ type: USERS_FETCHING_ON_ERROR, payload: error });
-export const usersFetchingOnSuccess = (users, totalCount) => ({
-  type: USERS_FETCHING_ON_SUCCESS,
-  payload: { users, totalCount },
-});
-export const deleteUserFetchingOnProgress = () => ({ type: DELETE_USER_FETCHING_ON_PROGRESS });
-export const deleteUserFetchingOnError = error => ({
-  type: DELETE_USER_FETCHING_ON_ERROR,
-  payload: error,
-});
-export const deleteUserFetchingOnSuccess = user => ({
-  type: DELETE_USER_FETCHING_ON_SUCCESS,
-  payload: user,
-});
+export const usersFetchingOnProgress = createAction('USERS_FETCHING_ON_PROGRESS');
+export const usersFetchingOnError = createAction('USERS_FETCHING_ON_ERROR', error => error);
+export const usersFetchingOnSuccess = createAction(
+  'USERS_FETCHING_ON_SUCCESS',
+  (users, totalCount) => ({ users, totalCount })
+);
+export const deleteUserFetchingOnProgress = createAction('DELETE_USER_FETCHING_ON_PROGRESS');
+export const deleteUserFetchingOnError = createAction(
+  'DELETE_USER_FETCHING_ON_ERROR',
+  error => error
+);
+export const deleteUserFetchingOnSuccess = createAction(
+  'DELETE_USER_FETCHING_ON_SUCCESS',
+  user => user
+);

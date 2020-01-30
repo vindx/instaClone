@@ -1,3 +1,3 @@
-import { INITIALIZE_ON_SUCCESS } from '../../shares/constants/constants';
+import { createAction } from 'redux-actions';
 
-export const initializeOnSuccess = () => ({ type: INITIALIZE_ON_SUCCESS });
+export const initializeOnSuccess = createAction('INITIALIZE_ON_SUCCESS');

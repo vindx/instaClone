@@ -8,7 +8,7 @@ import {
   PUT_LIKE_ON_POST,
 } from '../../shares/constants/constants';
 import {
-  changePostsWithLiedPost,
+  changePostsWithLikedPost,
   likeFetchingToggle,
   postsFetchingOnError,
   postsFetchingOnProgress,
@@ -99,7 +99,7 @@ export const putLikeOnPost = postId => async dispatch => {
   const response = await postsApi.putLikeOnPost(localStorage.activeUser, postId);
   if (response.status === 200) {
     const { byWhom, wasLiked } = response.data;
-    dispatch(changePostsWithLiedPost(postId, byWhom, wasLiked));
+    dispatch(changePostsWithLikedPost(postId, byWhom, wasLiked));
   }
   dispatch(likeFetchingToggle(false, postId));
 };

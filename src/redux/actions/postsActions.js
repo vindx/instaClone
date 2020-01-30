@@ -1,27 +1,17 @@
-import {
-  ADD_POST,
-  LIKE_FETCHING_TOGGLE,
-  POSTS_FETCHING_ON_ERROR,
-  POSTS_FETCHING_ON_PROGRESS,
-  POSTS_FETCHING_ON_SUCCESS,
-  PUT_LIKE_ON_POST,
-} from '../../shares/constants/constants';
+import { createAction } from 'redux-actions';
 
-export const postsFetchingOnProgress = () => ({ type: POSTS_FETCHING_ON_PROGRESS });
-export const postsFetchingOnError = error => ({ type: POSTS_FETCHING_ON_ERROR, payload: error });
-export const postsFetchingOnSuccess = (posts, totalCount) => ({
-  type: POSTS_FETCHING_ON_SUCCESS,
-  payload: { posts, totalCount },
-});
-export const addPost = post => ({
-  type: ADD_POST,
-  payload: post,
-});
-export const changePostsWithLiedPost = (postId, byWhom, wasLiked) => ({
-  type: PUT_LIKE_ON_POST,
-  payload: { postId, byWhom, wasLiked },
-});
-export const likeFetchingToggle = (isFetching, postId) => ({
-  type: LIKE_FETCHING_TOGGLE,
-  payload: { isFetching, postId },
-});
+export const postsFetchingOnProgress = createAction('POSTS_FETCHING_ON_PROGRESS');
+export const postsFetchingOnError = createAction('POSTS_FETCHING_ON_ERROR', error => error);
+export const postsFetchingOnSuccess = createAction(
+  'POSTS_FETCHING_ON_SUCCESS',
+  (posts, totalCount) => ({ posts, totalCount })
+);
+export const addPost = createAction('ADD_POST', post => post);
+export const changePostsWithLikedPost = createAction(
+  'PUT_LIKE_ON_POST',
+  (postId, byWhom, wasLiked) => ({ postId, byWhom, wasLiked })
+);
+export const likeFetchingToggle = createAction('LIKE_FETCHING_TOGGLE', (isFetching, postId) => ({
+  isFetching,
+  postId,
+}));
