@@ -1,9 +1,11 @@
 import { stopSubmit } from 'redux-form';
 import { authApi } from '../../api/api';
-
-const AUTH_FETCHING_ON_TOGGLE = 'AUTH_FETCHING_ON_TOGGLE';
-const AUTH_ON_SUCCESS = 'AUTH_ON_SUCCESS';
-const DE_AUTH = 'DE_AUTH';
+import {
+  AUTH_FETCHING_ON_TOGGLE,
+  AUTH_ON_SUCCESS,
+  DE_AUTH,
+} from '../../shares/constants/constants';
+import { authFetchingToggle, authOnSuccess } from '../actions/authActions';
 
 const initialState = {
   isFetching: false,
@@ -36,13 +38,6 @@ const authReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export const authFetchingToggle = boolean => ({ type: AUTH_FETCHING_ON_TOGGLE, payload: boolean });
-export const authOnSuccess = (userId, role) => ({
-  type: AUTH_ON_SUCCESS,
-  payload: { userId, role },
-});
-export const deAuth = () => ({ type: DE_AUTH });
 
 export const createAccount = ({ email, fullName, userName, password }) => dispatch => {
   dispatch(authFetchingToggle(true));

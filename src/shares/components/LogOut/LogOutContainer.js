@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'proptypes';
-import { deAuth } from '../../../redux/reducers/authReducer';
+import { deAuth } from '../../../redux/actions/authActions';
 import LogOut from './LogOut';
 
 const LogOutContainer = props => {

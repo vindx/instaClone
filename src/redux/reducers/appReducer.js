@@ -1,6 +1,6 @@
 import { authMe } from './authReducer';
-
-const INITIALIZE_ON_SUCCESS = 'INITIALIZE_ON_SUCCESS';
+import { INITIALIZE_ON_SUCCESS } from '../../shares/constants/constants';
+import { initializeOnSuccess } from '../actions/appActions';
 
 const initialState = {
   initialized: false,
@@ -14,8 +14,6 @@ const appReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export const initializeOnSuccess = () => ({ type: INITIALIZE_ON_SUCCESS });
 
 export const initialize = () => async dispatch => {
   await dispatch(authMe());

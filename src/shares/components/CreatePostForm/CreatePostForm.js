@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { openCreatingPostForm } from '../../../redux/reducers/createPostReducer';
+import { openCreatingPostForm } from '../../../redux/actions/createPostActions';
 import ModalWindowContainer from './ModalWindow/ModalWindowContainer';
 import styles from './CreatePostForm.module.scss';
 
