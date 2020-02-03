@@ -1,24 +1,16 @@
 import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'proptypes';
 
 import AdminPage from './AdminPage';
 import { getAllUsers, deleteUser } from '../../redux/actions/usersActions';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
+import withUserAuthRedirect from '../../hoc/withUserAuthRedirect';
 import BigPreloader from '../../shares/components/Preloaders/BigPreloader/BigPreloader';
 
 const AdminPageContainer = props => {
-  const {
-    getAllUsers,
-    deleteUser,
-    activeUser,
-    initIsFetching,
-    deletingIsFetching,
-    error,
-    data,
-  } = props;
+  const { getAllUsers, deleteUser, initIsFetching, deletingIsFetching, error, data } = props;
 
   useEffect(() => {
     getAllUsers();
@@ -28,7 +20,6 @@ const AdminPageContainer = props => {
     deleteUser(userId);
   };
 
-  if (activeUser && activeUser.role !== 'admin') return <Redirect to="/" />; // private route
   if (initIsFetching) return <BigPreloader />;
 
   return (
@@ -46,7 +37,6 @@ const mapStateToProps = state => ({
   deletingIsFetching: state.users.deletingIsFetching,
   error: state.users.error,
   data: state.users.data,
-  activeUser: state.auth.data,
 });
 
 AdminPageContainer.propTypes = {
@@ -56,9 +46,6 @@ AdminPageContainer.propTypes = {
   deletingIsFetching: PropTypes.bool.isRequired,
   error: PropTypes.string,
   data: PropTypes.shape({}).isRequired,
-  activeUser: PropTypes.shape({
-    role: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 AdminPageContainer.defaultProps = {
@@ -67,5 +54,6 @@ AdminPageContainer.defaultProps = {
 
 export default compose(
   connect(mapStateToProps, { getAllUsers, deleteUser }),
+  withUserAuthRedirect,
   withAuthRedirect
 )(AdminPageContainer);
