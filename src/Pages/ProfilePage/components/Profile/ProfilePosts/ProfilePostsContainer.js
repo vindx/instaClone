@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { deletePost } from '../../../../../redux/reducers/profileReducer';
+import { deletePost } from '../../../../../redux/actions/profileActions';
 import ProfilePosts from './ProfilePosts';
 
 const mapStateToProps = state => ({

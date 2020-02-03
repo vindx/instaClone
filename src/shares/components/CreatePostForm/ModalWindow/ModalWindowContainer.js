@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { createPost } from '../../../../redux/reducers/createPostReducer';
+import { createPost } from '../../../../redux/actions/createPostActions';
 import ModalWindow from './ModalWindow';
 
 const mapStateToProps = state => ({

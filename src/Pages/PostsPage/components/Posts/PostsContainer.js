@@ -5,7 +5,7 @@ import PropTypes from 'proptypes';
 
 import BigPreloader from '../../../../shares/components/Preloaders/BigPreloader/BigPreloader';
 import Posts from './Posts';
-import { getAllPosts, putLikeOnPost } from '../../../../redux/reducers/postsReducer';
+import { getAllPosts, putLikeOnPost } from '../../../../redux/actions/postsActions';
 import withAuthRedirect from '../../../../hoc/withAuthRedirect';
 import withAdminAuthRedirect from '../../../../hoc/withAdminAuthRedirect';
 

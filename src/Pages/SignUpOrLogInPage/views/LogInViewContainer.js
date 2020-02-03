@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { logIn } from '../../../redux/reducers/authReducer';
+import { logIn } from '../../../redux/actions/authActions';
 import LogInView from './LogInView';
 
 const mapStateToProps = state => ({

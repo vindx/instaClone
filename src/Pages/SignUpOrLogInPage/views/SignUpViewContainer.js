@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { createAccount } from '../../../redux/reducers/authReducer';
+import { createAccount } from '../../../redux/actions/authActions';
 import SignUpView from './SignUpView';
 
 const mapStateToProps = state => ({

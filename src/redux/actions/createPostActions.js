@@ -1,4 +1,7 @@
+import { stopSubmit } from 'redux-form';
 import { createAction } from 'redux-actions';
+import { postsApi } from '../../api/api';
+import { addPost } from './postsActions';
 
 export const createPostFetchingOnProgress = createAction('CREATE_POST_FETCHING_ON_PROGRESS');
 export const createPostFetchingOnError = createAction(
@@ -6,4 +9,22 @@ export const createPostFetchingOnError = createAction(
   error => error
 );
 export const createPostFetchingOnSuccess = createAction('CREATE_POST_FETCHING_ON_SUCCESS');
+
+export const createPost = ({ postPhoto = '', description, tags = '' }) => async dispatch => {
+  dispatch(createPostFetchingOnProgress());
+  const response = await postsApi.createPost(localStorage.activeUser, postPhoto, description, tags);
+  if (response.status === 201) {
+    response.data.post.wasLiked = false;
+    dispatch(addPost(response.data.post));
+    dispatch(createPostFetchingOnSuccess());
+  } else {
+    dispatch(
+      stopSubmit('createPostForm', {
+        _error: 'Something went wrong! Try again later.',
+      })
+    );
+    dispatch(createPostFetchingOnError());
+  }
+};
+
 export const openCreatingPostForm = createAction('CREATE_POST_FORM_IS_OPEN');

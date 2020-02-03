@@ -1,94 +1,32 @@
-import { stopSubmit } from 'redux-form';
-import { authApi } from '../../api/api';
-import {
-  AUTH_FETCHING_ON_TOGGLE,
-  AUTH_ON_SUCCESS,
-  DE_AUTH,
-} from '../../shares/constants/constants';
-import { authFetchingToggle, authOnSuccess } from '../actions/authActions';
+import { handleActions } from 'redux-actions';
+import { authFetchingToggle, authOnSuccess, deAuth } from '../actions/authActions';
 
-const initialState = {
+const defaultState = {
   isFetching: false,
   data: null,
   isAuth: false,
 };
 
-const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case AUTH_FETCHING_ON_TOGGLE:
-      return {
-        ...state,
-        isFetching: action.payload,
-      };
-    case AUTH_ON_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        data: action.payload,
-        isAuth: true,
-      };
-    case DE_AUTH:
-      return {
-        ...state,
-        isFetching: false,
-        data: null,
-        isAuth: false,
-      };
-    default:
-      return state;
-  }
-};
-
-export const createAccount = ({ email, fullName, userName, password }) => dispatch => {
-  dispatch(authFetchingToggle(true));
-  authApi.register(email, fullName, userName, password).then(response => {
-    if (response.status === 200) {
-      dispatch(authOnSuccess(response.data.userId, response.data.role));
-      localStorage.activeUser = response.data.token;
-    } else {
-      if (response.data.errorFiled === 'email') {
-        // stopSubmit doesnt work with async func :(
-        dispatch(stopSubmit('signUpForm', { email: response.data.msg, _error: response.data.msg }));
-      }
-      if (response.data.errorFiled === 'userName') {
-        dispatch(
-          stopSubmit('signUpForm', { userName: response.data.msg, _error: response.data.msg })
-        );
-      }
-      dispatch(authFetchingToggle(false));
-    }
-  });
-};
-
-export const logIn = ({ emailOrUserName, password }) => dispatch => {
-  dispatch(authFetchingToggle(true));
-  authApi.login(emailOrUserName, password).then(response => {
-    if (response.status === 200) {
-      dispatch(authOnSuccess(response.data.userId, response.data.role));
-      localStorage.activeUser = response.data.token;
-    } else {
-      if (response.data.errorFiled === 'userName') {
-        dispatch(
-          stopSubmit('logInForm', { emailOrUserName: response.data.msg, _error: response.data.msg })
-        );
-      }
-      if (response.data.errorFiled === 'password') {
-        dispatch(
-          stopSubmit('logInForm', { password: response.data.msg, _error: response.data.msg })
-        );
-      }
-      dispatch(authFetchingToggle(false));
-    }
-  });
-};
-
-export const authMe = () => async dispatch => {
-  const response = await authApi.authMe(localStorage.activeUser);
-  if (response.status === 200) {
-    dispatch(authOnSuccess(response.data.userId, response.data.role));
-  } else {
-    localStorage.removeItem('activeUser');
-  }
-};
+const authReducer = handleActions(
+  {
+    [authFetchingToggle]: (state, action) => ({
+      ...state,
+      isFetching: action.payload,
+    }),
+    [authOnSuccess]: (state, action) => ({
+      ...state,
+      isFetching: false,
+      data: action.payload,
+      isAuth: true,
+    }),
+    [deAuth]: state => ({
+      ...state,
+      isFetching: false,
+      data: null,
+      isAuth: false,
+    }),
+  },
+  defaultState
+);
 
 export default authReducer;

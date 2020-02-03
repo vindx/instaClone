@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { changeRemoveRequestStatus } from '../../../../../redux/reducers/profileReducer';
+import { changeRemoveRequestStatus } from '../../../../../redux/actions/profileActions';
 import ProfileHeader from './ProfileHeader';
 
 const mapStateToProps = state => ({

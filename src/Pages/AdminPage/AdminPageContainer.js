@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'proptypes';
 
 import AdminPage from './AdminPage';
-import { getAllUsers, deleteUser } from '../../redux/reducers/usersReducer';
+import { getAllUsers, deleteUser } from '../../redux/actions/usersActions';
 import withAuthRedirect from '../../hoc/withAuthRedirect';
 import BigPreloader from '../../shares/components/Preloaders/BigPreloader/BigPreloader';
 
@@ -28,7 +28,7 @@ const AdminPageContainer = props => {
     deleteUser(userId);
   };
 
-  if (activeUser && activeUser.role !== 'admin') return <Redirect to="/" />;
+  if (activeUser && activeUser.role !== 'admin') return <Redirect to="/" />; // private route
   if (initIsFetching) return <BigPreloader />;
 
   return (

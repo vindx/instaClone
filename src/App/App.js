@@ -10,7 +10,7 @@ import ProfilePage from '../Pages/ProfilePage/ProfilePage';
 import AdminPageContainer from '../Pages/AdminPage/AdminPageContainer';
 import SignUpOrLogInPage from '../Pages/SignUpOrLogInPage/SignUpOrLogInPage';
 import PageNotFound from '../shares/components/PageNotFound/PageNotFound';
-import { initialize } from '../redux/reducers/appReducer';
+import { initialize } from '../redux/actions/appActions';
 
 const App = props => {
   const { initialize, initialized } = props;

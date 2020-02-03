@@ -6,7 +6,7 @@ import PropTypes from 'proptypes';
 
 import ProfileHeaderContainer from './ProfileHeader/ProfileHeaderContainer';
 import ProfilePostsContainer from './ProfilePosts/ProfilePostsContainer';
-import { turnOffViewMode, takeUserData } from '../../../../redux/reducers/profileReducer';
+import { turnOffViewMode, takeUserData } from '../../../../redux/actions/profileActions';
 import withAdminAuthRedirect from '../../../../hoc/withAdminAuthRedirect';
 import BigPreloader from '../../../../shares/components/Preloaders/BigPreloader/BigPreloader';
 import PageNotFound from '../../../../shares/components/PageNotFound/PageNotFound';
