@@ -3,8 +3,12 @@
   text-align: justify;
 
   .owner {
+    color: black;
     font-weight: bold;
     cursor: pointer;
     margin-right: 5px;
+    &:active {
+      opacity: 0.4;
+    }
   }
 }
