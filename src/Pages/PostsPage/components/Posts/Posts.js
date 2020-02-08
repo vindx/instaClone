@@ -16,6 +16,7 @@ const Posts = props => {
             postInfo={post}
             putLikeOnPost={putLikeOnPost}
             likeIsFetching={likeIsFetching}
+            getPostsByTag={props.getPostsByTag}
           />
         ))
         .reverse()}

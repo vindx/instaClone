@@ -5,7 +5,7 @@ import PropTypes from 'proptypes';
 
 import BigPreloader from '../../../../shares/components/Preloaders/BigPreloader/BigPreloader';
 import Posts from './Posts';
-import { getAllPosts, putLikeOnPost } from '../../../../redux/actions/postsActions';
+import { getAllPosts, putLikeOnPost, getPostsByTag } from '../../../../redux/actions/postsActions';
 import withAuthRedirect from '../../../../hoc/withAuthRedirect';
 import withAdminAuthRedirect from '../../../../hoc/withAdminAuthRedirect';
 
@@ -16,9 +16,20 @@ const PostsContainer = props => {
     getAllPosts(userData.userId);
   }, [getAllPosts, userData.userId]);
 
+  const getPostsByTag = ({ _id: tagId }) => {
+    props.getPostsByTag(userData.userId, tagId);
+  };
+
   if (initIsFetching) return <BigPreloader />;
 
-  return <Posts posts={posts} putLikeOnPost={putLikeOnPost} likeIsFetching={likeIsFetching} />;
+  return (
+    <Posts
+      posts={posts}
+      putLikeOnPost={putLikeOnPost}
+      likeIsFetching={likeIsFetching}
+      getPostsByTag={getPostsByTag}
+    />
+  );
 };
 
 const mapStateToProps = state => ({
@@ -40,7 +51,7 @@ PostsContainer.propTypes = {
 };
 
 export default compose(
-  connect(mapStateToProps, { getAllPosts, putLikeOnPost }),
+  connect(mapStateToProps, { getAllPosts, putLikeOnPost, getPostsByTag }),
   withAdminAuthRedirect,
   withAuthRedirect
 )(PostsContainer);

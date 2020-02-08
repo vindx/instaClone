@@ -4,5 +4,14 @@ import authReducer from './authReducer';
 import appReducer from './appReducer';
 import createPostReducer from './createPostReducer';
 import profileReducer from './profileReducer';
+import tagsReducer from './tagsReducer';
 
-export { postsReducer, usersReducer, authReducer, appReducer, createPostReducer, profileReducer };
+export {
+  postsReducer,
+  usersReducer,
+  authReducer,
+  appReducer,
+  createPostReducer,
+  profileReducer,
+  tagsReducer,
+};

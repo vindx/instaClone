@@ -8,9 +8,7 @@ export const postsFetchingOnSuccess = createAction(
   (posts, totalCount) => ({ posts, totalCount })
 );
 
-export const getAllPosts = userId => async dispatch => {
-  dispatch(postsFetchingOnProgress());
-  const response = await postsApi.getAllPosts(localStorage.activeUser);
+const setLikeOnPostsAfterResponse = (dispatch, response, userId) => {
   if (response.status === 200) {
     const postsWithLikes = response.data.posts.map(post => {
       if (post.likes.includes(userId)) {
@@ -22,6 +20,18 @@ export const getAllPosts = userId => async dispatch => {
   } else {
     dispatch(postsFetchingOnError(response.data.msg));
   }
+};
+
+export const getAllPosts = userId => async dispatch => {
+  dispatch(postsFetchingOnProgress());
+  const response = await postsApi.getAllPosts(localStorage.activeUser);
+  setLikeOnPostsAfterResponse(dispatch, response, userId);
+};
+
+export const getPostsByTag = (userId, tagId) => async dispatch => {
+  dispatch(postsFetchingOnProgress());
+  const response = await postsApi.getPostsByTag(localStorage.activeUser, tagId);
+  setLikeOnPostsAfterResponse(dispatch, response, userId);
 };
 
 export const addPost = createAction('ADD_POST', post => post);

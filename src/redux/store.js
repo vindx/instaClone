@@ -10,6 +10,7 @@ const combinedReducers = combineReducers({
   users: reducers.usersReducer,
   posts: reducers.postsReducer,
   auth: reducers.authReducer,
+  tags: reducers.tagsReducer,
   form: formReducer,
 });
 

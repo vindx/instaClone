@@ -26,18 +26,20 @@ export const SignUpOrLogInFormsInput = ({ input, meta, ...props }) => {
 };
 
 export const CreatePostFormInput = ({ input, meta, ...props }) => {
-  const hasError = meta.touched && meta.error;
+  const hasError = meta.dirty && meta.error;
   return (
     <>
       <div className={styles.wrapper}>
         <label>
           {props.label}
           <input
+            autoComplete="off"
             className={`${styles.newPostInput} ${hasError && styles.onError}`}
             {...input}
             {...props}
           />
         </label>
+        {hasError && <span className={styles.errorMsg}>{meta.error}</span>}
       </div>
     </>
   );

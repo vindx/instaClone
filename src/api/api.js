@@ -97,6 +97,14 @@ export const postsApi = {
       return { status: e.response.status, data: e.response.data };
     }
   },
+  getPostsByTag: async (token, tagId) => {
+    try {
+      const response = await axiosWithToken(token).get(`/api/posts/byTag/${tagId}`);
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
   putLikeOnPost: async (token, postId) => {
     try {
       const response = await axiosWithToken(token).get(`/api/posts/like/${postId}`);
@@ -120,6 +128,25 @@ export const postsApi = {
   deletePost: async (token, postId) => {
     try {
       const response = await axiosWithToken(token).delete(`/api/posts/delete/${postId}`);
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+};
+
+export const tagsApi = {
+  find: async tagName => {
+    try {
+      const response = await axios.post('/api/tags/find', { tagName });
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  create: async (token, tagName) => {
+    try {
+      const response = await axiosWithToken(token).post('/api/tags/create', { tagName });
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };

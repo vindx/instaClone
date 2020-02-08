@@ -5,7 +5,7 @@ const postSchema = new Schema({
   ownerInfo: { type: Object, required: true },
   description: { type: String, required: true },
   postPhoto: { type: String, default: '' },
-  tags: { type: Array, default: [] },
+  tags: [{ type: Object, ref: 'Tag' }],
   likes: { type: Array, default: [] },
 });
 

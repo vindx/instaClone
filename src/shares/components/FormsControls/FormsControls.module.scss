@@ -136,6 +136,10 @@
     height: auto;
     text-overflow: ellipsis;
   }
+  .errorMsg {
+    font-size: 14px;
+    color: #ed4956;
+  }
   .onError {
     border-color: #ed4956;
     outline: none;
