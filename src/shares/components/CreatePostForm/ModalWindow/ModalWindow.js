@@ -12,65 +12,81 @@ import { ReactComponent as Preloader } from '../../../../assets/images/blackPrel
 import styles from './ModalWindow.module.scss';
 import PostTags from '../../PostTags/PostTags';
 
-const ModalWindowForm = props => {
-  return (
-    <form className={styles.form} onSubmit={props.handleSubmit}>
-      <Field
-        component={CreatePostFormInput}
-        label="Post photo"
-        placeholder="Enter URL (optional)"
-        name="postPhoto"
-        type="text"
-      />
-      <Field
-        component={CreatePostFormTextArea}
-        label="Description"
-        name="description"
-        type="text"
-        placeholder={required()}
-        validate={[required]}
-      />
-      <Field
-        component={CreatePostFormInput}
-        label="Tags"
-        name="tagName"
-        type="search"
-        placeholder="Add tag (optional, min 3 symbols)"
-        validate={[props.minLength, postTagNameValidator]}
-        onChange={props.findTag}
-      />
-      {props.showCreateButton && props.valid && (
-        <span
-          className={`${styles.addTag} ${props.fullCoincidenceOfTag && styles.inactive}`}
-          onClick={props.createTag}
-        >
-          Create tag
+const TagsForm = props => (
+  <>
+    <Field
+      component={CreatePostFormInput}
+      label="Tags"
+      name="tagName"
+      type="search"
+      placeholder="Add tag (optional, min 3 symbols)"
+      validate={[props.minLength, postTagNameValidator]}
+      onChange={props.findTag}
+    />
+    {props.showCreateButton && props.searchingTag && props.valid && (
+      <span
+        className={`${styles.addTag} ${props.fullCoincidenceOfTag && styles.inactive}`}
+        onClick={props.createTag}
+      >
+        Create tag
+      </span>
+    )}
+    <div className={styles.tags}>
+      {props.existedTags.map(tag => (
+        <span key={tag._id} className={styles.tag} onClick={() => props.moveTagToSelected(tag)}>
+          <span className={styles.tagSymbol}>#</span>
+          {tag.tagName}
         </span>
-      )}
-
-      <div className={styles.tags}>
-        {props.existedTags.map(tag => (
-          <span key={tag._id} className={styles.tag} onClick={() => props.moveTagToSelected(tag)}>
-            <span className={styles.tagSymbol}>#</span>
-            {tag.tagName}
-          </span>
-        ))}
+      ))}
+    </div>
+    {props.selectedTags.length > 0 && (
+      <div className={styles.selectedTags}>
+        <span className={styles.title}>Selected tags</span>
+        <PostTags tags={props.selectedTags} onClick={props.removeTagFromSelected} />
       </div>
-      {props.selectedTags.length > 0 && (
-        <div className={styles.selectedTags}>
-          <span className={styles.title}>Selected tags</span>
-          <PostTags tags={props.selectedTags} onClick={props.removeTagFromSelected} />
-        </div>
-      )}
+    )}
+  </>
+);
 
-      {props.error && <span style={{ color: 'red' }}>{props.error}</span>}
-      <div className={styles.footer}>
-        {props.tagIsFinding && <Preloader className={styles.tagsPreloader} />}
-        <Button btn_name="Create" disabled={props.invalid || props.isFetching} />
-      </div>
-    </form>
-  );
-};
+const TagsFormRedux = reduxForm({ form: 'tagsForm' })(TagsForm);
+
+const ModalWindowForm = props => (
+  <form className={styles.form} onSubmit={props.handleSubmit}>
+    <Field
+      component={CreatePostFormInput}
+      label="Post photo"
+      placeholder="Enter URL (optional)"
+      name="postPhoto"
+      type="text"
+    />
+    <Field
+      component={CreatePostFormTextArea}
+      label="Description"
+      name="description"
+      type="text"
+      placeholder={required()}
+      validate={[required]}
+    />
+    <TagsFormRedux
+      searchingTag={props.searchingTag}
+      minLength={props.minLength}
+      findTag={props.findTag}
+      tagIsFinding={props.tagIsFinding}
+      existedTags={props.existedTags}
+      moveTagToSelected={props.moveTagToSelected}
+      selectedTags={props.selectedTags}
+      removeTagFromSelected={props.removeTagFromSelected}
+      showCreateButton={props.showCreateButton}
+      createTag={props.createTag}
+    />
+
+    {props.error && <span style={{ color: 'red' }}>{props.error}</span>}
+    <div className={styles.footer}>
+      {props.tagIsFinding && <Preloader className={styles.tagsPreloader} />}
+      <Button btn_name="Create" disabled={props.invalid || props.isFetching} />
+    </div>
+  </form>
+);
 
 const ModalWindowFormRedux = reduxForm({ form: 'createPostForm' })(ModalWindowForm);
 
@@ -85,6 +101,7 @@ const ModalWindow = props => {
       onClose();
       props.deleteExistedTags();
       props.deleteSelectedTags();
+      setSearchingTag('');
     }
   };
 
@@ -127,6 +144,7 @@ const ModalWindow = props => {
   const createPost = ({ description, postPhoto }) => {
     const tags = props.selectedTags;
     props.createPost({ description, postPhoto, tags });
+    setSearchingTag('');
   };
 
   const minLength = minLengthCreator(3);
@@ -139,6 +157,7 @@ const ModalWindow = props => {
           isFetching={isFetching}
           onSubmit={createPost}
           minLength={minLength}
+          searchingTag={searchingTag}
           findTag={findTag}
           tagIsFinding={props.tagIsFinding}
           existedTags={props.existedTags}
