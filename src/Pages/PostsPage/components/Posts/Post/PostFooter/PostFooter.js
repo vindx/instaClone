@@ -30,7 +30,9 @@ const PostFooter = props => {
       />
       <PostLikesCounter likesArray={likesNumber} />
       <PostDescription userName={userName} description={description} />
-      <PostTags tags={tags} onClick={getPostsByTag} />
+      <div style={{ marginTop: 5 }}>
+        <PostTags tags={tags} onClick={getPostsByTag} />
+      </div>
     </div>
   );
 };
