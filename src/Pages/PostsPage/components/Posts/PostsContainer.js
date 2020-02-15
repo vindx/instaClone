@@ -63,7 +63,12 @@ const PostsContainer = props => {
 
   const clearSearchingByTag = () => {
     setSearchByTag(false);
-    setPageNumber(1);
+    if (pageNumber === 1) {
+      props.clearData();
+      getAllPosts(userData.userId, pageNumber);
+    } else {
+      setPageNumber(1);
+    }
   };
 
   return (
