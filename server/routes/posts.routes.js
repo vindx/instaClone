@@ -1,19 +1,18 @@
 const router = require('express').Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth.midddleware');
+const paginate = require('../middleware/paginate.middleware');
 const Post = require('../models/Post');
 const User = require('../models/User');
-const Tag = require('../models/Tag');
 
 // api/posts/all
 // admin dont have access
-router.get('/all', auth, async (req, res) => {
+router.get('/all', auth, paginate(Post), async (req, res) => {
   try {
     if (req.user.role === 'admin') {
       return res.status(403).json({ msg: 'Login like common user to see this page' });
     }
-    const posts = await Post.find();
-    res.json({ posts });
+    res.json({ posts: res.paginatedResults });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
@@ -28,7 +27,7 @@ router.get('/byTag/:id', auth, async (req, res) => {
     }
     const posts = await Post.find();
     const postsByTag = posts.filter(({ tags }) => tags.find(tag => tag._id === req.params.id));
-    res.json({ posts: postsByTag });
+    res.json({ posts: { results: postsByTag } });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }

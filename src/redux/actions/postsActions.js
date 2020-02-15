@@ -5,26 +5,27 @@ export const postsFetchingOnProgress = createAction('POSTS_FETCHING_ON_PROGRESS'
 export const postsFetchingOnError = createAction('POSTS_FETCHING_ON_ERROR', error => error);
 export const postsFetchingOnSuccess = createAction(
   'POSTS_FETCHING_ON_SUCCESS',
-  (posts, totalCount) => ({ posts, totalCount })
+  (posts, hasMore) => ({ posts, hasMore })
 );
+export const clearData = createAction('POSTS_CLEAR_DATA');
 
 const setLikeOnPostsAfterResponse = (dispatch, response, userId) => {
   if (response.status === 200) {
-    const postsWithLikes = response.data.posts.map(post => {
+    const postsWithLikes = response.data.posts.results.map(post => {
       if (post.likes.includes(userId)) {
         return { ...post, wasLiked: true };
       }
       return { ...post, wasLiked: false };
     });
-    dispatch(postsFetchingOnSuccess(postsWithLikes, postsWithLikes.length));
+    dispatch(postsFetchingOnSuccess(postsWithLikes, Boolean(response.data.posts.next)));
   } else {
     dispatch(postsFetchingOnError(response.data.msg));
   }
 };
 
-export const getAllPosts = userId => async dispatch => {
+export const getAllPosts = (userId, page) => async dispatch => {
   dispatch(postsFetchingOnProgress());
-  const response = await postsApi.getAllPosts(localStorage.activeUser);
+  const response = await postsApi.getAllPosts(localStorage.activeUser, page);
   setLikeOnPostsAfterResponse(dispatch, response, userId);
 };
 

@@ -6,6 +6,7 @@ import {
   postsFetchingOnError,
   postsFetchingOnProgress,
   postsFetchingOnSuccess,
+  clearData,
 } from '../actions/postsActions';
 
 const defaultState = {
@@ -14,7 +15,7 @@ const defaultState = {
   error: null,
   data: {
     posts: [],
-    totalCount: 0,
+    hasMore: false,
   },
 };
 
@@ -33,7 +34,10 @@ const postsReducer = handleActions(
       ...state,
       initIsFetching: false,
       error: null,
-      data: { ...state.data, ...action.payload },
+      data: {
+        posts: [...state.data.posts, ...action.payload.posts],
+        hasMore: action.payload.hasMore,
+      },
     }),
     [likeFetchingToggle]: (state, action) => ({
       ...state,
@@ -45,7 +49,7 @@ const postsReducer = handleActions(
       ...state,
       data: {
         ...state.data,
-        posts: [...state.data.posts, action.payload],
+        posts: [action.payload, ...state.data.posts],
         totalCount: state.data.totalCount + 1,
       },
     }),
@@ -65,6 +69,13 @@ const postsReducer = handleActions(
           }
           return post;
         }),
+      },
+    }),
+    [clearData]: state => ({
+      ...state,
+      data: {
+        posts: [],
+        hasMore: false,
       },
     }),
   },

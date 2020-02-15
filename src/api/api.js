@@ -89,9 +89,12 @@ export const profileApi = {
 };
 
 export const postsApi = {
-  getAllPosts: async token => {
+  getAllPosts: async (token, page = 1, limit = 5) => {
     try {
-      const response = await axiosWithToken(token).get('/api/posts/all');
+      const response = await axiosWithToken(token).get(
+        `/api/posts/all?page=${page}&limit=${limit}`
+      );
+      console.log(response.data);
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };

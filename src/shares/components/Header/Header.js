@@ -6,9 +6,8 @@ import { Container, Grid } from '@material-ui/core';
 import { getAllPosts } from '../../../redux/actions/postsActions';
 import styles from './Header.module.scss';
 
-const Header = props => {
+const Header = () => {
   const getPosts = () => {
-    props.getAllPosts(props.userData.userId);
     window.scrollTo(0, 0);
   };
 

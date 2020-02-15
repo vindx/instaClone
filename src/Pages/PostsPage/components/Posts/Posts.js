@@ -5,12 +5,24 @@ import Post from './Post/Post';
 import styles from './Posts.module.scss';
 
 const Posts = props => {
-  const { posts, putLikeOnPost, likeIsFetching } = props;
+  const { posts, putLikeOnPost, likeIsFetching, lastPostElementRef } = props;
 
   return (
     <div className={styles.mainContainer}>
-      {posts
-        .map(post => (
+      {posts.map((post, index) => {
+        if (posts.length === index + 1) {
+          return (
+            <Post
+              lastPostElementRef={lastPostElementRef}
+              key={post._id}
+              postInfo={post}
+              putLikeOnPost={putLikeOnPost}
+              likeIsFetching={likeIsFetching}
+              getPostsByTag={props.getPostsByTag}
+            />
+          );
+        }
+        return (
           <Post
             key={post._id}
             postInfo={post}
@@ -18,8 +30,8 @@ const Posts = props => {
             likeIsFetching={likeIsFetching}
             getPostsByTag={props.getPostsByTag}
           />
-        ))
-        .reverse()}
+        );
+      })}
     </div>
   );
 };

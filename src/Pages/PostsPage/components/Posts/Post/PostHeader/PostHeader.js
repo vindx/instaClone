@@ -5,10 +5,10 @@ import PropTypes from 'proptypes';
 import styles from './PostHeader.module.scss';
 
 const PostHeader = props => {
-  const { userName, profilePhotoUrl } = props;
+  const { userName, profilePhotoUrl, lastPostElementRef } = props;
 
   return (
-    <header className={styles.postHeader}>
+    <header className={styles.postHeader} ref={lastPostElementRef}>
       <Link to={`/profile/${userName}`} className={styles.accountLogo}>
         <img alt="" src={profilePhotoUrl} />
       </Link>
