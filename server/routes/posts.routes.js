@@ -25,7 +25,7 @@ router.get('/byTag/:id', auth, async (req, res) => {
     if (req.user.role === 'admin') {
       return res.status(403).json({ msg: 'Login like common user to see this page' });
     }
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ _id: -1 });
     const postsByTag = posts.filter(({ tags }) => tags.find(tag => tag._id === req.params.id));
     res.json({ posts: { results: postsByTag } });
   } catch (e) {

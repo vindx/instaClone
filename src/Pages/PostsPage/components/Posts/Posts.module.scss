@@ -4,4 +4,14 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  .tagsBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    .title {
+      margin-right: 10px;
+    }
+  }
 }

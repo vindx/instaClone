@@ -16,6 +16,8 @@ import withAdminAuthRedirect from '../../../../hoc/withAdminAuthRedirect';
 
 const PostsContainer = props => {
   const [pageNumber, setPageNumber] = useState(1);
+  const [searchableTag, setSearchableTag] = useState({});
+
   const {
     getAllPosts,
     putLikeOnPost,
@@ -24,6 +26,8 @@ const PostsContainer = props => {
     posts,
     hasMore,
     likeIsFetching,
+    searchByTag,
+    setSearchByTag,
   } = props;
 
   const observer = useRef();
@@ -50,9 +54,16 @@ const PostsContainer = props => {
     getAllPosts(userData.userId, pageNumber);
   }, [getAllPosts, userData.userId, pageNumber]);
 
-  const getPostsByTag = ({ _id: tagId }) => {
+  const getPostsByTag = tag => {
     props.clearData();
-    props.getPostsByTag(userData.userId, tagId);
+    props.getPostsByTag(userData.userId, tag._id);
+    setSearchByTag(true);
+    setSearchableTag(tag);
+  };
+
+  const clearSearchingByTag = () => {
+    setSearchByTag(false);
+    setPageNumber(1);
   };
 
   return (
@@ -63,6 +74,9 @@ const PostsContainer = props => {
         likeIsFetching={likeIsFetching}
         getPostsByTag={getPostsByTag}
         lastPostElementRef={lastPostElementRef}
+        searchByTag={searchByTag}
+        clearSearchingByTag={clearSearchingByTag}
+        searchableTag={searchableTag}
       />
       {initIsFetching && (
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 30 }}>
