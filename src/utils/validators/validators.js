@@ -25,7 +25,7 @@ export const notOnlyNumbers = value =>
   value && /^[0-9]+$/.test(value) ? 'Your username cannot contain only numbers.' : undefined;
 
 export const userNameValidator = value =>
-  value && !/^[a-z0-9._]+$/.test(value)
+  value && !/^[a-z0-9._]+$/i.test(value)
     ? 'Username can only use letters, numbers, underscores and periods.'
     : undefined;
 

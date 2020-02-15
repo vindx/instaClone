@@ -12,13 +12,18 @@ export const SignUpOrLogInFormsInput = ({ input, meta, ...props }) => {
             <span className={styles.nameOfInput}>{props.label}</span>
             <input className={styles.input} {...input} {...props} />
           </label>
-          <div className={styles.inputStatus}>
-            <span
-              className={`${styles.unTouched}
+          {(hasError || withoutErrors) && (
+            <div className={styles.inputStatus}>
+              <span
+                className={`${styles.unTouched}
               ${hasError && styles.onError}
               ${withoutErrors && styles.onAccept}`}
-            />
-          </div>
+              />
+              {hasError && (
+                <span className={`${styles.invisible} ${styles.visible}`}>{meta.error}</span>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

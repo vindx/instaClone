@@ -32,7 +32,10 @@ router.post(
         return res.status(400).json({ msg: 'Some errors', errors: errors.array() });
       }
 
-      const { email, fullName, userName, password } = req.body;
+      let { email, userName } = req.body;
+      const { fullName, password } = req.body;
+      email = email.toLowerCase();
+      userName = userName.toLowerCase();
 
       const emailExist = await User.findOne({ email });
       const userNameExist = await User.findOne({ userName });
@@ -50,6 +53,7 @@ router.post(
           });
         }
       }
+
       const hashedPassword = await bcrypt.hash(password, 12);
       const user = new User({
         email,
@@ -65,6 +69,7 @@ router.post(
 
       res.json({ msg: 'Register successful', userId: existedUser.id, token, role: 'user' });
     } catch (e) {
+      console.log(e.message);
       res.status(500).json({ message: 'Something went wrong. Please try again later.' });
     }
   }
@@ -87,8 +92,8 @@ router.post(
 
       const { emailOrUserName, password } = req.body;
       const user =
-        (await User.findOne({ email: emailOrUserName })) ||
-        (await User.findOne({ userName: emailOrUserName }));
+        (await User.findOne({ email: emailOrUserName.toLowerCase() })) ||
+        (await User.findOne({ userName: emailOrUserName.toLowerCase() }));
       if (!user) {
         return res.status(400).json({
           errorFiled: 'userName',

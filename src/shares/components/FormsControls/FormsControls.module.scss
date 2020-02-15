@@ -92,6 +92,18 @@
       height: 100%;
       padding-right: 8px;
       vertical-align: middle;
+      .invisible {
+        display: none;
+      }
+      &:hover .visible {
+        display: block;
+        position: absolute;
+        left: 105%;
+        top: 20%;
+        color: #ed4956;
+        width: fit-content;
+        font-size: 14px;
+      }
 
       .unTouched {
         background-image: url(https://www.instagram.com/static/bundles/metro/sprite_core_b20f2a3cd7e4.png/b20f2a3cd7e4.png);
