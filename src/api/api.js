@@ -94,7 +94,6 @@ export const postsApi = {
       const response = await axiosWithToken(token).get(
         `/api/posts/all?page=${page}&limit=${limit}`
       );
-      console.log(response.data);
       return { status: response.status, data: response.data };
     } catch (e) {
       return { status: e.response.status, data: e.response.data };
