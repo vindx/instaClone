@@ -2,6 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "InstaClone server",
+  "engines": {
+    "node": "13.1.x",
+    "npm": "6.x"
+  },
   "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
