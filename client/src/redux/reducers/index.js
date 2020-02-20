@@ -5,6 +5,7 @@ import appReducer from './appReducer';
 import createPostReducer from './createPostReducer';
 import profileReducer from './profileReducer';
 import tagsReducer from './tagsReducer';
+import profilePhotoReducer from './profilePhotoReducer';
 
 export {
   postsReducer,
@@ -14,4 +15,5 @@ export {
   createPostReducer,
   profileReducer,
   tagsReducer,
+  profilePhotoReducer,
 };

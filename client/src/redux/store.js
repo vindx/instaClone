@@ -11,6 +11,7 @@ const combinedReducers = combineReducers({
   posts: reducers.postsReducer,
   auth: reducers.authReducer,
   tags: reducers.tagsReducer,
+  profilePhotoOptions: reducers.profilePhotoReducer,
   form: formReducer,
 });
 

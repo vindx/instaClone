@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const auth = require('../middleware/auth.midddleware');
+const formData = require('../middleware/formData.middleware');
 const User = require('../models/User');
 const Post = require('../models/Post');
+const imageServices = require('../services/imageServices');
 
 // api/users/all
 // only for admin
@@ -43,6 +45,57 @@ router.get('/auth/removeRequest', auth, async (req, res) => {
     await User.findByIdAndUpdate(req.user.userId, { $set: { removeRequest: !user.removeRequest } });
     const changedUser = await User.findById(req.user.userId);
     res.json(changedUser.removeRequest);
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
+
+// api/users/auth/uploadPhoto
+// admin dont have access
+router.put('/auth/uploadPhoto', auth, formData, async (req, res) => {
+  try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
+
+    const updateProfilePhoto = async profilePhoto => {
+      await User.findByIdAndUpdate(req.user.userId, { profilePhoto });
+      const updatedUser = await User.findById(req.user.userId);
+      res.json({ profilePhoto: updatedUser.profilePhoto });
+    };
+
+    const image = req.file;
+    const user = await User.findById(req.user.userId);
+    const imageId = user.profilePhoto.split('/').reverse()[0];
+    if (imageId) {
+      const newProfilePhoto = await imageServices.updateImageById(imageId, image);
+      await updateProfilePhoto(newProfilePhoto);
+    } else {
+      const newProfilePhoto = await imageServices.createImage(image);
+      await updateProfilePhoto(newProfilePhoto);
+    }
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
+
+// api/users/auth/deletePhoto
+// admin dont have access
+router.delete('/auth/deletePhoto', auth, async (req, res) => {
+  try {
+    if (req.user.role === 'admin') {
+      return res.status(403).json({ msg: 'Login like common user to see this page' });
+    }
+
+    const user = await User.findById(req.user.userId);
+    const imageId = user.profilePhoto.split('/').reverse()[0];
+    if (imageId) {
+      await imageServices.deleteImageById(imageId);
+      await User.findByIdAndUpdate(req.user.userId, { profilePhoto: '' });
+      res.json({ profilePhoto: '' });
+    } else {
+      res.status(400).json({ msg: "Image didn't found" });
+    }
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }

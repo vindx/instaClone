@@ -51,3 +51,32 @@
     font-weight: 500;
   }
 }
+
+.mainContainer {
+  .optionButton {
+    display: block;
+    cursor: pointer;
+    margin: 10px;
+    input[type='file'] {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+  .errorSpan {
+    color: #ed4956;
+    display: block;
+    font-size: 12px;
+  }
+  .preloader {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

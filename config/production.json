@@ -1,5 +1,6 @@
 {
   "port": 80,
   "jwtSecret": "vindx project instaClone",
-  "mongoUri": "mongodb+srv://vindx:vindx2020@cluster0-4hwl9.azure.mongodb.net/instaClone?retryWrites=true&w=majority"
+  "mongoUri": "mongodb+srv://vindx:vindx2020@cluster0-4hwl9.azure.mongodb.net/instaClone?retryWrites=true&w=majority",
+  "baseUrl": "https://instaclonebyvindx.herokuapp.com"
 }

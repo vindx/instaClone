@@ -10,6 +10,7 @@ import {
   setUserData,
   viewModeToggle,
 } from '../actions/profileActions';
+import { uploadProfilePhotoOnSuccess } from '../actions/profilePhotoActions';
 
 const defaultState = {
   initIsFetching: true,
@@ -50,6 +51,13 @@ const profileReducer = handleActions(
       data: {
         ...state.data,
         removeRequest: action.payload,
+      },
+    }),
+    [uploadProfilePhotoOnSuccess]: (state, action) => ({
+      ...state,
+      data: {
+        ...state.data,
+        profilePhoto: action.payload,
       },
     }),
   },

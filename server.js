@@ -11,13 +11,14 @@ app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/users', require('./routes/users.routes'));
 app.use('/api/posts', require('./routes/posts.routes'));
 app.use('/api/tags', require('./routes/tags.routes'));
+app.use('/api/images', require('./routes/images.routes'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  })
+  });
 }
 
 const PORT = process.env.PORT || config.get('port') || 5000;

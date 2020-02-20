@@ -86,6 +86,28 @@ export const profileApi = {
       return { status: e.response.status, data: e.response.data };
     }
   },
+  uploadPhoto: async (token, photoFile) => {
+    try {
+      const formData = new FormData();
+      formData.append('img', photoFile);
+      const response = await axiosWithToken(token).put('/api/users/auth/uploadPhoto', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
+  deleteProfilePhoto: async token => {
+    try {
+      const response = await axiosWithToken(token).delete('/api/users/auth/deletePhoto');
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
 };
 
 export const postsApi = {
