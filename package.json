@@ -28,11 +28,24 @@
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.4"
+    "mongoose": "^5.8.4",
+    "multer": "^1.4.2",
+    "sharp": "^0.24.1"
   },
   "devDependencies": {
     "concurrently": "^5.0.2",
     "cross-env": "^7.0.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.19.1"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 100
   }
 }
