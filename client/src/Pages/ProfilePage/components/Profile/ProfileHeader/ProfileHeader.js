@@ -48,9 +48,15 @@ const ProfileHeader = props => {
     <>
       <header className={styles.container}>
         <div className={styles.photoContainer}>
-          <button onClick={openModal} className={styles.photo}>
-            <img alt="" src={profilePhoto} />
-          </button>
+          {viewMode ? (
+            <button className={styles.photo}>
+              <img alt="" src={profilePhoto} />
+            </button>
+          ) : (
+            <button onClick={openModal} className={`${styles.photo} ${styles.clickable}`}>
+              <img alt="" src={profilePhoto} />
+            </button>
+          )}
         </div>
         <section>
           <div className={styles.userName}>

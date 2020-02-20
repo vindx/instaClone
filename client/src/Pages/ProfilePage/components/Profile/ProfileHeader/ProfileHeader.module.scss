@@ -16,7 +16,6 @@
       border: none;
       background-color: inherit;
       outline: none;
-      cursor: pointer;
       padding: 0;
       height: 100%;
       width: 100%;
@@ -27,6 +26,9 @@
         object-fit: cover;
         border-radius: 50%;
       }
+    }
+    .clickable {
+      cursor: pointer;
     }
   }
 
