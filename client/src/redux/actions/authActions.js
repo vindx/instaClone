@@ -12,8 +12,8 @@ export const createAccount = ({ email, fullName, userName, password }) => dispat
   dispatch(authFetchingToggle(true));
   authApi.register(email, fullName, userName, password).then(response => {
     if (response.status === 200) {
-      dispatch(authOnSuccess(response.data.userId, response.data.role));
       localStorage.activeUser = response.data.token;
+      dispatch(authOnSuccess(response.data.userId, response.data.role));
     } else {
       if (response.data.errorFiled === 'email') {
         // stopSubmit doesnt work with async func :(
@@ -33,8 +33,8 @@ export const logIn = ({ emailOrUserName, password }) => dispatch => {
   dispatch(authFetchingToggle(true));
   authApi.login(emailOrUserName, password).then(response => {
     if (response.status === 200) {
-      dispatch(authOnSuccess(response.data.userId, response.data.role));
       localStorage.activeUser = response.data.token;
+      dispatch(authOnSuccess(response.data.userId, response.data.role));
     } else {
       if (response.data.errorFiled === 'userName') {
         dispatch(
