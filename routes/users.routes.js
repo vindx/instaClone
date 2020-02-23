@@ -126,6 +126,19 @@ router.delete('/:id', auth, async (req, res) => {
     if (!removedUser) {
       return res.status(400).json({ msg: "User didn't found" });
     }
+    const userImageId = removedUser.profilePhoto.split('/').reverse()[0];
+    if (userImageId) {
+      await imageServices.deleteImageById(userImageId);
+    }
+    const userPosts = await Post.find({ owner: req.params.id });
+    await Promise.all(
+      userPosts.map(async post => {
+        const postImageId = post.postPhoto.split('/').reverse()[0];
+        if (postImageId) {
+          await imageServices.deleteImageById(postImageId);
+        }
+      })
+    );
     await Post.deleteMany({ owner: req.params.id });
     res.json({ msg: 'User successfully removed', removedUser });
   } catch (e) {
