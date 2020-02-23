@@ -2,8 +2,10 @@ const router = require('express').Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth.midddleware');
 const paginate = require('../middleware/paginate.middleware');
+const formData = require('../middleware/formData.middleware');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const imageServices = require('../services/imageServices');
 
 // api/posts/all
 // admin dont have access
@@ -56,6 +58,7 @@ router.get('/byTag/:id', auth, async (req, res) => {
 router.post(
   '/create',
   auth,
+  formData,
   check('description', 'This field is required.').exists(),
   async (req, res) => {
     try {
@@ -67,7 +70,15 @@ router.post(
         return res.status(400).json({ msg: 'Some errors', errors: errors.array() });
       }
       const ownerInfo = await User.findById(req.user.userId);
-      const { description, postPhoto, tags } = req.body;
+      const { description, tagsJSON } = req.body;
+      const tags = JSON.parse(tagsJSON);
+      const image = req.file;
+      let postPhoto;
+      if (image) {
+        postPhoto = await imageServices.createImage(image);
+      } else {
+        postPhoto = '';
+      }
       const post = new Post({
         owner: req.user.userId,
         ownerInfo: { profilePhoto: ownerInfo.profilePhoto, userName: ownerInfo.userName },
@@ -93,6 +104,10 @@ router.delete('/delete/:id', auth, async (req, res) => {
     const removedPost = await Post.findByIdAndDelete(req.params.id);
     if (!removedPost) {
       return res.status(400).json({ msg: "Post didn't found" });
+    }
+    const imageId = removedPost.postPhoto.split('/').reverse()[0];
+    if (imageId) {
+      await imageServices.deleteImageById(imageId);
     }
     res.json({ msg: 'Post successfully deleted' });
   } catch (e) {

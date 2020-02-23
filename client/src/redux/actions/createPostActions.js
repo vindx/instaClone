@@ -11,7 +11,7 @@ export const createPostFetchingOnError = createAction(
 );
 export const createPostFetchingOnSuccess = createAction('CREATE_POST_FETCHING_ON_SUCCESS');
 
-export const createPost = ({ postPhoto = '', description, tags }) => async dispatch => {
+export const createPost = ({ postPhoto = null, description, tags }) => async dispatch => {
   dispatch(createPostFetchingOnProgress());
   const response = await postsApi.createPost(localStorage.activeUser, postPhoto, description, tags);
   if (response.status === 201) {
@@ -21,12 +21,13 @@ export const createPost = ({ postPhoto = '', description, tags }) => async dispa
     dispatch(deleteExistedTags());
     dispatch(deleteSelectedTags());
   } else {
+    const error = response.data.errors[0].msg || 'Something went wrong! Try again later.';
     dispatch(
       stopSubmit('createPostForm', {
-        _error: 'Something went wrong! Try again later.',
+        _error: error,
       })
     );
-    dispatch(createPostFetchingOnError());
+    dispatch(createPostFetchingOnError(error));
   }
 };
 

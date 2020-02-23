@@ -1,4 +1,5 @@
 import React from 'react';
+import instaIcons from '../../../assets/images/instaIcons.png';
 import styles from './FormsControls.module.scss';
 
 export const SignUpOrLogInFormsInput = ({ input, meta, ...props }) => {
@@ -18,6 +19,7 @@ export const SignUpOrLogInFormsInput = ({ input, meta, ...props }) => {
                 className={`${styles.unTouched}
               ${hasError && styles.onError}
               ${withoutErrors && styles.onAccept}`}
+                style={{ backgroundImage: `url(${instaIcons})` }}
               />
               {hasError && (
                 <span className={`${styles.invisible} ${styles.visible}`}>{meta.error}</span>
@@ -64,6 +66,18 @@ export const CreatePostFormTextArea = ({ input, meta, ...props }) => {
           />
         </label>
       </div>
+    </>
+  );
+};
+
+export const UploadPhotoInput = ({ inputName, error, uploadFunc, style }) => {
+  return (
+    <>
+      <label className={styles.optionButton} style={style}>
+        <input type="file" onChange={uploadFunc} />
+        <span>{inputName}</span>
+        {error && <span className={styles.errorSpan}>{error}</span>}
+      </label>
     </>
   );
 };

@@ -106,7 +106,6 @@
       }
 
       .unTouched {
-        background-image: url(https://www.instagram.com/static/bundles/metro/sprite_core_b20f2a3cd7e4.png/b20f2a3cd7e4.png);
         background-repeat: no-repeat;
         height: 22px;
         width: 22px;
@@ -159,4 +158,24 @@
       color: #ed4956;
     }
   }
+}
+
+.optionButton {
+  width: fit-content;
+  display: block;
+  cursor: pointer;
+  margin: 10px;
+  input[type='file'] {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+}
+.errorSpan {
+  color: #ed4956;
+  display: block;
+  font-size: 12px;
 }

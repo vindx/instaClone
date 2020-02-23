@@ -15,8 +15,8 @@ const combinedReducers = combineReducers({
   form: formReducer,
 });
 
-// const devTools = window.__REDUX_DEVTOOLS_EXTENSION__();
-const composeEnhancers = compose(applyMiddleware(thunk));
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__();
+const composeEnhancers = compose(applyMiddleware(thunk), devTools);
 
 const store = createStore(combinedReducers, composeEnhancers);
 

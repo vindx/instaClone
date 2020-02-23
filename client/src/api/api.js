@@ -139,10 +139,15 @@ export const postsApi = {
   },
   createPost: async (token, postPhoto, description, tags) => {
     try {
-      const response = await axiosWithToken(token).post('/api/posts/create', {
-        postPhoto,
-        description,
-        tags,
+      const formData = new FormData();
+      formData.append('description', description);
+      formData.append('img', postPhoto);
+      const tagsJSON = JSON.stringify(tags);
+      formData.append('tagsJSON', tagsJSON);
+      const response = await axiosWithToken(token).post('/api/posts/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
       return { status: response.status, data: response.data };
     } catch (e) {

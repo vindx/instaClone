@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { CreatePostFormTextArea, CreatePostFormInput } from '../../FormsControls/FormsControls';
+import {
+  CreatePostFormTextArea,
+  CreatePostFormInput,
+  UploadPhotoInput,
+} from '../../FormsControls/FormsControls';
 import Button from '../../Button/Button';
 import {
   postTagNameValidator,
@@ -11,6 +15,7 @@ import {
 import { ReactComponent as Preloader } from '../../../../assets/images/blackPreloader.svg';
 import styles from './ModalWindow.module.scss';
 import PostTags from '../../PostTags/PostTags';
+import instaIcons from '../../../../assets/images/instaIcons.png';
 
 const TagsForm = props => (
   <>
@@ -24,10 +29,7 @@ const TagsForm = props => (
       onChange={props.findTag}
     />
     {props.showCreateButton && props.searchingTag && props.valid && (
-      <span
-        className={`${styles.addTag} ${props.fullCoincidenceOfTag && styles.inactive}`}
-        onClick={props.createTag}
-      >
+      <span className={styles.addTag} onClick={props.createTag}>
         Create tag
       </span>
     )}
@@ -52,13 +54,19 @@ const TagsFormRedux = reduxForm({ form: 'tagsForm' })(TagsForm);
 
 const ModalWindowForm = props => (
   <form className={styles.form} onSubmit={props.handleSubmit}>
-    <Field
-      component={CreatePostFormInput}
-      label="Post photo"
-      placeholder="Enter URL (optional)"
-      name="postPhoto"
-      type="text"
-    />
+    <div className={styles.fileInputContainer}>
+      <UploadPhotoInput
+        inputName="Choose post photo (optional, max 3Mb)"
+        error={null}
+        uploadFunc={props.uploadPostPhoto}
+        style={{ margin: '0 25px 0 0' }}
+      />
+      <span
+        className={`${styles.photoStatus} ${props.postPhoto && styles.photoHaveBeenChosen}`}
+        style={{ backgroundImage: `url(${instaIcons})` }}
+      />
+    </div>
+
     <Field
       component={CreatePostFormTextArea}
       label="Description"
@@ -82,8 +90,8 @@ const ModalWindowForm = props => (
 
     {props.error && <span style={{ color: 'red' }}>{props.error}</span>}
     <div className={styles.footer}>
-      {props.tagIsFinding && <Preloader className={styles.tagsPreloader} />}
-      <Button btn_name="Create" disabled={props.invalid || props.isFetching} />
+      {(props.tagIsFinding || props.isFetching) && <Preloader className={styles.tagsPreloader} />}
+      <Button btn_name="Create" />
     </div>
   </form>
 );
@@ -93,6 +101,13 @@ const ModalWindowFormRedux = reduxForm({ form: 'createPostForm' })(ModalWindowFo
 const ModalWindow = props => {
   const { onClose, isOpen, isFetching } = props;
   const [searchingTag, setSearchingTag] = useState('');
+  const [postPhoto, setPostPhoto] = useState(null);
+
+  const uploadPostPhoto = e => {
+    if (e.target.files.length) {
+      setPostPhoto(e.target.files[0]);
+    }
+  };
 
   const close = e => {
     e.preventDefault();
@@ -102,6 +117,7 @@ const ModalWindow = props => {
       props.deleteExistedTags();
       props.deleteSelectedTags();
       setSearchingTag('');
+      setPostPhoto(null);
     }
   };
 
@@ -141,7 +157,7 @@ const ModalWindow = props => {
     props.removeSelectedTag(tag);
   };
 
-  const createPost = ({ description, postPhoto }) => {
+  const createPost = ({ description }) => {
     const tags = props.selectedTags;
     props.createPost({ description, postPhoto, tags });
     setSearchingTag('');
@@ -166,6 +182,8 @@ const ModalWindow = props => {
           removeTagFromSelected={removeTagFromSelected}
           showCreateButton={props.showCreateButton}
           createTag={createTag}
+          uploadPostPhoto={uploadPostPhoto}
+          postPhoto={postPhoto}
         />
       </div>
       <div className={styles.background} onClick={close} />

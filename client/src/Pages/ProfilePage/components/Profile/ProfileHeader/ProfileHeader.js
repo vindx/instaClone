@@ -6,6 +6,8 @@ import LogOutContainer from '../../../../../shares/components/LogOut/LogOutConta
 import styles from './ProfileHeader.module.scss';
 import Button from '../../../../../shares/components/Button/Button';
 import ModalWindowTemplate from '../../../../../shares/components/ModalWindowTemplate/ModalWindowTemplate';
+import { UploadPhotoInput } from '../../../../../shares/components/FormsControls/FormsControls';
+import defaultPhoto from '../../../../../assets/images/defaultProfilePhoto.jpg';
 
 const ProfileHeader = props => {
   const {
@@ -47,7 +49,7 @@ const ProfileHeader = props => {
   return (
     <>
       <header className={styles.container}>
-        <div className={styles.photoContainer}>
+        <div className={styles.photoContainer} style={{ backgroundImage: `url(${defaultPhoto})` }}>
           {viewMode ? (
             <button className={styles.photo}>
               <img alt="" src={profilePhoto} />
@@ -94,13 +96,11 @@ const ProfileHeader = props => {
         success={profilePhotoOptions.success}
       >
         <div className={styles.mainContainer}>
-          <label className={styles.optionButton}>
-            <input type="file" onChange={handleUploadProfilePhoto} />
-            <span>Upload new profile photo (max 3 Mb)</span>
-            {profilePhotoOptions.error && (
-              <span className={styles.errorSpan}>{profilePhotoOptions.error}</span>
-            )}
-          </label>
+          <UploadPhotoInput
+            inputName="Upload new profile photo (max 3 Mb)"
+            error={profilePhotoOptions.error}
+            uploadFunc={handleUploadProfilePhoto}
+          />
           {profilePhoto && (
             <span onClick={handleDeleteProfilePhoto} className={styles.optionButton}>
               Delete profile photo
