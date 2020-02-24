@@ -14,23 +14,23 @@ router.get('/all', auth, paginate(Post), async (req, res) => {
     if (req.user.role === 'admin') {
       return res.status(403).json({ msg: 'Login like common user to see this page' });
     }
-    res.paginatedResults.results = await Promise.all(
-      res.paginatedResults.results.map(async post => {
-        const postOwner = await User.findById(post.owner);
-        if (post.ownerInfo.profilePhoto === postOwner.profilePhoto) {
-          return post;
-        }
-        return {
-          postPhoto: post.postPhoto,
-          tags: post.tags,
-          likes: post.likes,
-          _id: post._id,
-          owner: post.owner,
-          ownerInfo: { ...post.ownerInfo, profilePhoto: postOwner.profilePhoto },
-          description: post.description,
-        };
-      })
-    );
+    // res.paginatedResults.results = await Promise.all(
+    //   res.paginatedResults.results.map(async post => {
+    //     const postOwner = await User.findById(post.owner);
+    //     if (post.ownerInfo.profilePhoto === postOwner.profilePhoto) {
+    //       return post;
+    //     }
+    //     return {
+    //       postPhoto: post.postPhoto,
+    //       tags: post.tags,
+    //       likes: post.likes,
+    //       _id: post._id,
+    //       owner: post.owner,
+    //       ownerInfo: { ...post.ownerInfo, profilePhoto: postOwner.profilePhoto },
+    //       description: post.description,
+    //     };
+    //   })
+    // );
     res.json({ posts: res.paginatedResults });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });

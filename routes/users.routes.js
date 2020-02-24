@@ -58,8 +58,9 @@ router.put('/auth/uploadPhoto', auth, formData, async (req, res) => {
       return res.status(403).json({ msg: 'Login like common user to see this page' });
     }
 
-    const updateProfilePhoto = async profilePhoto => {
+    const updateProfilePhoto = async (profilePhoto, userName) => {
       await User.findByIdAndUpdate(req.user.userId, { profilePhoto });
+      await Post.updateMany({ owner: req.user.userId }, { ownerInfo: { profilePhoto, userName } });
       const updatedUser = await User.findById(req.user.userId);
       res.json({ profilePhoto: updatedUser.profilePhoto });
     };
@@ -69,10 +70,10 @@ router.put('/auth/uploadPhoto', auth, formData, async (req, res) => {
     const imageId = user.profilePhoto.split('/').reverse()[0];
     if (imageId) {
       const newProfilePhoto = await imageServices.updateImageById(imageId, image);
-      await updateProfilePhoto(newProfilePhoto);
+      await updateProfilePhoto(newProfilePhoto, user.userName);
     } else {
       const newProfilePhoto = await imageServices.createImage(image);
-      await updateProfilePhoto(newProfilePhoto);
+      await updateProfilePhoto(newProfilePhoto, user.userName);
     }
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
@@ -91,7 +92,11 @@ router.delete('/auth/deletePhoto', auth, async (req, res) => {
     const imageId = user.profilePhoto.split('/').reverse()[0];
     if (imageId) {
       await imageServices.deleteImageById(imageId);
-      await User.findByIdAndUpdate(req.user.userId, { profilePhoto: '' });
+      const { userName } = await User.findByIdAndUpdate(req.user.userId, { profilePhoto: '' });
+      await Post.updateMany(
+        { owner: req.user.userId },
+        { $set: { ownerInfo: { profilePhoto: '', userName } } }
+      );
       res.json({ profilePhoto: '' });
     } else {
       res.status(400).json({ msg: "Image didn't found" });
