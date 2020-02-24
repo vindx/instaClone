@@ -12,11 +12,12 @@ const combinedReducers = combineReducers({
   auth: reducers.authReducer,
   tags: reducers.tagsReducer,
   profilePhotoOptions: reducers.profilePhotoReducer,
+  whoLikedPost: reducers.whoLikedPostReducer,
   form: formReducer,
 });
 
-const devTools = window.__REDUX_DEVTOOLS_EXTENSION__();
-const composeEnhancers = compose(applyMiddleware(thunk), devTools);
+// const devTools = window.__REDUX_DEVTOOLS_EXTENSION__();
+const composeEnhancers = compose(applyMiddleware(thunk));
 
 const store = createStore(combinedReducers, composeEnhancers);
 

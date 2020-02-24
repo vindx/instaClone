@@ -1,0 +1,42 @@
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  align-items: center;
+  justify-content: left;
+  margin: 5px 0;
+
+  .accountLogo {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    background-size: cover;
+    border-radius: 50%;
+
+    img {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .accountName {
+    width: fit-content;
+    margin: 0 0 0 16px;
+  }
+
+  .owner {
+    font-weight: 600;
+    cursor: pointer;
+    color: black;
+  }
+
+  .accountLogo,
+  .owner {
+    &:active {
+      opacity: 0.4;
+    }
+  }
+}

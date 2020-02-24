@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'proptypes';
 
+import ModalWindowTemplate from '../../../../../../../shares/components/ModalWindowTemplate/ModalWindowTemplate';
+import WhoLikedPostPlate from './WhoLikedPostPlate/WhoLikedPostPlate';
 import styles from './PostLikesCounter.module.scss';
 
 const PostLikesCounter = props => {
-  const { likesArray } = props;
+  const { likes, postId } = props;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
-      {likesArray.length > 0 ? (
-        <div className={styles.likesContainer}>
-          <span className={styles.postLikesCounter}>{likesArray.length}</span>
-          {likesArray.length === 1 ? 'like' : 'likes'}
+      {likes ? (
+        <div className={styles.likesContainer} onClick={openModal}>
+          <span className={styles.postLikesCounter}>{likes}</span>
+          {likes === 1 ? 'like' : 'likes'}
         </div>
       ) : (
         <></>
       )}
+      <ModalWindowTemplate onClose={closeModal} isOpen={isModalOpen}>
+        <WhoLikedPostPlate postId={postId} />
+      </ModalWindowTemplate>
     </>
   );
 };
 
 PostLikesCounter.propTypes = {
-  likesArray: PropTypes.array.isRequired,
+  likes: PropTypes.number.isRequired,
+  postId: PropTypes.string.isRequired,
 };
 
 export default PostLikesCounter;

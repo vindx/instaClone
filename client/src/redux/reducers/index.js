@@ -6,6 +6,7 @@ import createPostReducer from './createPostReducer';
 import profileReducer from './profileReducer';
 import tagsReducer from './tagsReducer';
 import profilePhotoReducer from './profilePhotoReducer';
+import whoLikedPostReducer from './whoLikedPostReducer';
 
 export {
   postsReducer,
@@ -16,4 +17,5 @@ export {
   profileReducer,
   tagsReducer,
   profilePhotoReducer,
+  whoLikedPostReducer,
 };

@@ -34,7 +34,7 @@ const ModalWindowTemplate = props => {
 ModalWindowTemplate.propTypes = {
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  success: PropTypes.bool.isRequired,
+  success: PropTypes.bool,
 };
 
 export default ModalWindowTemplate;

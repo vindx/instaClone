@@ -14,7 +14,7 @@ router.get('/all', auth, paginate(Post), async (req, res) => {
     if (req.user.role === 'admin') {
       return res.status(403).json({ msg: 'Login like common user to see this page' });
     }
-    const ownerPhotoUpdatedPosts = await Promise.all(
+    res.paginatedResults.results = await Promise.all(
       res.paginatedResults.results.map(async post => {
         const postOwner = await User.findById(post.owner);
         if (post.ownerInfo.profilePhoto === postOwner.profilePhoto) {
@@ -31,7 +31,6 @@ router.get('/all', auth, paginate(Post), async (req, res) => {
         };
       })
     );
-    res.paginatedResults.results = ownerPhotoUpdatedPosts;
     res.json({ posts: res.paginatedResults });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
@@ -133,6 +132,22 @@ router.get('/like/:id', auth, async (req, res) => {
       await Post.findByIdAndUpdate(req.params.id, { $push: { likes: req.user.userId } });
       res.json({ byWhom: req.user.userId, wasLiked: true });
     }
+  } catch (e) {
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
+
+// api/posts/whoLiked/id
+router.get('/whoLiked/:id', async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    const usersWhoLikedThePost = await Promise.all(
+      post.likes.map(async userId => {
+        const { _id, profilePhoto, userName } = await User.findById(userId);
+        return { _id, profilePhoto, userName };
+      })
+    );
+    res.json(usersWhoLikedThePost);
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }

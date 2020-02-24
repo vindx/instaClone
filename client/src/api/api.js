@@ -137,6 +137,14 @@ export const postsApi = {
       return { status: e.response.status, data: e.response.data };
     }
   },
+  getUsersWhoLikedThePost: async postId => {
+    try {
+      const response = await axios.get(`/api/posts/whoLiked/${postId}`);
+      return { status: response.status, data: response.data };
+    } catch (e) {
+      return { status: e.response.status, data: e.response.data };
+    }
+  },
   createPost: async (token, postPhoto, description, tags) => {
     try {
       const formData = new FormData();

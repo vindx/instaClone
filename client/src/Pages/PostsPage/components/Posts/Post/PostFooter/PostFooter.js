@@ -28,7 +28,7 @@ const PostFooter = props => {
         putLikeOnPost={putLikeOnPost}
         likeIsFetching={likeIsFetching}
       />
-      <PostLikesCounter likesArray={likesNumber} />
+      <PostLikesCounter likes={likesNumber.length} postId={id} />
       <PostDescription userName={userName} description={description} />
       <div style={{ marginTop: 5 }}>
         <PostTags tags={tags} onClick={getPostsByTag} />
