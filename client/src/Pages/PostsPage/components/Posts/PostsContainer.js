@@ -48,10 +48,14 @@ const PostsContainer = props => {
   );
 
   useEffect(() => {
-    if (pageNumber === 1) {
-      props.clearData();
-    }
     getAllPosts(userData.userId, pageNumber);
+    return () => props.clearData();
+  }, []);
+
+  useEffect(() => {
+    if (pageNumber !== 1) {
+      getAllPosts(userData.userId, pageNumber);
+    }
   }, [getAllPosts, userData.userId, pageNumber]);
 
   const getPostsByTag = tag => {
