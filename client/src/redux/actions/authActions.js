@@ -61,3 +61,8 @@ export const authMe = () => async dispatch => {
 };
 
 export const deAuth = createAction('DE_AUTH');
+
+export const deAuthThunk = () => async dispatch => {
+  dispatch(deAuth());
+  localStorage.removeItem('activeUser');
+};
