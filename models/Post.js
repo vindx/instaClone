@@ -7,6 +7,9 @@ const postSchema = new Schema({
   postPhoto: { type: String, default: '' },
   tags: [{ type: Object, ref: 'Tag' }],
   likes: { type: Array, default: [] },
+  expireAt: { type: Date, default: undefined },
 });
+
+postSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 module.exports = model('Post', postSchema);

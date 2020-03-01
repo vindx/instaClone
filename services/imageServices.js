@@ -4,14 +4,20 @@ const Image = require('../models/Image');
 
 const baseUrl = config.get('baseUrl');
 
-const createImage = async file => {
+const createImage = async (file, expireAt) => {
   try {
     const buffer = await sharp(file.buffer)
       .resize({ width: 750, height: 750 })
       .jpeg()
       .toBuffer();
 
-    const image = new Image({ buffer });
+    let image;
+    if (expireAt) {
+      image = new Image({ buffer, expireAt });
+    } else {
+      image = new Image({ buffer });
+    }
+
     await image.save();
     const imageId = image._id;
     return `${baseUrl}/api/images/${imageId}`;

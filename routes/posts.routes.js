@@ -72,9 +72,11 @@ router.post(
       const { description, tagsJSON } = req.body;
       const tags = JSON.parse(tagsJSON);
       const image = req.file;
+      const now = new Date();
+      const expireAt = now.setSeconds(now.getSeconds() + 3600 * 24 * 30);
       let postPhoto;
       if (image) {
-        postPhoto = await imageServices.createImage(image);
+        postPhoto = await imageServices.createImage(image, expireAt);
       } else {
         postPhoto = '';
       }
@@ -84,6 +86,7 @@ router.post(
         description,
         postPhoto,
         tags,
+        expireAt,
       });
       await post.save();
       res.status(201).json({ msg: 'Post creation successful', post });
