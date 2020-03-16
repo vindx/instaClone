@@ -91,9 +91,8 @@ router.post(
       }
 
       const { emailOrUserName, password } = req.body;
-      const user =
-        (await User.findOne({ email: emailOrUserName.toLowerCase() })) ||
-        (await User.findOne({ userName: emailOrUserName.toLowerCase() }));
+      const user = (await User.findOne({ email: emailOrUserName.toLowerCase() }))
+        || (await User.findOne({ userName: emailOrUserName.toLowerCase() }));
       if (!user) {
         return res.status(400).json({
           errorFiled: 'userName',
@@ -108,11 +107,10 @@ router.post(
           msg: 'Sorry, your password was incorrect. Please double-check your password.',
         });
       }
-      const role =
-        emailOrUserName.toLowerCase() === 'admin' ||
-        emailOrUserName.toLowerCase() === 'admin@a.admin'
-          ? 'admin'
-          : 'user';
+      const role = emailOrUserName.toLowerCase() === 'admin'
+        || emailOrUserName.toLowerCase() === 'admin@a.admin'
+        ? 'admin'
+        : 'user';
       const token = jwt.sign(
         {
           userId: user.id,

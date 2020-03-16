@@ -39,7 +39,12 @@ const profileReducer = handleActions(
       },
     }),
     [postDeletingOnError]: (state, action) => ({ ...state, error: action.payload }),
-    [setUserData]: (state, action) => ({ ...state, error: null, data: { ...action.payload } }),
+    [setUserData]: (state, action) => {
+      const { posts } = action.payload;
+      posts.reverse();
+
+      return { ...state, error: null, data: { ...action.payload, posts } };
+    },
     [deleteUserData]: state => ({ ...state, data: null }),
     [viewModeToggle]: (state, action) => ({ ...state, viewMode: action.payload }),
     [removeRequestToggle]: (state, action) => ({

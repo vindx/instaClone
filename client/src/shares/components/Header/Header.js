@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 
-import { getAllPosts } from '../../../redux/actions/postsActions';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -46,8 +44,4 @@ const Header = () => {
   );
 };
 
-const mapStateToProps = state => ({
-  userData: state.auth.data,
-});
-
-export default connect(mapStateToProps, { getAllPosts })(Header);
+export default Header;

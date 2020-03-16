@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -39,12 +39,16 @@ const useStyles = makeStyles({
 });
 
 const AdminPage = props => {
-  const { deletingIsFetching, data, deleteUser } = props;
+  const { getAllUsers, initIsFetching, deletingIsFetching, data, deleteUser } = props;
   const { users: dataBase } = data;
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  useEffect(() => {
+    getAllUsers();
+  }, [getAllUsers]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -58,6 +62,8 @@ const AdminPage = props => {
   const handleDeleteAccount = event => {
     deleteUser(event.target.value);
   };
+
+  if (initIsFetching) return <BigPreloader />;
 
   return (
     <>
@@ -123,9 +129,16 @@ const AdminPage = props => {
 };
 
 AdminPage.propTypes = {
+  getAllUsers: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
+  initIsFetching: PropTypes.bool.isRequired,
   deletingIsFetching: PropTypes.bool.isRequired,
   data: PropTypes.shape({ users: PropTypes.arrayOf(PropTypes.object).isRequired }).isRequired,
-  deleteUser: PropTypes.func.isRequired,
+  error: PropTypes.string,
+};
+
+AdminPage.defaultProps = {
+  error: null,
 };
 
 export default AdminPage;

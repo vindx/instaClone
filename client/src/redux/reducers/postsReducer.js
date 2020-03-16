@@ -53,24 +53,27 @@ const postsReducer = handleActions(
         totalCount: state.data.totalCount + 1,
       },
     }),
-    [changePostsWithLikedPost]: (state, action) => ({
-      ...state,
-      data: {
-        ...state.data,
-        posts: state.data.posts.map(post => {
-          if (post._id === action.payload.postId) {
-            return {
-              ...post,
-              likes: action.payload.wasLiked
-                ? [...post.likes, action.payload.byWhom]
-                : post.likes.filter(id => id !== action.payload.byWhom),
-              wasLiked: action.payload.wasLiked,
-            };
-          }
-          return post;
-        }),
-      },
-    }),
+    [changePostsWithLikedPost]: (state, action) => {
+      const { postId, byWhom, wasLiked } = action.payload;
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          posts: state.data.posts.map(post => {
+            const isCurrentPost = post._id === postId;
+
+            if (isCurrentPost) {
+              const likes = wasLiked
+                ? [...post.likes, byWhom]
+                : post.likes.filter(id => id !== byWhom);
+              return { ...post, likes, wasLiked };
+            }
+            return post;
+          }),
+        },
+      };
+    },
     [clearData]: state => ({
       ...state,
       data: {
