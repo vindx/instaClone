@@ -109,7 +109,10 @@ router.post(
         });
       }
       const role =
-        emailOrUserName === 'admin' || emailOrUserName === 'admin@a.admin' ? 'admin' : 'user';
+        emailOrUserName.toLowerCase() === 'admin' ||
+        emailOrUserName.toLowerCase() === 'admin@a.admin'
+          ? 'admin'
+          : 'user';
       const token = jwt.sign(
         {
           userId: user.id,
